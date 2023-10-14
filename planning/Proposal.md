@@ -1,10 +1,10 @@
 # Alex Marine -- Capstone Proposal: Crag Apps -- Partner Finder
 
-Crag Apps aims to be a suite of climbing-related web applications. Each individual app solves a separate problem. The overall bundle will bee called "Crag Apps." I am only focusing on ONE of the individual apps for this capstone project. That individual app is called (as of now) Partner Finder.
+Crag Apps aims to be a suite of climbing-related web applications. Each individual app solves a separate problem. The overall bundle will be called "Crag Apps." I am only focusing on ONE of the individual apps for this capstone project. That individual app is called (as of now) Partner Finder.
 
 ## 1. Problem Statement
 
-As a climber, it can be quite difficult to find partners whose goals align with your own. There isn't one archetypal "climber." People climb for many reasons, including recreation, competition, exercise, solitude, and adventure. There are also many different types of climbing. This fact makes it difficult to find a partner that shares similar goals and ambitions. 
+As a climber, it can be frustrating to find partners whose goals align with your own. There isn't one archetypal "climber." People climb for many reasons, including recreation, competition, exercise, solitude, and adventure. There are also many different types of climbing. This fact makes it difficult to find a partner that shares similar goals and ambitions. 
 
 What's more, climbing is a passion that can involve inherent risks. This makes it not only convenient but sometimes essential to align yourself with others who take safety as seriously as you do. 
 
@@ -84,11 +84,11 @@ A route is a model that will contain many fields, including "name," "type," "dif
     - Edit or delete a forum comment [MODERATOR, ADMIN, USER associated with comment]
     
 
-## 5. User Stories/Scenarios
+## 5. User Scenarios
 
 ### Create a Climber
 
-Add a climber to the Partner Finder community
+Add a climber to the Partner Finder community.
 
 Suggested data:
     - Name
@@ -165,12 +165,16 @@ Suggested data:
 **Precondition**: Must be logged in with appropriate credentials. Possibly must have enough "points"?
 **Post-condition**: Comment will show up and be associated with the climber account to which it is posted. The user who posts the comment may lose points associated with the "cost" of commenting?
 
-### Edit or Delete a User Comment
+### Edit a User Comment
 
-Moderators and admins can edit or delete a comment for cause. A user may choose to edit or delete their own posted comments.
+Admins can edit a comment for cause, but this should ONLY be in rare cases. A user may choose to edit their own posted comments.
 
 **Precondition**: Must be logged in with appropriate credentials.
 **Post-condition**: Comments will be removed or changed. User will not reclaim points associated with cost of comment?
+
+### Delete a User Comment
+
+Admins and moderators can delete a user comment for cause. Users should be able to delete their own user comments.
 
 ### Add a Forum Comment
 
@@ -186,9 +190,131 @@ Suggested data:
 **Precondition**: Must be logged in with appropriate credentials. Possibly must have enough "points"?
 **Post-condition**: Comment will show up and be associated with the forum to which it is posted. The user who posts the comment may lose points associated with the "cost" of commenting?
 
-### Edit or Delete a Forum Comment
+### Edit a Forum Comment
 
-Moderators and admins can edit or delete a comment for cause. A user may choose to edit or delete their own posted forum comments.
+Admins can edit a forum comment for cause, but this should ONLY be in rare cases. A user may choose to edit their own forum comments.
 
 **Precondition**: Must be logged in with appropriate credentials.
 **Post-condition**: Comments will be removed or changed. User will not reclaim points associated with cost of comment?
+
+### Delete a Forum Comment
+
+Admins and moderators can delete a forum comment for cause. Users should be able to delete their own forum comments.
+
+
+## 6. User Stories
+
+### Lars is a lurker, aka, a potential user of Partner Finder
+
+> As Lars, I want to view Partner Finder to see if it can help me find suitable partners.
+> - Lars should be able to navigate to Partner Finder to view existing users and their profiles, if they are public 
+
+> As Lars, I want to view the forums on Partner Finder to see how existing users communicate.
+> - Lars should be able to navigate to Partner Finder to view the forums and see all posts
+
+> As Lars, I want to create an account on Partner Finder to explore member-only features.
+> - Lars should be able to register as a user by providing an email and password that meets requirements
+
+> As Lars, I want to create a profile as a climber on Partner Finder so that I can view member-only features like private profiles.
+> - Lars should be able to log in with his account and create a climber profile.
+>   - Depends on "As Lars, I want to be able to create an account on Partner Finder to explore member-only features."
+
+> As Lars, I want to start with enough "points" as a new user to be able to post a comment or award a badge.
+> - Lars should have enough points as a new user to award a badge or post a comment in the forums or on another user's profile
+>   - Depends on "As Lars, I want to be able to create an account on Partner Finder to explore member-only features."
+
+### Uma is a user of Partner Finder with an existing climber profile
+
+> As Uma, I want to edit my climber profile.
+> - Uma should be able to make changes to her profile and have them persist.
+>   - Depends on "As Lars, I want to be able to create a profile as a climber on Partner Finder so that I can view member-only features like private profiles."
+>   - Which depends on "As Lars, I want to be able to create an account on Partner Finder to explore member-only features."
+
+> As Uma, I want to delete my existing Partner Finder climber profile.
+> - Uma should be able to delete her climber profile, which will also delete her login credentials and log her out
+
+> As Uma, I want to search for partners with certain characteristics.
+> - Uma should be able to use the search function to filter results based on any available characteristic in a climber's profile
+>   - Depends on "As Lars, I want to be able to create a profile as a climber on Partner Finder so that I can view member-only features like private profiles."
+
+> As Uma, I want to post a comment on another user's profile.
+> - Uma should be able to post a comment on a registered user's climber profile
+>   - Depends on "As Lars, I want to be able to create a profile as a climber on Partner Finder so that I can view member-only features like private profiles."
+
+> As Uma, I want to edit/delete a comment from another user's profile.
+> - Uma should be able to edit/delete her own comments from any climber profile
+
+> As Uma, I want to post a comment in the forums.
+> - Uma should be able to post a comment in the forums
+>   - Depends on, "As Lars, I want to start with enough "points" as a new user to be able to post a comment or award a badge."
+>   - Which depends on, "As Lars, I want to be able to create a profile as a climber on Partner Finder so that I can view member-only features like private profiles."
+
+> As Uma, I want to edit/delete a comment in the forums.
+> - Uma should be able to edit/delete her own comments from the forums
+
+> As Uma, I want to award a badge to another climber.
+> - Uma should be able to award a badge to another climber, assuming she has enough points to cover the cost of the badge
+>   - Depends on, "As Lars, I want to start with enough "points" as a new user to be able to post a comment or award a badge."
+>   - Which depends on, "As Lars, I want to be able to create a profile as a climber on Partner Finder so that I can view member-only features like private profiles."
+
+> As Uma, I want to retract a badge that I have previously awarded to another climber.
+> - Uma should be able to retract a badge that she previously awarded to another user
+>   - Depends on, "As Uma, I want to be able to award a badge to another climber."
+
+### Mindy is a moderator on Partner Finder
+
+> As Mindy, I want to log in as a moderator and have the appropriate authorizations.
+> - Mindy should be able to use her existing credentials to log in as a moderator, assuming she has been given a moderator role by an admin
+>   - Depends on, "As Alfie, I want to grant the moderator role to another user."
+>   - Which depends on, "As Alfie, I want to log in as an admin and have the appropriate authorizations."
+
+> As Mindy, I want to delete a user comment for cause.
+> - Mindy should be able to delete a user comment, if justified
+>   - Depends on, "As Mindy, I want to log in as a moderator and have the appropriate authorizations."
+
+> As Mindy, I want to delete a forum comment for cause.
+> - Mindy should be able to delete a user comment, if justified
+>   - Depends on, "As Mindy, I want to log in as a moderator and have the appropriate authorizations."
+
+> As Mindy, I want to move a forum comment to a different topic area.
+> - Mindy should be able to move a forum comment to a more appropriate forum topic area
+>   - Depends on, "As Mindy, I want to log in as a moderator and have the appropriate authorizations."
+
+> As Mindy, I want to take any actions a regular user can take on Partner Finder.
+> - Mindy should be able to take any actions a regular user can take on the site by signing in with her moderator credentials
+
+### Alfie is an administrator on Partner Finder
+
+> As Alfie, I want to log in as an admin and have the appropriate authorizations.
+> - Alfie should be able to use his existing credentials to log in as an admin, assuming he has been given the admin role by another admin
+
+> As Alfie, I want to grant the moderator role to another user. 
+> - Alfie should be able to grant the moderator role to another user
+>   - Depends on "As Alfie, I want to log in as an admin and have the appropriate authorizations."
+
+> As Alfie, I want to change a user's available point balance.
+> - Alfie should be able to manually change a user's point balance for cause
+>   - Depends on "As Alfie, I want to log in as an admin and have the appropriate authorizations."
+
+> As Alfie, I want to add or delete users on Partner Finder.
+> - Alfie should be able to add new users to Partner Finder and delete existing users for cause
+>   - "Depends on "As Alfie, I want to log in as an admin and have the appropriate authorizations."
+
+> As Alfie, I want to edit a user comment for cause.
+> - Alfie should be able to edit a user comment, but only for good cause and in rare cases.
+>   - Depends on "As Alfie, I want to log in as an admin and have the appropriate authorizations."
+
+> As Alfie, I want to edit a forum comment for cause.
+> - Alfie should be able to edit a forum comment, but only for good cause and in rare cases.
+>   - Depends on "As Alfie, I want to log in as an admin and have the appropriate authorizations."
+
+> As Alfie, I want to perform all CRUD operations on a badge.
+> - Alfie should be able to create, edit, and delete badges on Partner Finder
+>   - Depends on "As Alfie, I want to log in as an admin and have the appropriate authorizations."
+
+> As Alfie, I want to perform all CRUD operations on a certificate.
+> - Alfie should be able to create, edit, and delete certificates on Partner Finder
+>   - Depends on "As Alfie, I want to log in as an admin and have the appropriate authorizations."
+
+> As Alfie, I want to have authorizations to perform any actions a moderator or regular user can perform.
+> - Alfie should be able to take any actions that a user or moderator can take by signing in with his admin credentials
