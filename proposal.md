@@ -30,9 +30,14 @@ Sarah is a beginner climber with 2 years of experience. She has climbed outdoors
 
 ## 3. Glossary
 
-## User/Climber
+## User
 
-A person who holds a profile on Partner Finder and who has completed their self-assessment survey.
+An entity who can log in to Partner Finder with a username and password and has one or more "roles." A user will be associated with a climber in a bridge table in the database once a user has set up a profile and completed the their self-assessment survey.
+
+## Climber
+
+An entity who has a user account associated with Partner Finder and who has completed their self-assessment survey. A climber is the key model instance in Partner Finder. It can have many other attributes associated with it, such as badges, certifications, routes, other partners, etc.
+
 
 ## Badge (still being fleshed out)
 
@@ -44,11 +49,146 @@ A user will only have a certain number of badges to award in a given time period
 
 A user will be "certified" by Partner Finder in a given area if they receive a certain number of badges by users who meet a certain experience level. The algorithm for this has not yet been developed.
 
+## Points (still being fleshed out)
+
+A new user will start with a certain amount of points (credits, coins, beta?) when they create an account. Certain actions will deduct points, like awarding badges, posting comments, etc. Points can be earned with certain actions(?) (receiving badges or certifications?) and over time (montly allotment?).
+
+## User Comment
+
+Any comment posted by a climber about another climber. These comments will appear in the profile section for a climber and contain certain basic data, like name of poster, date/time, subject, and comment body.
+
+## Forum Comment
+
+Any comment posted by a climber that is in the forum section of the site. These comments will appear under the forum topic for which they are posted and contain certain basic data, like name of poster, date/time, subject, comment body, and topic name.
+
+## Forum
+
+Section of Partner Finder for general or specific discussion. The forum will have a number of topics. Any comments posted to the forum will need to be tagged with a topic. That comment will then be displayed under that specific forum in chrono order.
+
+## Routes
+
+A route is a model that will contain many fields, including "name," "type," "difficulty," "location[1-n]," "comments," "pitches," "safety level," etc. A route is an entity that will be stored in the Partner Finder database initially. It will need to be migrated to the database of the Routes app eventually. Routes will be connected to a climber with a bridge table.
 
 
 ## 4. High Level Requirement
 
-
+    - Create a climber [USER, MODERATOR, ADMIN]
+    - View climbers [anyone]
+    - Edit or delete a climber [ADMIN, USER associated with that climber]
+    - Create, edit, or delete a badge [ADMIN]
+    - Award or retract a badge [USER, ADMIN]
+    - Create, edit, delete, award certifications [ADMIN]
+    - Add a user comment [USER, MODERATOR, ADMIN]
+    - Edit or delete a user comment [MODERATOR, ADMIN, USER associated with comment]
+    - Add a forum comment [USER, MODERATOR, ADMIN]
+    - Edit or delete a forum comment [MODERATOR, ADMIN, USER associated with comment]
+    
 
 ## 5. User Stories/Scenarios
 
+### Create a Climber
+
+Add a climber to the Partner Finder community
+
+Suggested data:
+    - Name
+    - Date joined
+    - Location (Country, State, City, Zip), or perhaps data from a map integration library
+    - Bio: description of oneself in a climbing sense
+    - Age: perhaps an ENUM with age zones?
+    - Sex: ENUM with Male, Female, Non-Binary
+    - Approach to climbing: Array of ENUMs (more than one is possible) with Competitive, Serious, Laid-back, Adventurous, Daring, Passionate, Casual, etc.
+    - Approach to safety: ENUM with Safety is Everything, Safety First, Safety Second, Safety Third, Safety is an afterthought
+    - Public/Private account: private accounts can only be seen by other users who are logged in.
+
+**Precondition**: User must have created an account and be logged in.
+
+### View Climbers
+
+Anyone can navigate to the site and view the climbers who have an account on Partner Finder if they have listed their accounts as public.
+
+### Edit/Delete a Climber
+
+Only an admin or the user associated with that account may edit or delete a climber.
+
+**Precondition**: Admin or user must be logged in with the appropriate credentials and auth.
+
+### Create/Edit/Delete a Badge
+
+Only an admin can create a new badge or edit/delete an existing badge.
+
+Suggested data for creating a badge:
+    - Name
+    - Description
+    - Icon
+    - Cost (in points)
+    - Type?
+
+**Precondition**: Admin must be logged in with the appropriate credentials and auth.
+**Post-condition**: Any climbers who have a badge that is deleted will lose that badge(?). Any climbers who have a badge that has been edited will see their badge changed according to the edits(?).
+
+### Award/Retract a Badge
+
+A user or an administrator may award or retract a badge to/from another user.
+
+Suggested data for awarding a badge:
+    - Reason
+    - Date awarded
+
+**Precondition**: User/admin must be logged in with appropriate credentials and auth. User must have the "points" necessary to award the badge.
+**Post-condition**: A user will lose the points that the badge costs when they award the badge. If a badge is retracted by a user or admin, the points will NOT go back into their account. An admin can manually add/subtract points from a user account for cause.
+
+### Create, Edit, Delete, Award Certifications
+
+Only a site administrator can create, edit, delete, or award certifications. The certifications will be awarded automatically by the site if a user is awarded a certain number and type of badges.
+
+Suggested data for creating a certification:
+    - Name  
+    - Description
+    - Type
+    - Privileges?
+
+**Precondition**: Admin must be logged in with appropriate credentials and auth. 
+**Post-condition**: Any climbers who have a certification that is deleted will lose that certification(?). Any climbers who have a certification that has been edited will see their certification changed according to the edits(?). 
+
+### Add a User Comment
+
+Users, moderators, and admins can add a comment to to any other user's profile. Should posting a comment cost "points"? 
+
+Suggested data:
+    - Poster name
+    - Name of climber receiving the comment
+    - Date posted
+    - Subject?
+    - Comment body
+
+**Precondition**: Must be logged in with appropriate credentials. Possibly must have enough "points"?
+**Post-condition**: Comment will show up and be associated with the climber account to which it is posted. The user who posts the comment may lose points associated with the "cost" of commenting?
+
+### Edit or Delete a User Comment
+
+Moderators and admins can edit or delete a comment for cause. A user may choose to edit or delete their own posted comments.
+
+**Precondition**: Must be logged in with appropriate credentials.
+**Post-condition**: Comments will be removed or changed. User will not reclaim points associated with cost of comment?
+
+### Add a Forum Comment
+
+Users, moderators, and admins can add a comment to to the forum. Should posting a comment cost user "points"?
+
+Suggested data:
+  - Poster name
+  - Date posted
+  - Subject?
+  - Comment body
+  - Forum name
+
+**Precondition**: Must be logged in with appropriate credentials. Possibly must have enough "points"?
+**Post-condition**: Comment will show up and be associated with the forum to which it is posted. The user who posts the comment may lose points associated with the "cost" of commenting?
+
+### Edit or Delete a Forum Comment
+
+Moderators and admins can edit or delete a comment for cause. A user may choose to edit or delete their own posted forum comments.
+
+**Precondition**: Must be logged in with appropriate credentials.
+**Post-condition**: Comments will be removed or changed. User will not reclaim points associated with cost of comment?
