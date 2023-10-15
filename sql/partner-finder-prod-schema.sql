@@ -11,7 +11,7 @@ create table app_user (
 
 create table app_role (
 	app_role_id int primary key auto_increment,
-    `name` varchar(50) not null unique
+    app_role_name varchar(50) not null unique
 );
 
 create table app_user_role (
@@ -39,7 +39,9 @@ create table location_country (
 
 create table state_province (
 	state_province_id int primary key auto_increment,
-    state_province_name varchar(75) not null
+    state_province_name varchar(75) not null,
+    state_province_print_name varchar(75) not null,
+    state_province_abbr varchar(10) not null
 );
 
 create table location (
@@ -47,7 +49,7 @@ create table location (
     location_country_id int not null,
 	location_state_province_id int not null,
     city varchar(75) not null,
-    postal_code int not null,
+    postal_code varchar(12) not null,
     location_code int not null,
     constraint fk_location_location_country_id
 		foreign key (location_country_id)
@@ -221,7 +223,7 @@ create table forum_comment (
     comment_subject varchar(256) null,
     comment_text text not null,
     posted_date_time datetime not null,
-    constraint fk_forum_posting_climber_id
+    constraint fk_forum_comment_posting_climber_id
 		foreign key (posting_climber_id)
         references climber(climber_id),
 	constraint fk_receiving_forum_id
