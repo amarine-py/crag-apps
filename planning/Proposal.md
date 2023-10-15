@@ -207,7 +207,7 @@ Admins and moderators can delete a forum comment for cause. Users should be able
 ### Lars is a lurker, aka, a potential user of Partner Finder
 
 > As Lars, I want to view Partner Finder to see if it can help me find suitable partners.
-> - Lars should be able to navigate to Partner Finder to view existing users and their profiles, if they are public 
+> - Lars should be able to navigate to Partner Finder to search by username or location to find climbers, if their profiles are public 
 
 > As Lars, I want to view the forums on Partner Finder to see how existing users communicate.
 > - Lars should be able to navigate to Partner Finder to view the forums and see all posts
@@ -224,6 +224,12 @@ Admins and moderators can delete a forum comment for cause. Users should be able
 >   - Depends on "As Lars, I want to be able to create an account on Partner Finder to explore member-only features."
 
 ### Uma is a user of Partner Finder with an existing climber profile
+
+> As Uma, I want to search for other climbers on Partner Finder by name or location.
+> - Uma should be able to search for other registered climbers on Partner Finder by username or by location
+
+> As Uma, I want to filter my search results based on a number of characteristics.
+> - Uma should be able to narrow her search results by applying filters on the search page
 
 > As Uma, I want to edit my climber profile.
 > - Uma should be able to make changes to her profile and have them persist.
