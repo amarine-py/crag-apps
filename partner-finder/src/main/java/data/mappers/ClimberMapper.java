@@ -25,9 +25,9 @@ public class ClimberMapper implements RowMapper<Climber> {
 
         LocationMapper locationMapper = new LocationMapper();
         climber.setLocation(locationMapper.mapRow(rs, rowNum));
-//
-//        ClimberProfileMapper climberProfileMapper = new ClimberProfileMapper();
-//        climber.setClimberProfile(climberProfileMapper.mapRow(rs, rowNum));
+
+        ClimberProfileMapper climberProfileMapper = new ClimberProfileMapper();
+        climber.setClimberProfile(climberProfileMapper.mapRow(rs, rowNum));
 
         return climber;
     }

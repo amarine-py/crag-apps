@@ -14,4 +14,5 @@ public enum CommentType {
     public String getName() {
         return name;
     }
+
 }

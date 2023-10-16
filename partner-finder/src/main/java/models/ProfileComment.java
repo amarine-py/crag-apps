@@ -12,6 +12,7 @@ public class ProfileComment extends Comment {
 
     public ProfileComment(int commentId, CommentType type, Climber postingClimber, String subject,
                         String text, LocalDateTime postedTime, Climber receivingClimber) {
+
         super(commentId, type, postingClimber, subject, text, postedTime);
         this.receivingClimber = receivingClimber;
     }

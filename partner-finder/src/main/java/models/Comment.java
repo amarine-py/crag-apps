@@ -63,5 +63,11 @@ public class Comment {
         this.postedTime = postedTime;
     }
 
+    public CommentType getType() {
+        return type;
+    }
 
+    public void setType(CommentType type) {
+        this.type = type;
+    }
 }

@@ -12,6 +12,7 @@ public class ForumComment extends Comment {
 
     public ForumComment(int commentId, CommentType type, Climber postingClimber, String subject,
                         String text, LocalDateTime postedTime, Forum forum) {
+
         super(commentId, type, postingClimber, subject, text, postedTime);
         this.forum = forum;
     }

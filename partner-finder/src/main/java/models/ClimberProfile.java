@@ -22,9 +22,9 @@ public class ClimberProfile {
     private SafetyAttitude safetyAttitude;
     private ClimbingMotivation climbingMotivation;
     private ClimbingStyle climbingStyle;
-    private String climbingPostalCode;
     private Country climbingCountry;
     private StateProvince climbingState;
+    private String climbingPostalCode;
     private ClimbingGym climbingGym;
 
     public ClimberProfile() {

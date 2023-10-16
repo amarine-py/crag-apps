@@ -41,7 +41,7 @@
   - update
   - delete
 - ClimberJdbcTemplateRepository
-- ClimberMapper
+- ClimberMapper *
 
 [Time Estimate: 1 hour]
 - LocationRepository *
@@ -76,7 +76,7 @@
   - update
   - delete
 - ClimberProfileJdbcTemplateRepository
-- ClimberProfileMapper
+- ClimberProfileMapper *
 
 [Time Estimate: 1.5 hours]
 - CommentRepository *
