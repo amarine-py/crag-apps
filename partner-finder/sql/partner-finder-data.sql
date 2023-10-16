@@ -70,19 +70,19 @@ insert into sex values
     (3, 'NONBINARY'),
     (4, 'OTHER');
     
-insert into location_country values
+insert into country values
 	(1, 'UNITED STATES'),
     (2, 'CANADA'),
     (3, 'MEXICO');
     
 insert into state_province values
-	(1, 'ALABAMA', 'Alabama', 'AL'),
-    (2, 'ALASKA', 'Alaska', 'AK'),
-    (3, 'AMERICAN_SAMOA', 'American Samoa', 'AS'),
-    (4, 'INDIANA', 'Indiana', 'IN'),
-    (5, 'CALIFORNIA', 'California', 'CA');
+	(1, 'Alabama', 'AL'),
+    (2, 'Alaska', 'AK'),
+    (3, 'American Samoa', 'AS'),
+    (4, 'Indiana', 'IN'),
+    (5, 'California', 'CA');
     
-insert into location (location_id, location_country_id, location_state_province_id, city, postal_code, location_code) values
+insert into location (location_id, country_id, location_state_province_id, city, postal_code, location_code) values
 	(1, 1, 1, 'Mobile', '55555', 1),
     (2, 1, 2, 'Juneau', '44444', 1),
     (3, 1, 4, 'Bloomington', '46460', 1),
@@ -102,9 +102,9 @@ insert into badge (badge_id, badge_name, badge_description, badge_cost, badge_ic
     (4, 'Leave No Trace', 'This climber respects the outdoors and leaves it bettern than they found it', 35, null, 500);
     
 insert into safety_attitude values
-	(1, 'SAFETY_ABOVE_ALL'),
-    (2, 'SAFETY_FIRST'),
-    (3, 'SAFETY_SECOND'),
+	(1, 'VERY_IMPORTANT'),
+    (2, 'IMPORTANT'),
+    (3, 'SOMEWHAT_IMPORTANT'),
     (4, 'SAFETY_THIRD');
     
 insert into climbing_motivation values
@@ -112,13 +112,6 @@ insert into climbing_motivation values
     (2, 'NATURE'),
     (3, 'EXERCISE'),
     (4, 'COMPETITION');
-    
-insert into climbing_attitude values
-	(1, 'ZEALOT'),
-    (2, 'PASSIONATE'),
-    (3, 'COMPETETIVE'),
-    (4, 'CASUAL'),
-    (5, 'LAID_BACK');
     
 insert into climbing_style values
 	(1, 'TRAD'),
@@ -130,9 +123,9 @@ insert into climbing_style values
     (7, 'GYM');
     
 insert into climber_profile (profile_id, profile_description, is_public, primary_safety_attitude_id, primary_climbing_motivation_id, primary_climbing_attitude_id, primary_climbing_country_id, primary_climbing_state_province_id) values
-	(1, 'Profile of climber #1', 1, 1, 3, 4, 1, 1),
-    (2, 'Profile of climber #2', 1, 2, 2, 3, 1, 4),
-    (3, 'Profile of climber #3', 0, 3, 1, 1, 1, 3);
+	(1, 'amarine@gmail.com', 'Profile of climber #1', 1, 1, 3, 4, 1, 1),
+    (2, 'user2@user2.com', 'Profile of climber #2', 1, 2, 2, 3, 1, 4),
+    (3, 'moderator@moderator.com', 'Profile of climber #3', 0, 3, 1, 1, 1, 3);
 
 insert into climber (climber_id, app_user_id, username, first_name, last_name, birthday, climber_sex_id, climber_primary_location_id, climber_profile_id, beta_credits) values
 	(1, 1, 'Air Alexy', 'Alex', 'Marine', '1981-03-14', 1, 4, 1, 1000),

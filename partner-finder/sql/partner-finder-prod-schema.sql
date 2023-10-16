@@ -32,7 +32,7 @@ create table sex (
     sex_name varchar(50) not null unique
 );
 
-create table location_country (
+create table country (
 	country_id int primary key auto_increment,
     country_name varchar(75) not null unique
 );
@@ -40,22 +40,21 @@ create table location_country (
 create table state_province (
 	state_province_id int primary key auto_increment,
     state_province_name varchar(75) not null,
-    state_province_print_name varchar(75) not null,
     state_province_abbr varchar(10) not null
 );
 
 create table location (
 	location_id int primary key auto_increment,
-    location_country_id int not null,
-	location_state_province_id int not null,
+    country_id int not null,
+	state_province_id int not null,
     city varchar(75) not null,
     postal_code varchar(12) not null,
     location_code int not null,
-    constraint fk_location_location_country_id
-		foreign key (location_country_id)
-		references location_country(country_id),
+    constraint fk_location_country_id
+		foreign key (country_id)
+		references country(country_id),
 	constraint fk_location_state_province_id
-		foreign key (location_state_province_id)
+		foreign key (state_province_id)
         references state_province(state_province_id)
 );
 
@@ -73,7 +72,7 @@ create table badge (
     badge_name varchar(75) not null unique,
     badge_description text(1024) not null,
     badge_cost int not null,
-    badge_icon blob null,
+    badge_icon varchar(256) null,
     badge_supply int null
 );
 
@@ -100,6 +99,7 @@ create table climbing_style (
 
 create table climber_profile (
 	profile_id int primary key auto_increment,
+    profile_email varchar(75) not null,
     profile_description text(2048) not null,
     is_public bool not null,
     hardest_trad_grade varchar(25) null,
@@ -121,6 +121,7 @@ create table climber_profile (
     favorite_climbing_style_id int null,
     primary_climbing_country_id int not null,
     primary_climbing_state_province_id int not null,
+    primary_climbing_postal_code varchar(12) null,
     primary_climbing_gym_id int null,
     
     constraint fk_primary_safety_attitude_id
@@ -153,17 +154,16 @@ create table climber (
     first_name varchar(75) not null,
     last_name varchar(75) not null,
     birthday date not null,
-    climber_sex_id tinyint not null,
-    climber_description text(1024) null,
+    climber_sex_name varchar(48) not null,
     climber_primary_location_id int not null,
     climber_profile_id int null,
     beta_credits int null,
     constraint fk_app_user_id
 		foreign key (app_user_id)
         references app_user(app_user_id),
-    constraint fk_climber_sex_id
-        foreign key (climber_sex_id)
-        references sex(sex_id),
+    constraint fk_climber_sex_name
+        foreign key (climber_sex_name)
+        references sex(sex_name),
 	constraint fk_climber_primary_location_id
 		foreign key (climber_primary_location_id)
         references location(location_id),
@@ -201,14 +201,14 @@ create table forum (
         references forum(forum_id)
 );
 
-create table user_comment (
-	user_comment_id int primary key auto_increment,
+create table profile_comment (
+	profile_comment_id int primary key auto_increment,
     posting_climber_id int not null,
     receiving_climber_id int not null,
     comment_subject varchar(256) null,
     comment_text text not null,
     posted_date_time datetime not null,
-    constraint fk_user_posting_climber_id
+    constraint fk_profile_posting_climber_id
 		foreign key(posting_climber_id)
         references climber(climber_id),
 	constraint fk_receiving_climber_id

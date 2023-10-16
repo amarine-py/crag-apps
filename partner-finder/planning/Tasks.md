@@ -5,37 +5,37 @@
 #### Models
 
 [Time Estimate: 2 hours]
-- AppUser
-- Sex (enum)
-- LocationCountry (enum)
-- StateProvince (enum)
-- Location
-- ClimbingGym
-- Badge
-- SafetyAttitude (enum)
-- ClimbingAttitude (enum)
-- ClimbingMotivation (enum)
-- ClimbingStyle (enum)
-- ClimberProfile
-- Climber
-- Forum
-- ForumComment
-- UserComment
+- AppUser *
+- Sex (enum) *
+- LocationCountry (enum) *
+- StateProvince (enum) *
+- Location *
+- ClimbingGym *
+- Badge *
+- SafetyAttitude (enum) *
+- ClimbingMotivation (enum) *
+- DEPRECATED -- ClimbingAttitude (DEPRECATED -- enum)
+- ClimbingStyle (enum) *
+- ClimberProfile *
+- Climber *
+- Forum *
+- ForumComment *
+- ProfileComment *
 - Map ???
 
 #### Data Layer
 
 [Time Estimate: 30 min]
-- AppUserRepository
+- AppUserRepository *
   - findByUsername
   - create
   - update
   - delete
 - AppUserJdbcTemplateRepository
-- AppUserMapper
+- AppUserMapper *
 
 [Time Estimate: 1 hour]
-- ClimberRepository
+- ClimberRepository *
   - findByClimberId
   - create
   - update
@@ -44,36 +44,34 @@
 - ClimberMapper
 
 [Time Estimate: 1 hour]
-- LocationRepository
+- LocationRepository *
   - findByLocationId
-  - findByCountryId
-  - findByStateId
-  - findByPostalCode
-  - findByLocationCode
   - create
   - update
   - delete
 - LocationJdbcTemplateRepository
-- LocationMapper
+- LocationMapper *
 
 [Time Estimate: 1 hour]
-- BadgeRepository
+- BadgeRepository *
   - findByBadgeId
   - findByBadgeName
   - create
   - update
   - delete
 - BadgeJdbcTemplateRepository
-- BadgeMapper
+- BadgeMapper *
 
 [Time Estimate: 1.5 hours]
-- ClimberProfileRepository
+- ClimberProfileRepository *
   - findByProfileId
   - findBySafetyAttitude
   - findByClimbingMotivation
-  - findByClimbingAttitude
   - findByClimbingStyle
-  - findByStateId
+  - findByCountry
+  - findByState
+  - findByPostalCode
+  - findByLocationCode
   - create
   - update
   - delete
@@ -81,9 +79,9 @@
 - ClimberProfileMapper
 
 [Time Estimate: 1.5 hours]
-- CommentRepository
+- CommentRepository *
   - findByUserCommentId
-  - findByUserId
+  - findByClimberId
   - findByForumCommentId
   - findByForumId
   - findByReceivingClimberId
@@ -94,7 +92,7 @@
 - CommentMapper
 
 [Time Estimate: 1 hour]
-- ForumRepository
+- ForumRepository *
   - findByForumId
   - findByForumName
   - findByParentId
@@ -102,7 +100,7 @@
   - edit
   - delete
 - ForumJdbcTemplateRepository
-- ForumMapper
+- ForumMapper *
 
 [Time Estimate: 2 hours ??]
 - MapDataRepository ???
@@ -118,7 +116,7 @@
     - validate
   - delete
 
-[Time Estimate: 1.5 hour]
+[Time Estimate: 1.5 hour] 
 - LocationService
   - findByLocationId
   - findByCountryId
@@ -265,3 +263,148 @@
     - POST (suspend account)
 
 ### Total Back-End Build Time Estimate: 29 hours
+
+### Back-End Testing
+
+#### Data Layer Testing
+
+[Time Estimate: 1 hour]
+- AppUserJdbcRepositoryTest
+  - findByUsername
+  - create
+  - update
+  - delete
+
+[Time Estimate: 0.75 hour]
+-ClimberJdbcRepositoryTest
+  - findByClimberId
+  - create
+  - update
+  - delete
+
+[Time Estimate: 1 hour]
+- LocationJdbcTemplateRepositoryTest
+  - findByLocationId
+  - findByCountryId
+  - findByStateId
+  - findByPostalCode
+  - findByLocationCode
+  - create
+  - update
+  - delete
+
+[Time Estimate: 0.75 hour]
+- BadgeJdbcTemplateRepositoryTest
+  - findByBadgeId
+  - findByBadgeName
+  - create
+  - update
+  - delete
+
+[Time Estimate: 1.5 hours]
+- ClimberProfileJdbcTemplateRepositoryTest
+  - findByProfileId
+  - findBySafetyAttitude
+  - findByClimbingMotivation
+  - findByClimbingAttitude
+  - findByClimbingStyle
+  - findByStateId
+  - create
+  - update
+  - delete
+
+[Time Estimate: 1.5 hours]
+- CommentJdbcTemplateRepositoryTest
+  - findByUserCommentId
+  - findByUserId
+  - findByForumCommentId
+  - findByForumId
+  - findByReceivingClimberId
+  - create
+  - update
+  - delete
+
+[Time Estimate: 1 hour]
+- ForumJdbcTemplateRepositoryTest
+  - findByForumId
+  - findByForumName
+  - findByParentId
+  - create
+  - edit
+  - delete
+
+### Total Data-Layer Testing Time Estimate: 7 hours
+
+#### Domain-Layer Testing
+
+[Time Estimate: 1.5 hours]
+- ClimberServiceTest
+  - findByClimberId
+  - create
+    - validate
+  - update
+    - validate
+  - delete
+
+[Time Estimate: 1.25 hour]
+- LocationServiceTest
+  - findByLocationId
+  - findByCountryId
+  - findByStateId
+  - findByPostalCode
+  - findByLocationCode
+  - create
+    - validate
+  - update
+    - validate
+  - delete
+
+[Time Estimate: 0.75 hour]
+- BadgeServiceTest
+  - findByBadgeId
+  - findByBadgeName
+  - create
+    - validate
+  - update
+    - validate
+  - delete
+
+[Time Estimate: 1.25 hours]
+- ClimberProfileServiceTest
+  - findByProfileId
+  - findBySafetyAttitude
+  - findByClimbingMotivation
+  - findByClimbingAttitude
+  - findByClimbingStyle
+  - findByStateId
+  - create
+    - validate
+  - update
+    - validate
+  - delete
+
+[Time Estimate: 1.25 hours]
+- CommentServiceTest
+  - findByUserCommentId
+  - findByUserId
+  - findByForumCommentId
+  - findByForumId
+  - findByReceivingClimberId
+  - create
+    - validate
+  - update
+    - validate
+  - delete
+
+[Time Estimate: 0.75 hours]
+- ForumService
+  - findByForumId
+  - findByForumName
+  - findByParentId
+  - create
+    - validate
+  - edit
+    - validate
+  - delete
+
+### Total Domain-Layer Testing Time Estimate: 6.75 hours

@@ -13,11 +13,11 @@
 
 > As Lars, I want to create a profile as a climber on Partner Finder so that I can view member-only features like private profiles.
 > - Lars should be able to log in with his account and create a climber profile.
-    >   - Depends on "As Lars, I want to be able to create an account on Partner Finder to explore member-only features."
+  >   - Depends on "As Lars, I want to be able to create an account on Partner Finder to explore member-only features."
 
 > As Lars, I want to start with enough "points" as a new user to be able to post a comment or award a badge.
 > - Lars should have enough points as a new user to award a badge or post a comment in the forums or on another user's profile
-    >   - Depends on "As Lars, I want to be able to create an account on Partner Finder to explore member-only features."
+  >   - Depends on "As Lars, I want to be able to create an account on Partner Finder to explore member-only features."
 
 ### Uma is a user of Partner Finder with an existing climber profile
 
