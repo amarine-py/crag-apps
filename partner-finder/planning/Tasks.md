@@ -25,13 +25,13 @@
 
 #### Data Layer
 
-[Time Estimate: 30 min]
+[Time Estimate: 30 min] *
 - AppUserRepository *
   - findByUsername
   - create
   - update
   - delete
-- AppUserJdbcTemplateRepository
+- AppUserJdbcTemplateRepository *
 - AppUserMapper *
 
 [Time Estimate: 1 hour]
@@ -89,7 +89,7 @@
   - update
   - delete
 - CommentJdbcTemplateRepository
-- CommentMapper
+- CommentMapper *
 
 [Time Estimate: 1 hour]
 - ForumRepository *

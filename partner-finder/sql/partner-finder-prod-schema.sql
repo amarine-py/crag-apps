@@ -39,23 +39,23 @@ create table country (
 
 create table state_province (
 	state_province_id int primary key auto_increment,
-    state_province_name varchar(75) not null,
+    state_province_name varchar(75) not null unique,
     state_province_abbr varchar(10) not null
 );
 
 create table location (
 	location_id int primary key auto_increment,
-    country_id int not null,
-	state_province_id int not null,
+    country_name varchar(75) not null,
+	state_province_name varchar(75) not null,
     city varchar(75) not null,
     postal_code varchar(12) not null,
     location_code int not null,
-    constraint fk_location_country_id
-		foreign key (country_id)
-		references country(country_id),
-	constraint fk_location_state_province_id
-		foreign key (state_province_id)
-        references state_province(state_province_id)
+    constraint fk_location_country_name
+		foreign key (country_name)
+		references country(country_name),
+	constraint fk_location_state_province_name
+		foreign key (state_province_name)
+        references state_province(state_province_name)
 );
 
 create table climbing_gym (
@@ -72,30 +72,24 @@ create table badge (
     badge_name varchar(75) not null unique,
     badge_description text(1024) not null,
     badge_cost int not null,
-    badge_icon varchar(256) null,
+    badge_icon_path varchar(256) null,
     badge_supply int null
 );
 
 create table safety_attitude (
 	safety_attitude_id int primary key auto_increment,
-    safety_attitude_name varchar(50) not null
+    safety_attitude_name varchar(50) not null unique
 );
 
 create table climbing_motivation (
 	climbing_motivation_id int primary key auto_increment,
-    climbing_motivation_name varchar(50) not null
-);
-        
-create table climbing_attitude (
-	climbing_attitude_id int primary key auto_increment,
-    climbing_attitude_name varchar(50) not null
+    climbing_motivation_name varchar(50) not null unique
 );
 
 create table climbing_style (
 	climbing_style_id int primary key auto_increment,
-    climbing_style_name varchar(50) not null
+    climbing_style_name varchar(50) not null unique
 );
-
 
 create table climber_profile (
 	profile_id int primary key auto_increment,
@@ -112,36 +106,32 @@ create table climber_profile (
     has_sport_gear bool null,
     has_rope bool null,
     has_transportation bool null,
-    looking_for_mentor bool null,
+    open_to_mentor bool null,
     open_to_mentoring bool null,
     number_of_registered_partners int null,
-    primary_safety_attitude_id int not null,
-    primary_climbing_motivation_id int not null,
-    primary_climbing_attitude_id int not null,
-    favorite_climbing_style_id int null,
-    primary_climbing_country_id int not null,
-    primary_climbing_state_province_id int not null,
+    primary_safety_attitude_name varchar(48) not null,
+    primary_climbing_motivation_name varchar(48) not null, 
+    favorite_climbing_style_name varchar(48) null,
+    primary_climbing_country_name varchar(75) not null,
+    primary_climbing_state_province_name varchar(75) not null,
     primary_climbing_postal_code varchar(12) null,
     primary_climbing_gym_id int null,
     
-    constraint fk_primary_safety_attitude_id
-		foreign key (primary_safety_attitude_id)
-        references safety_attitude(safety_attitude_id),
-	constraint fk_primary_climbing_motivation_id
-		foreign key (primary_climbing_motivation_id)
-        references climbing_motivation(climbing_motivation_id),
-	constraint fk_primary_climbing_attitude_id
-		foreign key (primary_climbing_attitude_id)
-        references climbing_attitude(climbing_attitude_id),
-	constraint fk_favorite_climbing_style_id
-		foreign key (favorite_climbing_style_id)
-        references climbing_style(climbing_style_id),
-	constraint fk_primary_climbing_country_id
-		foreign key (primary_climbing_country_id)
-        references location_country(country_id),
-	constraint fk_primary_climbing_state_province_id
-		foreign key (primary_climbing_state_province_id)
-        references state_province(state_province_id),
+    constraint fk_primary_safety_attitude_name
+		foreign key (primary_safety_attitude_name)
+        references safety_attitude(safety_attitude_name),
+	constraint fk_primary_climbing_motivation_name
+		foreign key (primary_climbing_motivation_name)
+        references climbing_motivation(climbing_motivation_name),
+	constraint fk_favorite_climbing_style_name
+		foreign key (favorite_climbing_style_name)
+        references climbing_style(climbing_style_name),
+	constraint fk_primary_climbing_country_name
+		foreign key (primary_climbing_country_name)
+        references country(country_name),
+	constraint fk_primary_climbing_state_province_name
+		foreign key (primary_climbing_state_province_name)
+        references state_province(state_province_name),
 	constraint fk_primary_climbing_gym_id
 		foreign key (primary_climbing_gym_id)
         references climbing_gym(climbing_gym_id)
@@ -207,7 +197,7 @@ create table profile_comment (
     receiving_climber_id int not null,
     comment_subject varchar(256) null,
     comment_text text not null,
-    posted_date_time datetime not null,
+    posted_date_time varchar(128) not null,
     constraint fk_profile_posting_climber_id
 		foreign key(posting_climber_id)
         references climber(climber_id),

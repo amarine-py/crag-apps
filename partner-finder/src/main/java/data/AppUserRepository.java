@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface AppUserRepository {
     @Transactional
-    AppUser findByEmail(String email);
+    AppUser findByUsername(String email);
 
     @Transactional
     AppUser create(AppUser user);
@@ -14,6 +14,6 @@ public interface AppUserRepository {
     boolean update(AppUser user);
 
     @Transactional
-    boolean delete(int appUserId);
+    boolean deleteByUsername(String username);
 
 }
