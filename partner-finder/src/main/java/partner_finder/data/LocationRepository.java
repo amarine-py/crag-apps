@@ -1,5 +1,6 @@
 package partner_finder.data;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import partner_finder.models.Location;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,6 +9,7 @@ import java.util.List;
 public interface LocationRepository {
 
     Location findById(int locationId);
+
 //    List<Location> findByCountryId(int countryId);
 //    List<Location> findByStateId(int stateId);
 //    List<Location> findByPostalCode(String postalCode);

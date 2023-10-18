@@ -16,7 +16,7 @@ public enum Country {
 
     @Override
     public String toString() {
-        return "LocationCountry{" +
+        return "Country{" +
                 "countryName='" + countryName + '\'' +
                 '}';
     }

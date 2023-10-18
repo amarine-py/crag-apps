@@ -1,21 +1,31 @@
 package partner_finder.models;
 
+import jakarta.persistence.*;
+
+@Entity(name = "forum")
 public class Forum {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int forumId;
+    @Column(name = "forum_name")
     private String name;
+    @Column(name = "is_primary_forum")
     private boolean isPrimaryForum;
-    private Forum parentForum;
+//    private Forum parentForum;
+    @Column(name="forum_parent_id")
+    private int forumParentId;
+    @Column(name = "nest_level")
     private int nestLevel;
 
     public Forum() {
     }
 
-    public Forum(int forumId, String name, boolean isPrimaryForum, Forum parentForum, int nestLevel) {
+    public Forum(int forumId, String name, boolean isPrimaryForum, int forumParentId, int nestLevel) {
         this.forumId = forumId;
         this.name = name;
         this.isPrimaryForum = isPrimaryForum;
-        this.parentForum = parentForum;
+        this.forumParentId = forumParentId;
         this.nestLevel = nestLevel;
     }
 
@@ -43,13 +53,13 @@ public class Forum {
         isPrimaryForum = primaryForum;
     }
 
-    public Forum getParentForum() {
-        return parentForum;
-    }
-
-    public void setParentForum(Forum parentForum) {
-        this.parentForum = parentForum;
-    }
+//    public Forum getParentForum() {
+//        return parentForum;
+//    }
+//
+//    public void setParentForum(Forum parentForum) {
+//        this.parentForum = parentForum;
+//    }
 
     public int getNestLevel() {
         return nestLevel;
@@ -59,12 +69,20 @@ public class Forum {
         this.nestLevel = nestLevel;
     }
 
+    public int getForumParentId() {
+        return forumParentId;
+    }
+
+    public void setForumParentId(int forumParentId) {
+        this.forumParentId = forumParentId;
+    }
+
     @Override
     public String toString() {
         return "Forum{" +
                 "forumId=" + forumId +
                 ", name='" + name + '\'' +
-                ", parentForum=" + parentForum +
+                ", forumParentId=" + forumParentId +
                 '}';
     }
 }

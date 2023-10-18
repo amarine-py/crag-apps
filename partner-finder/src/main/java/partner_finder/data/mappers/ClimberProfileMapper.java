@@ -28,11 +28,11 @@ public class ClimberProfileMapper implements RowMapper<ClimberProfile> {
         climberProfile.setOpenToMentor(rs.getBoolean("open_to_mentor"));
         climberProfile.setOpenToMentee(rs.getBoolean("open_to_mentoring"));
         climberProfile.setNumPartners(rs.getInt("number_of_registered_partners"));
-        climberProfile.setSafetyAttitude(SafetyAttitude.valueOf("primary_safety_attitude_name"));
-        climberProfile.setClimbingMotivation(ClimbingMotivation.valueOf("primary_climbing_motivation_name"));
-        climberProfile.setClimbingStyle(ClimbingStyle.valueOf("favorite_climbing_style_name"));
-        climberProfile.setClimbingCountry(Country.valueOf("primary_climbing_country_name"));
-        climberProfile.setClimbingState(StateProvince.valueOf("primary_climbing_state_province_name"));
+        climberProfile.setSafetyAttitude(SafetyAttitude.valueOf(rs.getString("primary_safety_attitude_name")));
+        climberProfile.setClimbingMotivation(ClimbingMotivation.valueOf(rs.getString("primary_climbing_motivation_name")));
+        climberProfile.setClimbingStyle(ClimbingStyle.valueOf(rs.getString("favorite_climbing_style_name")));
+        climberProfile.setClimbingCountry(Country.valueOf(rs.getString("primary_climbing_country_name")));
+        climberProfile.setClimbingState(StateProvince.valueOf(rs.getString("primary_climbing_state_province_name")));
         climberProfile.setClimbingPostalCode(rs.getString("primary_climbing_postal_code"));
 
         return climberProfile;

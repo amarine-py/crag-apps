@@ -15,10 +15,11 @@ public class ForumMapper implements RowMapper<Forum> {
         forum.setForumId(rs.getInt("forum_id"));
         forum.setName(rs.getString("forum_name"));
         forum.setPrimaryForum(rs.getBoolean("is_primary_forum"));
+        forum.setForumParentId(rs.getInt("forum_parent_id"));
         forum.setNestLevel(rs.getInt("nest_level"));
 
-        ForumMapper forumMapper = new ForumMapper();
-        forum.setParentForum(forumMapper.mapRow(rs, rowNum));
+//        ForumMapper forumMapper = new ForumMapper();
+//        forum.setParentForum(forumMapper.mapRow(rs, rowNum));
 
         return forum;
 

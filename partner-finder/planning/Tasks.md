@@ -59,7 +59,7 @@
   - create
   - update
   - delete
-- BadgeJdbcTemplateRepository
+- BadgeJdbcTemplateRepository ?
 - BadgeMapper *
 
 [Time Estimate: 1.5 hours]
@@ -99,7 +99,7 @@
   - create
   - edit
   - delete
-- ForumJdbcTemplateRepository
+- ForumJdbcTemplateRepository ?
 - ForumMapper *
 
 [Time Estimate: 2 hours ??]
@@ -269,7 +269,7 @@
 #### Data Layer Testing
 
 [Time Estimate: 1 hour]
-- AppUserJdbcRepositoryTest
+- AppUserJdbcRepositoryTest *
   - findByUsername
   - create
   - update
@@ -283,7 +283,7 @@
   - delete
 
 [Time Estimate: 1 hour]
-- LocationJdbcTemplateRepositoryTest
+- LocationJdbcTemplateRepositoryTest *
   - findByLocationId
   - findByCountryId
   - findByStateId
@@ -294,7 +294,7 @@
   - delete
 
 [Time Estimate: 0.75 hour]
-- BadgeJdbcTemplateRepositoryTest
+- BadgeRepositoryTest *
   - findByBadgeId
   - findByBadgeName
   - create
@@ -325,7 +325,7 @@
   - delete
 
 [Time Estimate: 1 hour]
-- ForumJdbcTemplateRepositoryTest
+- ForumRepositoryTest *
   - findByForumId
   - findByForumName
   - findByParentId

@@ -4,7 +4,8 @@ import java.time.LocalDate;
 
 public class Climber {
 
-    private int climberId;
+    private Integer climberId;
+    private Integer appUserId;
     private String username;
     private String firstName;
     private String lastName;
@@ -17,25 +18,20 @@ public class Climber {
     public Climber() {
     }
 
-    public Climber(int climberId, String username, String firstName, String lastName,
-                   LocalDate dob, Sex climberSex, Location location, ClimberProfile climberProfile, int betaCredits) {
-        this.climberId = climberId;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dob = dob;
-        this.climberSex = climberSex;
-        this.location = location;
-        this.climberProfile = climberProfile;
-        this.betaCredits = betaCredits;
-    }
-
-    public int getClimberId() {
+    public Integer getClimberId() {
         return climberId;
     }
 
-    public void setClimberId(int climberId) {
+    public void setClimberId(Integer climberId) {
         this.climberId = climberId;
+    }
+
+    public Integer getAppUserId() {
+        return appUserId;
+    }
+
+    public void setAppUserId(Integer appUserId) {
+        this.appUserId = appUserId;
     }
 
     public String getUsername() {

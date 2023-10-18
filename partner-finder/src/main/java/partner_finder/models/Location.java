@@ -1,34 +1,32 @@
 package partner_finder.models;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
+
 
 public class Location {
 
-    private int locationId;
+
+    private Integer locationId;
     private Country country;
     private StateProvince stateProvince;
-    private String city;
-    private String postalCode;
-    private int locationCode;
 
-    public Location(int locationId, Country country, StateProvince stateProvince, String city, String postalCode, int locationCode) {
-        this.locationId = locationId;
-        this.country = country;
-        this.stateProvince = stateProvince;
-        this.city = city;
-        this.postalCode = postalCode;
-        this.locationCode = locationCode;
-    }
+    private String city;
+
+    private String postalCode;
+
+    private int locationCode;
 
     public Location() {
 
     }
 
-    public int getLocationId() {
+    public Integer getLocationId() {
         return locationId;
     }
 
-    public void setLocationId(int locationId) {
+    public void setLocationId(Integer locationId) {
         this.locationId = locationId;
     }
 
@@ -88,10 +86,12 @@ public class Location {
     @Override
     public String toString() {
         return "Location{" +
-                "country=" + country +
+                "locationId=" + locationId +
+                ", country=" + country +
                 ", stateProvince=" + stateProvince +
                 ", city='" + city + '\'' +
                 ", postalCode='" + postalCode + '\'' +
+                ", locationCode=" + locationCode +
                 '}';
     }
 }

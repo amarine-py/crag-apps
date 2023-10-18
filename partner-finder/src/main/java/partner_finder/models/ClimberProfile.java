@@ -4,7 +4,7 @@ import partner_finder.models.*;
 
 public class ClimberProfile {
 
-    private int profileId;
+    private Integer profileId;
     private String email;
     private String description;
     private boolean isPublic;
@@ -32,7 +32,7 @@ public class ClimberProfile {
     public ClimberProfile() {
     }
 
-    public ClimberProfile(int profileId, String email, String description, boolean isPublic, String tradGrade,
+    public ClimberProfile(Integer profileId, String email, String description, boolean isPublic, String tradGrade,
                           String sportGrade, String boulderGrade, String iceGrade, String mixedGrade,
                           String aidGrade, boolean hasTradGear, boolean hasSportGear, boolean hasRope,
                           boolean hasTransportation, boolean openToMentor, boolean openToMentee,
@@ -88,11 +88,11 @@ public class ClimberProfile {
         this.climbingState = climbingState;
     }
 
-    public int getProfileId() {
+    public Integer getProfileId() {
         return profileId;
     }
 
-    public void setProfileId(int profileId) {
+    public void setProfileId(Integer profileId) {
         this.profileId = profileId;
     }
 

@@ -1,20 +1,23 @@
 package partner_finder.data;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import partner_finder.models.Badge;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface BadgeRepository {
+public interface BadgeRepository extends JpaRepository<Badge, Integer> {
 
     Badge findById(int badgeId);
-    Badge findByName(int badgeName);
-    List<Badge> findall();
+    Badge findByName(String badgeName);
+    List<Badge> findAll();
 
-    Badge create(Badge badge);
-    Badge update(Badge badge);
+    // creates new Badge, if given Badge w/ no ID or new ID
+    // updates existing Badge if given Badge w/ existing Id
+    Badge save(Badge badge);
 
+    // REMEMBER: deleteById() does not return anything
     @Transactional
-    boolean deleteById(int badgeId);
+    void deleteById(int badgeId);
 
 }

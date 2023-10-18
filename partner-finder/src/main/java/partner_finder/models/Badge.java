@@ -1,12 +1,22 @@
 package partner_finder.models;
 
+import jakarta.persistence.*;
+
+@Entity(name = "badge")
 public class Badge {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int badgeId;
+    @Column(name = "badge_name")
     private String name;
+    @Column(name = "badge_description")
     private String description;
+    @Column(name = "badge_cost")
     private int cost;
+    @Column(name = "badge_icon_path")
     private String iconPath;
+    @Column(name = "badge_supply")
     private int supply;
 
     public Badge() {

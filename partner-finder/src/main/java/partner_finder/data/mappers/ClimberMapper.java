@@ -15,6 +15,7 @@ public class ClimberMapper implements RowMapper<Climber> {
     public Climber mapRow(ResultSet rs, int rowNum) throws SQLException {
         Climber climber = new Climber();
         climber.setClimberId(rs.getInt("climber_id"));
+        climber.setAppUserId(rs.getInt("app_user_id"));
         climber.setUsername(rs.getString("username"));
         climber.setUsername(rs.getString("username"));
         climber.setFirstName(rs.getString("first_name"));
@@ -23,11 +24,11 @@ public class ClimberMapper implements RowMapper<Climber> {
         climber.setClimberSex(Sex.valueOf(rs.getString("climber_sex_name")));
         climber.setBetaCredits(rs.getInt("beta_credits"));
 
-        LocationMapper locationMapper = new LocationMapper();
-        climber.setLocation(locationMapper.mapRow(rs, rowNum));
-
-        ClimberProfileMapper climberProfileMapper = new ClimberProfileMapper();
-        climber.setClimberProfile(climberProfileMapper.mapRow(rs, rowNum));
+//        LocationMapper locationMapper = new LocationMapper();
+//        climber.setLocation(locationMapper.mapRow(rs, rowNum));
+//
+//        ClimberProfileMapper climberProfileMapper = new ClimberProfileMapper();
+//        climber.setClimberProfile(climberProfileMapper.mapRow(rs, rowNum));
 
         return climber;
     }
