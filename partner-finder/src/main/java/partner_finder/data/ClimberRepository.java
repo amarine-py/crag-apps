@@ -13,6 +13,8 @@ public interface ClimberRepository {
     Climber create(Climber climber);
     Climber update(Climber climber);
 
+    boolean disableById(int climberId);
+
     @Transactional
     boolean deleteById(int climberId);
 }

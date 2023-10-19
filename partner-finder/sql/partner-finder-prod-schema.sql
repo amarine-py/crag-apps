@@ -50,6 +50,7 @@ create table location (
     city varchar(75) not null,
     postal_code varchar(12) not null,
     location_code int not null,
+    enabled bit not null default(1),
     constraint fk_location_country_name
 		foreign key (country_name)
 		references country(country_name),
@@ -62,6 +63,7 @@ create table climbing_gym (
 	climbing_gym_id int primary key auto_increment,
     climbing_gym_name varchar(75) not null,
     climbing_gym_location_id int null,
+    enabled bit not null default(1),
     constraint fk_climbing_gym_location_id
 		foreign key (climbing_gym_location_id)
         references location(location_id)
@@ -73,7 +75,8 @@ create table badge (
     badge_description text(1024) not null,
     badge_cost int not null,
     badge_icon_path varchar(256) null,
-    badge_supply int null
+    badge_supply int null,
+    enabled bit not null default(1)
 );
 
 create table safety_attitude (
@@ -116,6 +119,7 @@ create table climber_profile (
     primary_climbing_state_province_name varchar(75) not null,
     primary_climbing_postal_code varchar(12) null,
     primary_climbing_gym_id int null,
+    enabled bit not null default(1),
     
     constraint fk_primary_safety_attitude_name
 		foreign key (primary_safety_attitude_name)
@@ -148,6 +152,7 @@ create table climber (
     climber_primary_location_id int not null,
     climber_profile_id int null,
     beta_credits int null,
+    enabled bit not null default(1),
     constraint fk_app_user_id
 		foreign key (app_user_id)
         references app_user(app_user_id),
@@ -186,9 +191,7 @@ create table forum (
     is_primary_forum bool not null,
     forum_parent_id int null,
     nest_level int null,  -- 0=primary, 1=secondary, 2=tertiary, etc.
-    constraint fk_forum_parent_id
-		foreign key (forum_parent_id)
-        references forum(forum_id)
+    enabled bit not null default(1)
 );
 
 create table profile_comment (
@@ -198,6 +201,7 @@ create table profile_comment (
     comment_subject varchar(256) null,
     comment_text text not null,
     posted_date_time varchar(128) not null,
+    enabled bit not null default(1),
     constraint fk_profile_posting_climber_id
 		foreign key(posting_climber_id)
         references climber(climber_id),
@@ -213,6 +217,7 @@ create table forum_comment (
     comment_subject varchar(256) null,
     comment_text text not null,
     posted_date_time datetime not null,
+    enabled bit not null default(1),
     constraint fk_forum_comment_posting_climber_id
 		foreign key (posting_climber_id)
         references climber(climber_id),

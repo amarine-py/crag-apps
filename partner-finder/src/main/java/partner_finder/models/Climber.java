@@ -11,11 +11,19 @@ public class Climber {
     private String lastName;
     private LocalDate dob;
     private Sex climberSex;
-    private Location location;
     private ClimberProfile climberProfile;
     private int betaCredits;
+    private boolean enabled;
 
     public Climber() {
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Integer getClimberId() {
@@ -72,22 +80,6 @@ public class Climber {
 
     public void setClimberSex(Sex climberSex) {
         this.climberSex = climberSex;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public ClimberProfile getClimberProfile() {
-        return climberProfile;
-    }
-
-    public void setClimberProfile(ClimberProfile climberProfile) {
-        this.climberProfile = climberProfile;
     }
 
     public int getBetaCredits() {

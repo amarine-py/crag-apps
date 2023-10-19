@@ -23,12 +23,7 @@ public class ClimberMapper implements RowMapper<Climber> {
         climber.setDob(rs.getDate("birthday").toLocalDate());
         climber.setClimberSex(Sex.valueOf(rs.getString("climber_sex_name")));
         climber.setBetaCredits(rs.getInt("beta_credits"));
-
-//        LocationMapper locationMapper = new LocationMapper();
-//        climber.setLocation(locationMapper.mapRow(rs, rowNum));
-//
-//        ClimberProfileMapper climberProfileMapper = new ClimberProfileMapper();
-//        climber.setClimberProfile(climberProfileMapper.mapRow(rs, rowNum));
+        climber.setEnabled((rs.getInt("enabled")) > 0);
 
         return climber;
     }

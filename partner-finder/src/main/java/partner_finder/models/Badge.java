@@ -1,6 +1,9 @@
 package partner_finder.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity(name = "badge")
 public class Badge {
@@ -9,26 +12,32 @@ public class Badge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int badgeId;
     @Column(name = "badge_name")
+    @NotBlank(message = "Name cannot be blank.")
+    @Size(max = 75, message = "Must be under 75 characters.")
     private String name;
     @Column(name = "badge_description")
+    @NotBlank(message = "Description cannot be blank.")
+    @Size(max = 75, message = "Must be under 1024 characters.")
     private String description;
     @Column(name = "badge_cost")
+    @NotNull
     private int cost;
     @Column(name = "badge_icon_path")
+    @NotBlank
     private String iconPath;
     @Column(name = "badge_supply")
     private int supply;
+    private boolean enabled;
 
     public Badge() {
     }
 
-    public Badge(int badgeId, String name, String description, int cost, String iconPath, int supply) {
-        this.badgeId = badgeId;
-        this.name = name;
-        this.description = description;
-        this.cost = cost;
-        this.iconPath = iconPath;
-        this.supply = supply;
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public int getBadgeId() {

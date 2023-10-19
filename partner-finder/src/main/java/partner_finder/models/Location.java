@@ -1,6 +1,8 @@
 package partner_finder.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
@@ -8,25 +10,36 @@ import java.util.Objects;
 public class Location {
 
 
-    private Integer locationId;
+    private int locationId;
+    @NotBlank
     private Country country;
+    @NotBlank
     private StateProvince stateProvince;
-
+    @NotBlank(message = "City is required.")
+    @Size(max = 75, message = "City name cannot be longer than 75 characters.")
     private String city;
-
+    @NotBlank(message = "Postal code cannot be blank.")
+    @Size(max = 12, message = "Postal code cannot be longer than 12 characters.")
     private String postalCode;
-
     private int locationCode;
-
+    private boolean enabled;
     public Location() {
 
     }
 
-    public Integer getLocationId() {
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public int getLocationId() {
         return locationId;
     }
 
-    public void setLocationId(Integer locationId) {
+    public void setLocationId(int locationId) {
         this.locationId = locationId;
     }
 

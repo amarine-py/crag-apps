@@ -19,6 +19,7 @@ public class LocationMapper implements RowMapper<Location> {
         location.setCity(rs.getString("city"));
         location.setPostalCode(rs.getString("postal_code"));
         location.setLocationCode(rs.getInt("location_code"));
+        location.setEnabled((rs.getInt("enabled") > 0));
 
         return location;
     }

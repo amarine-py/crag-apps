@@ -34,25 +34,25 @@
 - AppUserJdbcTemplateRepository *
 - AppUserMapper *
 
-[Time Estimate: 1 hour]
+[Time Estimate: 1 hour] *
 - ClimberRepository *
   - findByClimberId
   - create
   - update
   - delete
-- ClimberJdbcTemplateRepository
+- ClimberJdbcTemplateRepository *
 - ClimberMapper *
 
-[Time Estimate: 1 hour]
+[Time Estimate: 1 hour] *
 - LocationRepository *
   - findByLocationId
   - create
   - update
   - delete
-- LocationJdbcTemplateRepository
+- LocationJdbcTemplateRepository *
 - LocationMapper *
 
-[Time Estimate: 1 hour]
+[Time Estimate: 1 hour] *
 - BadgeRepository *
   - findByBadgeId
   - findByBadgeName
@@ -62,7 +62,7 @@
 - BadgeJdbcTemplateRepository ?
 - BadgeMapper *
 
-[Time Estimate: 1.5 hours]
+[Time Estimate: 1.5 hours] *
 - ClimberProfileRepository *
   - findByProfileId
   - findBySafetyAttitude
@@ -78,7 +78,7 @@
 - ClimberProfileJdbcTemplateRepository
 - ClimberProfileMapper *
 
-[Time Estimate: 1.5 hours]
+[Time Estimate: 1.5 hours] *
 - CommentRepository *
   - findByUserCommentId
   - findByClimberId
@@ -91,7 +91,7 @@
 - CommentJdbcTemplateRepository
 - CommentMapper *
 
-[Time Estimate: 1 hour]
+[Time Estimate: 1 hour] *
 - ForumRepository *
   - findByForumId
   - findByForumName
@@ -116,20 +116,16 @@
     - validate
   - delete
 
-[Time Estimate: 1.5 hour] 
-- LocationService
+[Time Estimate: 1.5 hour] * 60 minutes 
+- LocationService *
   - findByLocationId
-  - findByCountryId
-  - findByStateId
-  - findByPostalCode
-  - findByLocationCode
   - create
     - validate
   - update
     - validate
   - delete
 
-[Time Estimate: 1 hour]
+[Time Estimate: 1 hour] * 25 minutes
 - BadgeService
   - findByBadgeId
   - findByBadgeName
@@ -177,7 +173,7 @@
     - validate
   - delete
 
-[Time Estimate: 0.5 hours]
+[Time Estimate: 0.5 hours] *
 - Result
 - ResultType (enum)
 

@@ -24,7 +24,7 @@ public class LocationJdbcTemplateRepository implements LocationRepository {
     @Override
     public Location findById(int locationId) {
         final String sql = """
-                select location_id, country_name, state_province_name, city, postal_code, location_code
+                select location_id, country_name, state_province_name, city, postal_code, location_code, enabled
                     from location
                     where location_id = ?;
                 """;
@@ -101,6 +101,11 @@ public class LocationJdbcTemplateRepository implements LocationRepository {
         return null; // update unsuccessful
     }
 
+    @Override
+    public boolean disableById(int locationId) {
+        return (jdbcTemplate.update("update location set enabled = 0 where location_id = ?;", locationId) > 0);
+
+    }
     @Override
     public boolean deleteById(int locationId) {
         return jdbcTemplate.update(

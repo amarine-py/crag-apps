@@ -4,7 +4,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import partner_finder.data.mappers.ClimberMapper;
-import partner_finder.data.mappers.LocationMapper;
 import partner_finder.models.Climber;
 
 import java.util.HashMap;
@@ -23,23 +22,9 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
     public Climber findById(int climberId) {
         final String sql = """
                 select
-                    c.climber_id, c.app_user_id, c.username, c.first_name, c.last_name,
-                    c.birthday, c.climber_sex_name, c.climber_primary_location_id,
-                    c.climber_profile_id, c.beta_credits,
-                    l.location_id, l.country_name, l.state_province_name, l.city,
-                    l.postal_code, l.location_code,
-                    cp.profile_id, cp.profile_email, cp.profile_description, cp.is_public,
-                    cp.hardest_trad_grade, cp.hardest_sport_grade, cp.hardest_boulder_grade,
-                    cp.hardest_ice_grade, cp.hardest_mixed_grade, cp.hardest_aid_grade,
-                    cp.has_trad_gear, cp.has_sport_gear, cp.has_rope, cp.has_transportation,
-                    cp.open_to_mentor, cp.open_to_mentoring, cp.number_of_registered_partners,
-                    cp.primary_safety_attitude_name, cp.primary_climbing_motivation_name,
-                    cp.favorite_climbing_style_name, cp.primary_climbing_country_name,
-                    cp.primary_climbing_state_province_name, cp.primary_climbing_postal_code,
-                    cp.primary_climbing_gym_id
-                from climber c
-                inner join location l on c.climber_primary_location_id = l.location_id
-                inner join climber_profile cp on c.climber_profile_id = cp.profile_id
+                    climber_id, app_user_id, username, first_name, last_name,
+                    birthday, climber_sex_name, beta_credits, enabled
+                from climber
                 where climber_id = ?;
                 """;
 
@@ -68,17 +53,8 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
         args.put("last_name", climber.getLastName());
         args.put("birthday", climber.getDob());
         args.put("climber_sex_name", climber.getClimberSex().name());
-//        if (climber.getLocation().getLocationId() != null) {
-//            args.put("climber_primary_location_id", climber.getLocation().getLocationId());
-//        } else {
-//            args.put("climber_primary_location_id", 0);
-//        }
-//        if (climber.getClimberProfile().getProfileId() != null) {
-//            args.put("climber_profile_id", climber.getClimberProfile().getProfileId());
-//        } else {
-//            args.put("climber_profile_id", 0);
-//        }
         args.put("beta_credits", Math.max(climber.getBetaCredits(), 0));
+        args.put("enabled", 1);
 
         int climberId = insert.executeAndReturnKey(args).intValue();
         climber.setClimberId(climberId);
@@ -88,11 +64,45 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
 
     @Override
     public Climber update(Climber climber) {
+        final String sql = """
+                update climber set
+                    app_user_id = ?,
+                    username = ?,
+                    first_name = ?,
+                    last_name = ?,
+                    birthday = ?,
+                    climber_sex_name = ?,
+                    beta_credits = ?,
+                    enabled = ?
+                where climber_id = ?;
+                """;
+
+        if (jdbcTemplate.update(sql,
+                climber.getAppUserId(),
+                climber.getUsername(),
+                climber.getFirstName(),
+                climber.getLastName(),
+                climber.getDob(),
+                climber.getClimberSex().name(),
+                climber.getBetaCredits(),
+                (climber.isEnabled()) ? 1 : 0,
+                climber.getClimberId()
+        ) > 0) {
+            return climber;
+        }
+
         return null;
     }
 
     @Override
+    public boolean disableById(int climberId) {
+        return (jdbcTemplate.update("update climber set enabled = 0 where climber_id = ?;", climberId) > 0);
+    }
+    @Override
     public boolean deleteById(int climberId) {
-        return false;
+        // WARNING: Climber if an FK in "climber_badge", "profile_comment", and "forum_comment"
+        return jdbcTemplate.update("delete from climber where climber_id = ?;",
+                climberId) > 0;
+
     }
 }

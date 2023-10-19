@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
+import partner_finder.models.Climber;
 import partner_finder.models.Country;
 import partner_finder.models.Location;
 import partner_finder.models.StateProvince;
@@ -32,6 +33,7 @@ class LocationJdbcTemplateRepositoryTest {
     @Test
     void shouldFindById() {
         Location location = repository.findById(1);
+        System.out.println(location);
         assertEquals("Mobile", location.getCity());
     }
 
@@ -89,6 +91,14 @@ class LocationJdbcTemplateRepositoryTest {
         location = repository.update(location);
 
         assertNull(location);
+    }
+
+    @Test
+    @Transactional
+    void shouldDisableLocationById() {
+        assertTrue(repository.disableById(1));
+        Location location = repository.findById(1);
+        assertFalse(location.isEnabled());
     }
 
     @Test

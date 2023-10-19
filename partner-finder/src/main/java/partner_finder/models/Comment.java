@@ -1,14 +1,25 @@
 package partner_finder.models;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+@Entity
 public class Comment {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int commentId;
+    @Transient
     protected CommentType type;
+    @Column(name = "posting_climber_id")
+    protected int postingClimberId;
+    @Transient
     protected Climber postingClimber;
+    @Column(name = "comment_subject")
     protected String subject;
+    @Column(name = "comment_text")
     protected String text;
+    @Column(name = "posted_date_time")
     protected LocalDateTime postedTime;
 
     public Comment() {

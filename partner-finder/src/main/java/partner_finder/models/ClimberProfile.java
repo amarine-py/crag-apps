@@ -1,18 +1,36 @@
 package partner_finder.models;
 
+import jakarta.persistence.*;
 import partner_finder.models.*;
 
+@Entity(name = "climber_profile")
 public class ClimberProfile {
 
-    private Integer profileId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int profileId;
+    private int climberId;
+    @Column(name = "profile_email")
     private String email;
+    @Column(name = "profile_description")
     private String description;
+    @Column(name = "profile_location_id")
+    @Transient
+    private int locationId;
+    @Transient
+    private Location location;
     private boolean isPublic;
+    @Column(name = "hardest_trad_grade")
     private String tradGrade;
+    @Column(name = "hardest_sport_grade")
     private String sportGrade;
+    @Column(name = "hardest_boulder_grade")
     private String boulderGrade;
+    @Column(name = "hardest_ice_grade")
     private String iceGrade;
+    @Column(name = "hardest_mixed_grade")
     private String mixedGrade;
+    @Column(name = "hardest_aid_grade")
     private String aidGrade;
     private boolean hasTradGear;
     private boolean hasSportGear;
@@ -20,48 +38,78 @@ public class ClimberProfile {
     private boolean hasTransportation;
     private boolean openToMentor;
     private boolean openToMentee;
+    @Column(name = "number_of_registered_partners")
+    @Transient
     private int numPartners;
+    @Column(name = "primary_safety_attitude_name")
+    private String safetyAttitudeName;
+    @Transient
     private SafetyAttitude safetyAttitude;
+    @Column(name = "primary_climbing_motivation_name")
+    private String climbingMotivationName;
+    @Transient
     private ClimbingMotivation climbingMotivation;
+    @Column(name = "favorite_climbing_style_name")
+    private String climbingStyleName;
+    @Transient
     private ClimbingStyle climbingStyle;
+    @Column(name = "primary_climbing_country_name")
+    private String climbingCountryName;
+    @Transient
     private Country climbingCountry;
+    @Column(name = "primary_climbing_state_province_name")
+    private String climbingStateName;
+    @Transient
     private StateProvince climbingState;
+    @Column(name = "primary_climbing_postal_code")
     private String climbingPostalCode;
-    private ClimbingGym climbingGym;
+    @Column(name = "primary_climbing_gym_id")
+    @Transient
+    private int climbingGymId;
+    private boolean enabled;
+    public void setEnums() {
+        if (safetyAttitudeName != null) {
+            setSafetyAttitude();
+        }
+        if (climbingMotivationName != null) {
+            setClimbingMotivation();
+        }
+        if (climbingStyleName != null) {
+            setClimbingStyle();
+        }
+        if (climbingCountryName != null) {
+            setClimbingCountry();
+        }
+        if (climbingStateName != null) {
+            setClimbingState();
+        }
+    }
 
     public ClimberProfile() {
     }
 
-    public ClimberProfile(Integer profileId, String email, String description, boolean isPublic, String tradGrade,
-                          String sportGrade, String boulderGrade, String iceGrade, String mixedGrade,
-                          String aidGrade, boolean hasTradGear, boolean hasSportGear, boolean hasRope,
-                          boolean hasTransportation, boolean openToMentor, boolean openToMentee,
-                          int numPartners, SafetyAttitude safetyAttitude, ClimbingMotivation climbingMotivation,
-                          ClimbingStyle climbingStyle, String climbingPostalCode, Country climbingCountry, StateProvince climbingState, ClimbingGym climbingGym) {
-        this.profileId = profileId;
-        this.email = email;
-        this.description = description;
-        this.isPublic = isPublic;
-        this.tradGrade = tradGrade;
-        this.sportGrade = sportGrade;
-        this.boulderGrade = boulderGrade;
-        this.iceGrade = iceGrade;
-        this.mixedGrade = mixedGrade;
-        this.aidGrade = aidGrade;
-        this.hasTradGear = hasTradGear;
-        this.hasSportGear = hasSportGear;
-        this.hasRope = hasRope;
-        this.hasTransportation = hasTransportation;
-        this.openToMentor = openToMentor;
-        this.openToMentee = openToMentee;
-        this.numPartners = numPartners;
-        this.safetyAttitude = safetyAttitude;
-        this.climbingMotivation = climbingMotivation;
-        this.climbingStyle = climbingStyle;
-        this.climbingPostalCode = climbingPostalCode;
-        this.climbingCountry = climbingCountry;
-        this.climbingState = climbingState;
-        this.climbingGym = climbingGym;
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public int getClimberId() {
+        return climberId;
+    }
+
+    public void setClimberId(int climberId) {
+        this.climberId = climberId;
+    }
+
+    public int getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
     }
 
     public String getClimbingPostalCode() {
@@ -76,23 +124,41 @@ public class ClimberProfile {
         return climbingCountry;
     }
 
-    public void setClimbingCountry(Country climbingCountry) {
-        this.climbingCountry = climbingCountry;
+    public void setClimbingCountry() {
+
+        this.climbingCountry = Country.valueOf(this.getClimbingCountryName());
     }
 
     public StateProvince getClimbingState() {
         return climbingState;
     }
 
-    public void setClimbingState(StateProvince climbingState) {
-        this.climbingState = climbingState;
+    public void setClimbingState() {
+
+        this.climbingState = StateProvince.valueOf(this.getClimbingStateName());
     }
 
-    public Integer getProfileId() {
+    public String getClimbingCountryName() {
+        return climbingCountryName;
+    }
+
+    public void setClimbingCountryName(String climbingCountryName) {
+        this.climbingCountryName = climbingCountryName;
+    }
+
+    public String getClimbingStateName() {
+        return climbingStateName;
+    }
+
+    public void setClimbingStateName() {
+        this.climbingStateName = climbingStateName;
+    }
+
+    public int getProfileId() {
         return profileId;
     }
 
-    public void setProfileId(Integer profileId) {
+    public void setProfileId(int profileId) {
         this.profileId = profileId;
     }
 
@@ -224,43 +290,95 @@ public class ClimberProfile {
         this.numPartners = numPartners;
     }
 
-    public SafetyAttitude getSafetyAttitude() {
-        return safetyAttitude;
+    public String getSafetyAttitudeName() {
+        return safetyAttitudeName;
     }
 
-    public void setSafetyAttitude(SafetyAttitude safetyAttitude) {
-        this.safetyAttitude = safetyAttitude;
+    public void setSafetyAttitudeName(String safetyAttitudeName) {
+        this.safetyAttitudeName = safetyAttitudeName;
+    }
+
+    public SafetyAttitude getSafetyAttitude() { return safetyAttitude; }
+
+    public void setSafetyAttitude() {
+        safetyAttitude = SafetyAttitude.valueOf(getSafetyAttitudeName());
+    }
+
+    public String getClimbingMotivationName() {
+        return climbingMotivationName;
+    }
+
+    public void setClimbingMotivationName(String climbingMotivationName) {
+        this.climbingMotivationName = climbingMotivationName;
     }
 
     public ClimbingMotivation getClimbingMotivation() {
         return climbingMotivation;
     }
 
-    public void setClimbingMotivation(ClimbingMotivation climbingMotivation) {
-        this.climbingMotivation = climbingMotivation;
+    public void setClimbingMotivation() {
+        this.climbingMotivation = ClimbingMotivation.valueOf(this.getClimbingMotivationName());
+    }
+
+    public String getClimbingStyleName() {
+        return climbingStyleName;
+    }
+
+    public void setClimbingStyleName(String climbingStyleName) {
+        this.climbingStyleName = climbingStyleName;
     }
 
     public ClimbingStyle getClimbingStyle() {
         return climbingStyle;
     }
 
-    public void setClimbingStyle(ClimbingStyle climbingStyle) {
-        this.climbingStyle = climbingStyle;
+    public void setClimbingStyle() {
+        this.climbingStyle = ClimbingStyle.valueOf(this.getClimbingStyleName());
     }
 
-    public ClimbingGym getClimbingGym() {
-        return climbingGym;
+    public int getClimbingGymId() {
+        return climbingGymId;
     }
 
-    public void setClimbingGym(ClimbingGym climbingGym) {
-        this.climbingGym = climbingGym;
+    public void setClimbingGymId(int climbingGymId) {
+        this.climbingGymId = climbingGymId;
     }
 
     @Override
     public String toString() {
         return "ClimberProfile{" +
                 "profileId=" + profileId +
+                ", climberId=" + climberId +
                 ", email='" + email + '\'' +
+                ", description='" + description + '\'' +
+                ", locationId=" + locationId +
+                ", isPublic=" + isPublic +
+                ", tradGrade='" + tradGrade + '\'' +
+                ", sportGrade='" + sportGrade + '\'' +
+                ", boulderGrade='" + boulderGrade + '\'' +
+                ", iceGrade='" + iceGrade + '\'' +
+                ", mixedGrade='" + mixedGrade + '\'' +
+                ", aidGrade='" + aidGrade + '\'' +
+                ", hasTradGear=" + hasTradGear +
+                ", hasSportGear=" + hasSportGear +
+                ", hasRope=" + hasRope +
+                ", hasTransportation=" + hasTransportation +
+                ", openToMentor=" + openToMentor +
+                ", openToMentee=" + openToMentee +
+                ", numPartners=" + numPartners +
+                ", safetyAttitudeName='" + safetyAttitudeName + '\'' +
+                ", safetyAttitude=" + safetyAttitude +
+                ", climbingMotivationName='" + climbingMotivationName + '\'' +
+                ", climbingMotivation=" + climbingMotivation +
+                ", climbingStyleName='" + climbingStyleName + '\'' +
+                ", climbingStyle=" + climbingStyle +
+                ", climbingCountryName='" + climbingCountryName + '\'' +
+                ", climbingCountry=" + climbingCountry +
+                ", climbingStateName='" + climbingStateName + '\'' +
+                ", climbingState=" + climbingState +
+                ", climbingPostalCode='" + climbingPostalCode + '\'' +
+                ", climbingGymId=" + climbingGymId +
+                ", enabled=" + enabled +
                 '}';
     }
 }
