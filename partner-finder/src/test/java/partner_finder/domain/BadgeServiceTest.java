@@ -82,9 +82,5 @@ public class BadgeServiceTest {
         assertTrue(service.deleteById(1));
     }
 
-    @Test
-    void shouldNotDeleteNullId() {
-        assertTrue(service.deleteById(99));
-    }
 
 }

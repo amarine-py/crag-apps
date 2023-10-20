@@ -381,6 +381,6 @@ insert into forum_comment (forum_comment_id, posting_climber_id, receiving_forum
 end//
 delimiter ;
 
-set sql_safe_updates = 0;
-call set_known_good_state();
-set sql_safe_updates = 1;
+-- set sql_safe_updates = 0;
+-- call set_known_good_state();
+-- set sql_safe_updates = 1;

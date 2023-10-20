@@ -20,6 +20,7 @@ public class JwtRequestFilter extends BasicAuthenticationFilter {
         this.jwtConverter = jwtConverter;
     }
 
+    @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain chain) throws IOException, ServletException {

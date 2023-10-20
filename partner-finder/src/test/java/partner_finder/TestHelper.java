@@ -8,6 +8,15 @@ import java.time.LocalDateTime;
 
 public class TestHelper {
 
+    public static ClimbingGym makeGym(int id) {
+        ClimbingGym gym = new ClimbingGym();
+        gym.setGymId(id);
+        gym.setName(String.format("Gym #%s", id));
+        gym.setLocationId(1);
+
+        return gym;
+    }
+
     public static Location makeLocation(int id) {
         Location location = new Location();
         location.setLocationId(id);
