@@ -107,8 +107,8 @@
 
 #### Domain Layer
 
-[Time Estimate: 2 hours]
-- ClimberService
+[Time Estimate: 2 hours] * 
+- ClimberService * 
   - findByClimberId
   - create
     - validate
@@ -135,8 +135,8 @@
     - validate
   - delete
 
-[Time Estimate: 2.5 hours]
-- ClimberProfileService
+[Time Estimate: 2.5 hours] *
+- ClimberProfileService *
   - findByProfileId
   - findBySafetyAttitude
   - findByClimbingMotivation
@@ -149,8 +149,8 @@
     - validate
   - delete
 
-[Time Estimate: 2 hours]
-- CommentService
+[Time Estimate: 2 hours] *
+- CommentService *
   - findByUserCommentId
   - findByUserId
   - findByForumCommentId
@@ -162,16 +162,6 @@
     - validate
   - delete
 
-[Time Estimate: 1.5 hours]
-- ForumService
-  - findByForumId
-  - findByForumName
-  - findByParentId
-  - create
-    - validate
-  - edit
-    - validate
-  - delete
 
 [Time Estimate: 0.5 hours] *
 - Result
@@ -264,21 +254,21 @@
 
 #### Data Layer Testing
 
-[Time Estimate: 1 hour]
+[Time Estimate: 1 hour] *
 - AppUserJdbcRepositoryTest *
   - findByUsername
   - create
   - update
   - delete
 
-[Time Estimate: 0.75 hour]
--ClimberJdbcRepositoryTest
+[Time Estimate: 0.75 hour] *
+-ClimberJdbcRepositoryTest *
   - findByClimberId
   - create
   - update
   - delete
 
-[Time Estimate: 1 hour]
+[Time Estimate: 1 hour] *
 - LocationJdbcTemplateRepositoryTest *
   - findByLocationId
   - findByCountryId
@@ -289,7 +279,7 @@
   - update
   - delete
 
-[Time Estimate: 0.75 hour]
+[Time Estimate: 0.75 hour] *
 - BadgeRepositoryTest *
   - findByBadgeId
   - findByBadgeName
@@ -297,8 +287,8 @@
   - update
   - delete
 
-[Time Estimate: 1.5 hours]
-- ClimberProfileJdbcTemplateRepositoryTest
+[Time Estimate: 1.5 hours] *
+- ClimberProfileJdbcTemplateRepositoryTest *
   - findByProfileId
   - findBySafetyAttitude
   - findByClimbingMotivation
@@ -309,8 +299,8 @@
   - update
   - delete
 
-[Time Estimate: 1.5 hours]
-- CommentJdbcTemplateRepositoryTest
+[Time Estimate: 1.5 hours] *
+- CommentJdbcTemplateRepositoryTest *
   - findByUserCommentId
   - findByUserId
   - findByForumCommentId
@@ -320,21 +310,12 @@
   - update
   - delete
 
-[Time Estimate: 1 hour]
-- ForumRepositoryTest *
-  - findByForumId
-  - findByForumName
-  - findByParentId
-  - create
-  - edit
-  - delete
-
 ### Total Data-Layer Testing Time Estimate: 7 hours
 
 #### Domain-Layer Testing
 
-[Time Estimate: 1.5 hours]
-- ClimberServiceTest
+[Time Estimate: 1.5 hours] *
+- ClimberServiceTest *
   - findByClimberId
   - create
     - validate

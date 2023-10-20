@@ -1,5 +1,8 @@
 package partner_finder.models;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +15,11 @@ import java.util.stream.Collectors;
 public class AppUser implements UserDetails {
 
     private int appUserId;
+    @Email(message = "Must be a valid email.")
+    @Size(max = 75, min = 4, message = "Username must be between 4 and 75 characters.")
     private final String username;
+    @NotBlank(message = "Password cannot be blank.")
+    @Size(min = 8, max = 50, message = "Password must be minimum 8 characters, maximum of 50.")
     private final String password;
     private boolean enabled;
     private final Collection<GrantedAuthority> authorities;

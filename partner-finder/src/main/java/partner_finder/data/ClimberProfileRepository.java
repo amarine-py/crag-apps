@@ -16,6 +16,7 @@ public interface ClimberProfileRepository extends JpaRepository<ClimberProfile, 
 //    List<ClimberProfile> findByState(StateProvince state);
 //    List<ClimberProfile> findByPostalCode(String postalCode);
 //    List<ClimberProfile> findByLocationCode(int locationCode);
+    ClimberProfile findByEmail(String email);
     List<ClimberProfile> findAll();
 //
     ClimberProfile save(ClimberProfile climberProfile);

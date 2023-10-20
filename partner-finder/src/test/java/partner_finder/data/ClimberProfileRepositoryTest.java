@@ -40,6 +40,15 @@ class ClimberProfileRepositoryTest {
     }
 
     @Test
+    void shouldFindByEmail() {
+        String email = "amarine@gmail.com";
+        ClimberProfile profile = repository.findByEmail(email);
+        profile.setEnums();
+        System.out.println(profile);
+        assertEquals(1, profile.getProfileId());
+    }
+
+    @Test
     void shouldFindAll() {
         List<ClimberProfile> profiles = repository.findAll();
         assertEquals(3, profiles.size());

@@ -1,6 +1,7 @@
 package partner_finder.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
 @Entity(name = "profile_comment")
@@ -10,7 +11,9 @@ public class ProfileComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int profileCommentId;
     @Column(name = "posting_climber_id")
+    @Positive(message = "ID of posting climber must be set.")
     private int postingClimberId;
+    @Positive(message = "ID of receiving climber must be set.")
     @Column(name = "receiving_climber_id")
     private int receivingClimberId;
     @Transient
@@ -18,12 +21,17 @@ public class ProfileComment {
     @Transient
     private Climber receivingClimber;
     @Column(name = "comment_subject")
+    @NotBlank(message = "Subject cannot be blank.")
+    @Size(max = 256, message = "Subject limited to 256 characters.")
     private String subject;
     @Column(name = "comment_text")
+    @NotBlank(message = "Comment must have a body.")
+    @Size(max = 2048, message = "Comment is limited to 2048 characters.")
     private String text;
     @Column(name = "posted_date_time")
     private String postedTimeString;
     @Transient
+    @PastOrPresent
     private LocalDateTime postedTime;
     private boolean enabled;
 

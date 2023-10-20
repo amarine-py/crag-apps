@@ -6,8 +6,6 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import org.springframework.stereotype.Service;
 import partner_finder.data.BadgeRepository;
-import partner_finder.data.BadgeRepository;
-import partner_finder.models.Badge;
 import partner_finder.models.Badge;
 
 import java.util.List;
@@ -28,6 +26,10 @@ public class BadgeService {
     // CREATE methods
     public Result<Badge> create(Badge badge) {
         Result<Badge> result = inputValidation(badge);
+        if (badge.getBadgeId() > 0) {
+            result.addMessage("New badge cannot have ID.", ResultType.INVALID);
+            return result;
+        }
         if (!result.isSuccess()) {
             return result;
         }
@@ -50,6 +52,9 @@ public class BadgeService {
     // DELETE methods
     public boolean disableById(int badgeId) {
         Badge oldBadge = repository.findById(badgeId);
+        if (oldBadge == null) {
+            return false;
+        }
         oldBadge.setEnabled(false);
         Badge newBadge = repository.save(oldBadge);
         return newBadge != null;

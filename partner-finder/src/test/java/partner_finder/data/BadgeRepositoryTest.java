@@ -60,7 +60,7 @@ class BadgeRepositoryTest {
     @Transactional
     void shouldCreateBadge() {
         Badge arg = new Badge();
-        arg.setBadgeId(5);
+        arg.setBadgeId(0);
         arg.setName("New Badge");
         arg.setDescription("New badge description");
         arg.setCost(55);
@@ -109,6 +109,15 @@ class BadgeRepositoryTest {
 
         arg = repository.findById(3);
         assertNull(arg);
+    }
+
+    @Test
+    @Transactional
+    void shouldNotDeleteBadge() {
+        Badge arg = repository.findById(99);
+        assertNull(arg);
+
+        repository.deleteById(99);
     }
 
 }

@@ -1,5 +1,6 @@
 package partner_finder.data;
 
+import org.springframework.stereotype.Repository;
 import partner_finder.models.AppUser;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.Collection;
 import java.util.List;
+@Repository
 public class AppUserJdbcTemplateRepository implements AppUserRepository {
 
     private final JdbcTemplate jdbcTemplate;

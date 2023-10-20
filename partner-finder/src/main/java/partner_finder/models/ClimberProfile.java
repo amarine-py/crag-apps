@@ -1,6 +1,7 @@
 package partner_finder.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import partner_finder.models.*;
 
 @Entity(name = "climber_profile")
@@ -9,27 +10,41 @@ public class ClimberProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int profileId;
+    @NotNull(message = "Climber ID must not be null.")
+    @Min(value = 1, message = "Climber ID cannot be less than 1.")
     private int climberId;
+    @Email(message = "Must be a valid email address.")
+    @Size(max = 75, message = "Email must be no longer than 75 characters.")
+    @NotBlank(message = "Email cannot be blank.")
     @Column(name = "profile_email")
     private String email;
     @Column(name = "profile_description")
+    @NotBlank(message = "Description cannot be blank.")
     private String description;
     @Column(name = "profile_location_id")
     @Transient
     private int locationId;
     @Transient
     private Location location;
+    @Column(name = "is_public")
+    @NotNull(message = "Must be set to public or not public.")
     private boolean isPublic;
     @Column(name = "hardest_trad_grade")
+    @Size(max = 25)
     private String tradGrade;
+    @Size(max = 25)
     @Column(name = "hardest_sport_grade")
     private String sportGrade;
+    @Size(max = 25)
     @Column(name = "hardest_boulder_grade")
     private String boulderGrade;
+    @Size(max = 25)
     @Column(name = "hardest_ice_grade")
     private String iceGrade;
+    @Size(max = 25)
     @Column(name = "hardest_mixed_grade")
     private String mixedGrade;
+    @Size(max = 25)
     @Column(name = "hardest_aid_grade")
     private String aidGrade;
     private boolean hasTradGear;
@@ -62,6 +77,7 @@ public class ClimberProfile {
     @Transient
     private StateProvince climbingState;
     @Column(name = "primary_climbing_postal_code")
+    @Size(max = 12, message = "Postal code must be fewer than 12 characters.")
     private String climbingPostalCode;
     @Column(name = "primary_climbing_gym_id")
     @Transient
@@ -86,6 +102,38 @@ public class ClimberProfile {
     }
 
     public ClimberProfile() {
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setSafetyAttitude(SafetyAttitude safetyAttitude) {
+        this.safetyAttitude = safetyAttitude;
+    }
+
+    public void setClimbingMotivation(ClimbingMotivation climbingMotivation) {
+        this.climbingMotivation = climbingMotivation;
+    }
+
+    public void setClimbingStyle(ClimbingStyle climbingStyle) {
+        this.climbingStyle = climbingStyle;
+    }
+
+    public void setClimbingCountry(Country climbingCountry) {
+        this.climbingCountry = climbingCountry;
+    }
+
+    public void setClimbingStateName(String climbingStateName) {
+        this.climbingStateName = climbingStateName;
+    }
+
+    public void setClimbingState(StateProvince climbingState) {
+        this.climbingState = climbingState;
     }
 
     public boolean isEnabled() {

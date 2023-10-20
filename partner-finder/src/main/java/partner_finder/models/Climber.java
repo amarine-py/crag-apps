@@ -1,15 +1,29 @@
 package partner_finder.models;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public class Climber {
 
     private Integer climberId;
+    @NotNull(message = "Must be connected to an app user.")
     private Integer appUserId;
+    @NotBlank(message = "Must have a username.")
+    @Size(min = 4, max = 50, message = "Username must be between 4 and 50 characters long.")
     private String username;
+    @NotNull(message = "Must have a first name.")
+    @Size(max = 75, message = "First name must be no longer than 75 characters.")
     private String firstName;
+    @NotNull(message = "Must have a last name.")
+    @Size(max = 75, message = "Last name must be no longer than 75 characters.")
     private String lastName;
+    @Past(message = "Date of birth must be in the past.")
     private LocalDate dob;
+    @NotNull(message = "Must select a sex.")
     private Sex climberSex;
     private ClimberProfile climberProfile;
     private int betaCredits;

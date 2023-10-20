@@ -2,6 +2,7 @@ package partner_finder.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
@@ -11,9 +12,9 @@ public class Location {
 
 
     private int locationId;
-    @NotBlank
+    @NotNull(message = "Country is required.")
     private Country country;
-    @NotBlank
+    @NotNull(message = "State or province is required.")
     private StateProvince stateProvince;
     @NotBlank(message = "City is required.")
     @Size(max = 75, message = "City name cannot be longer than 75 characters.")

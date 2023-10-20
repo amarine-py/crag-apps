@@ -20,16 +20,26 @@ public class Badge {
     @Size(max = 75, message = "Must be under 1024 characters.")
     private String description;
     @Column(name = "badge_cost")
-    @NotNull
+    @NotNull(message = "Cost cannot be null.")
     private int cost;
     @Column(name = "badge_icon_path")
-    @NotBlank
+    @NotBlank(message = "Path cannot be blank.")
     private String iconPath;
     @Column(name = "badge_supply")
     private int supply;
     private boolean enabled;
 
     public Badge() {
+    }
+
+    public Badge(int badgeId, String name, String description, int cost, String iconPath, int supply, boolean enabled) {
+        this.badgeId = badgeId;
+        this.name = name;
+        this.description = description;
+        this.cost = cost;
+        this.iconPath = iconPath;
+        this.supply = supply;
+        this.enabled = enabled;
     }
 
     public boolean isEnabled() {
@@ -91,9 +101,12 @@ public class Badge {
     @Override
     public String toString() {
         return "Badge{" +
-                "name='" + name + '\'' +
+                "badgeId=" + badgeId +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", cost=" + cost +
+                ", iconPath='" + iconPath + '\'' +
+                ", supply=" + supply +
                 '}';
     }
 }
