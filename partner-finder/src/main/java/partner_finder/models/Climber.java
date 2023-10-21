@@ -1,9 +1,7 @@
 package partner_finder.models;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
@@ -12,9 +10,11 @@ public class Climber {
     private Integer climberId;
     @NotNull(message = "Must be connected to an app user.")
     private Integer appUserId;
-    @NotBlank(message = "Must have a username.")
-    @Size(min = 4, max = 50, message = "Username must be between 4 and 50 characters long.")
-    private String username;
+    @Email(message = "Must be a valid email address.")
+    @Size(max = 75, message = "Email must be no longer than 75 characters.")
+    @NotBlank(message = "Email cannot be blank.")
+    @Column(name = "email")
+    private String email;
     @NotNull(message = "Must have a first name.")
     @Size(max = 75, message = "First name must be no longer than 75 characters.")
     private String firstName;
@@ -56,12 +56,12 @@ public class Climber {
         this.appUserId = appUserId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstName() {
@@ -108,9 +108,13 @@ public class Climber {
     public String toString() {
         return "Climber{" +
                 "climberId=" + climberId +
-                ", username='" + username + '\'' +
+                ", appUserId=" + appUserId +
+                ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", dob=" + dob +
+                ", climberSex=" + climberSex +
+                ", enabled=" + enabled +
                 '}';
     }
 }

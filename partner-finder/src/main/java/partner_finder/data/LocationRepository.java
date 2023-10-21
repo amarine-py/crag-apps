@@ -19,6 +19,8 @@ public interface LocationRepository {
     Location create(Location location);
     Location update(Location location);
 
+    boolean enableById(int locationId);
+
     boolean disableById(int locationId);
 
     @Transactional

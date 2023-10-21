@@ -6,16 +6,10 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import org.springframework.stereotype.Service;
 import partner_finder.data.ClimberProfileRepository;
-import partner_finder.models.Climber;
-import partner_finder.models.ClimberProfile;
-import partner_finder.models.ClimberProfile;
 import partner_finder.models.ClimberProfile;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class ClimberProfileService {
@@ -29,7 +23,7 @@ public class ClimberProfileService {
 
     public ClimberProfile findById(int profileId) { return repository.findById(profileId); }
 
-    public ClimberProfile findByEmail(String email) { return repository.findByEmail(email); }
+    public ClimberProfile findByUsername(String username) { return repository.findByUsername(username); }
 
     // CREATE methods
     public Result<ClimberProfile> create(ClimberProfile climberProfile) {
@@ -53,15 +47,33 @@ public class ClimberProfileService {
         return result;
     }
 
+    public boolean enableById(int profileId) {
+        ClimberProfile oldClimberProfile = repository.findById(profileId);
+        if (oldClimberProfile == null) {
+            return false;
+        }
+        if (oldClimberProfile.isEnabled()) {
+           return false;
+        }
+        oldClimberProfile.setEnabled(true);
+        ClimberProfile newClimberProfile = repository.save(oldClimberProfile);
+        return newClimberProfile.isEnabled();
+
+    }
+
     // DELETE methods
     public boolean disableById(int profileId) {
         ClimberProfile oldClimberProfile = repository.findById(profileId);
         if (oldClimberProfile == null) {
             return false;
         }
-        oldClimberProfile.setEnabled(false);
-        ClimberProfile newClimberProfile = repository.save(oldClimberProfile);
-        return newClimberProfile != null;
+        if (oldClimberProfile.isEnabled()) {
+            oldClimberProfile.setEnabled(false);
+            ClimberProfile newClimberProfile = repository.save(oldClimberProfile);
+            return !newClimberProfile.isEnabled();
+        }
+        return false;
+
     }
 
     public boolean deleteById(int profileId) {
@@ -86,11 +98,11 @@ public class ClimberProfileService {
         return result;
     }
 
-    public Result<ClimberProfile> emailValidation(ClimberProfile profile) {
+    public Result<ClimberProfile> usernameValidation(ClimberProfile profile) {
         Result<ClimberProfile> result = new Result<>();
 
-        if (repository.findByEmail(profile.getEmail()) != null) {
-            result.addMessage("Email address already exists.", ResultType.INVALID);
+        if (repository.findByUsername(profile.getUsername()) != null) {
+            result.addMessage("Username already exists.", ResultType.INVALID);
 
         }
 
@@ -103,7 +115,7 @@ public class ClimberProfileService {
             return result;
         }
 
-        result = emailValidation(profile);
+        result = usernameValidation(profile);
         if (!result.isSuccess()) {
             return result;
         }

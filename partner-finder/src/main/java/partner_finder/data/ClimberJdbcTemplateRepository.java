@@ -22,7 +22,7 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
     public Climber findById(int climberId) {
         final String sql = """
                 select
-                    climber_id, app_user_id, username, first_name, last_name,
+                    climber_id, app_user_id, email, first_name, last_name,
                     birthday, climber_sex_name, beta_credits, enabled
                 from climber
                 where climber_id = ?;
@@ -31,6 +31,20 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
         return jdbcTemplate.query(sql, new ClimberMapper(), climberId).stream()
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public Climber findByEmail(String email) {
+        return jdbcTemplate.query("select * from climber where email = ?;", new ClimberMapper(), email).stream()
+                .findFirst()
+                .orElse(null);
+    }
+    @Override
+    public List<Climber> findByPartialEmail(String email) {
+        return jdbcTemplate.query("""
+                select * from climber where email like ?;
+                """,
+                new ClimberMapper(), "%" + email + "%");
     }
 
     @Override
@@ -48,7 +62,7 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
 
         HashMap<String, Object> args = new HashMap<>();
         args.put("app_user_id", climber.getAppUserId());
-        args.put("username", climber.getUsername());
+        args.put("email", climber.getEmail());
         args.put("first_name", climber.getFirstName());
         args.put("last_name", climber.getLastName());
         args.put("birthday", climber.getDob());
@@ -67,7 +81,7 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
         final String sql = """
                 update climber set
                     app_user_id = ?,
-                    username = ?,
+                    email = ?,
                     first_name = ?,
                     last_name = ?,
                     birthday = ?,
@@ -79,7 +93,7 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
 
         if (jdbcTemplate.update(sql,
                 climber.getAppUserId(),
-                climber.getUsername(),
+                climber.getEmail(),
                 climber.getFirstName(),
                 climber.getLastName(),
                 climber.getDob(),
@@ -95,8 +109,30 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
     }
 
     @Override
+    public boolean enableById(int climberId) {
+        Climber climber = findById(climberId);
+        if (climber != null) {
+            if (!climber.isEnabled()) {
+                return (jdbcTemplate.update("update climber set enabled = true where climber_id = ?;", climberId) > 0);
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public boolean disableById(int climberId) {
-        return (jdbcTemplate.update("update climber set enabled = 0 where climber_id = ?;", climberId) > 0);
+        Climber climber = findById(climberId);
+        if (climber != null) {
+            if (climber.isEnabled()) {
+                return (jdbcTemplate.update("update climber set enabled = false where climber_id = ?;", climberId) > 0);
+            } else {
+                return false;
+            }
+        }
+        return false;
+
     }
     @Override
     public boolean deleteById(int climberId) {

@@ -3,6 +3,7 @@ package partner_finder.data;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import partner_finder.data.mappers.LocationMapper;
+import partner_finder.models.Climber;
 import partner_finder.models.Location;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -102,8 +103,29 @@ public class LocationJdbcTemplateRepository implements LocationRepository {
     }
 
     @Override
+    public boolean enableById(int locationId) {
+        Location location = findById(locationId);
+        if (location != null) {
+            if (!location.isEnabled()) {
+                return (jdbcTemplate.update("update location set enabled = true where location_id = ?;", locationId) > 0);
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public boolean disableById(int locationId) {
-        return (jdbcTemplate.update("update location set enabled = 0 where location_id = ?;", locationId) > 0);
+        Location location = findById(locationId);
+        if (location != null) {
+            if (location.isEnabled()) {
+                return (jdbcTemplate.update("update location set enabled = false where location_id = ?;", locationId) > 0);
+            } else {
+                return false;
+            }
+        }
+        return false;
 
     }
     @Override

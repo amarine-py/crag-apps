@@ -2,7 +2,6 @@ package partner_finder.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import partner_finder.models.*;
 
 @Entity(name = "climber_profile")
 public class ClimberProfile {
@@ -13,11 +12,10 @@ public class ClimberProfile {
     @NotNull(message = "Climber ID must not be null.")
     @Min(value = 1, message = "Climber ID cannot be less than 1.")
     private int climberId;
-    @Email(message = "Must be a valid email address.")
-    @Size(max = 75, message = "Email must be no longer than 75 characters.")
-    @NotBlank(message = "Email cannot be blank.")
-    @Column(name = "profile_email")
-    private String email;
+    @Size(min = 4, max = 50, message = "Username must be between 4 and 75 characters.")
+    @NotBlank(message = "Username cannot be blank.")
+    @Column(name = "profile_username")
+    private String username;
     @Column(name = "profile_description")
     @NotBlank(message = "Description cannot be blank.")
     private String description;
@@ -210,12 +208,12 @@ public class ClimberProfile {
         this.profileId = profileId;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getDescription() {
@@ -397,7 +395,7 @@ public class ClimberProfile {
         return "ClimberProfile{" +
                 "profileId=" + profileId +
                 ", climberId=" + climberId +
-                ", email='" + email + '\'' +
+                ", email='" + username + '\'' +
                 ", description='" + description + '\'' +
                 ", locationId=" + locationId +
                 ", isPublic=" + isPublic +

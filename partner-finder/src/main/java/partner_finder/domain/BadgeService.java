@@ -7,6 +7,7 @@ import jakarta.validation.ValidatorFactory;
 import org.springframework.stereotype.Service;
 import partner_finder.data.BadgeRepository;
 import partner_finder.models.Badge;
+import partner_finder.models.Badge;
 
 import java.util.List;
 import java.util.Set;
@@ -49,15 +50,32 @@ public class BadgeService {
         return result;
     }
 
+    public boolean enableById(int badgeId) {
+        Badge oldBadge = repository.findById(badgeId);
+        if (oldBadge == null) {
+            return false;
+        }
+        if (oldBadge.isEnabled()) {
+            return false;
+        }
+        oldBadge.setEnabled(true);
+        Badge newBadge = repository.save(oldBadge);
+        return newBadge.isEnabled();
+
+    }
+
     // DELETE methods
     public boolean disableById(int badgeId) {
         Badge oldBadge = repository.findById(badgeId);
         if (oldBadge == null) {
             return false;
         }
-        oldBadge.setEnabled(false);
-        Badge newBadge = repository.save(oldBadge);
-        return newBadge != null;
+        if (oldBadge.isEnabled()) {
+            oldBadge.setEnabled(false);
+            Badge newBadge = repository.save(oldBadge);
+            return !newBadge.isEnabled();
+        }
+        return false;
     }
 
     public boolean deleteById(int badgeId) {

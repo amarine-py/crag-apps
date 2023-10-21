@@ -7,9 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import partner_finder.domain.AppUserService;
 import partner_finder.domain.Result;
 import partner_finder.models.AppUser;
@@ -72,4 +70,12 @@ public class AuthController {
         result.put("jwt_token", jwt);
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/api/user/{username}")
+    public AppUser findByUsername(@PathVariable String username) { return appUserService.loadUserByUsername(username); }
+
+    @PutMapping("/api/user/{username}/disable")
+    public boolean disableByUsername(@PathVariable String username) { return appUserService.disableByUsername(username); }
+
+
 }

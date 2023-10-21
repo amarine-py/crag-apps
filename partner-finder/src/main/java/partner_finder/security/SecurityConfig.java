@@ -38,17 +38,35 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/register").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/refresh-token").permitAll()
-//                        .requestMatchers(HttpMethod.GET,
-//                                "/api/artwork", "/api/contact", "/api/artwork/*",
-//                                "/api/video", "/api/login", "/api/comment/*").permitAll()
-//                .requestMatchers(HttpMethod.GET,
-//                        "/sighting", "/sighting/*").permitAll()
-//                .requestMatchers(HttpMethod.POST,
-//                        "/sighting").hasAnyAuthority("USER", "ADMIN")
-//                .requestMatchers(HttpMethod.PUT,
-//                        "/sighting/*").hasAnyAuthority("USER", "ADMIN")
-//                .requestMatchers(HttpMethod.DELETE,
-//                        "/sighting/*").hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/climber", "/api/climber/*",
+                                "/api/profile", "/api/profile/*",
+                                "/api/badge", "/api/badge/*",
+                                "/api/climbing-gym", "/api/climbing-gym/*",
+                                "/api/profile-comment", "/api/profile-comment/*",
+                                "/api/location", "/api/location/*",
+                                "/api/climber-badge", "/api/climber-badge/*",
+                                "api/user/*"
+                                ).permitAll()
+                        .requestMatchers(HttpMethod.POST,
+                                "/api/climber",
+                                "/api/profile",
+                                "/api/badge",
+                                "/api/climbing-gym",
+                                "/api/location",
+                                "/api/profile-comment",
+                                "/api/climber-badge"
+                                ).permitAll()
+                        .requestMatchers(HttpMethod.PUT,
+                                "/api/climber/*", "/api/climber/*/disable", "/api/climber/*/enable",
+                                "/api/profile/*", "/api/profile/*/disable", "/api/profile/*/enable",
+                                "/api/badge/*", "/api/badge/*/disable", "/api/badge/*/enable",
+                                "/api/climber-badge/*", "/api/climber-badge/*/disable", "/api/climber-badge/*/enable",
+                                "/api/climbing-gym/*", "/api/climbing-gym/*/disable", "/api/climbing-gym/*/enable",
+                                "/api/profile-comment/*", "/api/profile-comment/*/disable", "/api/profile-comment/*/enable",
+                                "/api/location/*", "/api/location/*/disable", "/api/location/*/enable",
+                                "/api/user/*/disable"
+                                ).permitAll()
                         // if we get to this point, let's deny all requests
                         .requestMatchers("/**").denyAll()
         ).addFilter(new JwtRequestFilter(authenticationManager(authConfig), converter));

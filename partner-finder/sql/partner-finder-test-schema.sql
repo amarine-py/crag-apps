@@ -97,7 +97,7 @@ create table climbing_style (
 create table climber (
 	climber_id int primary key auto_increment,
     app_user_id int not null,
-    username varchar(50) not null unique,
+    email varchar(75) not null unique,
     first_name varchar(75) not null,
     last_name varchar(75) not null,
     birthday date not null,
@@ -115,7 +115,7 @@ create table climber (
 create table climber_profile (
 	profile_id int primary key auto_increment,
     climber_id int not null,
-    profile_email varchar(75) not null,
+    profile_username varchar(50) not null,
     profile_description text(2048) not null,
     profile_location_id int null,
     is_public bool not null default true,
@@ -173,6 +173,7 @@ create table climber_badge (
     badge_id int not null,
     giver_id int not null,
     date_awarded date not null,
+    is_enabled bool not null default true,
     
 	constraint fk_climber_giver_id
 		foreign key (giver_id)
@@ -345,16 +346,16 @@ insert into climbing_style values
     (6, 'MIXED'),
     (7, 'GYM');
     
-insert into climber (climber_id, app_user_id, username, first_name, last_name, birthday, climber_sex_name, beta_credits) values
-	(1, 1, 'Air Alexy', 'Alex', 'Marine', '1981-03-14', 'MALE',1000),
-    (2, 2, 'User #2', 'User', 'Two', '1990-01-01', 'FEMALE', 500),
-    (3, 3, 'Moderator #3', 'Mod', 'Erator', '1988-01-01', 'FEMALE', 25),
-    (4, 1, 'nothing climber', 'nothing', 'nada', '1981-03-14', 'OTHER', 1000);
+insert into climber (climber_id, app_user_id, email, first_name, last_name, birthday, climber_sex_name, beta_credits) values
+	(1, 1, 'amarine@gmail.com', 'Alex', 'Marine', '1981-03-14', 'MALE',1000),
+    (2, 2, 'user2@user2.com', 'User', 'Two', '1990-01-01', 'FEMALE', 500),
+    (3, 3, 'moderator@moderator.com', 'Mod', 'Erator', '1988-01-01', 'FEMALE', 25),
+    (4, 4, 'admin@admin.com', 'nothing', 'nada', '1981-03-14', 'OTHER', 1000);
     
-insert into climber_profile (profile_id, climber_id, profile_email, profile_description, is_public, primary_safety_attitude_name, primary_climbing_motivation_name, primary_climbing_country_name, primary_climbing_state_province_name, primary_climbing_postal_code) values
-	(1, 1, 'amarine@gmail.com', 'Profile of climber #1', true, 'VERY_IMPORTANT', 'EXERCISE', 'UNITED_STATES', 'INDIANA', '46220'),
-    (2, 2, 'user2@user2.com', 'Profile of climber #2', true, 'IMPORTANT', 'EXERCISE', 'CANADA', 'INDIANA', '46077'),
-    (3, 3, 'moderator@moderator.com', 'Profile of climber #3', false, 'SOMEWHAT_IMPORTANT', 'EXERCISE', 'UNITED_STATES', 'INDIANA', '46020');
+insert into climber_profile (profile_id, climber_id, profile_username, profile_description, is_public, primary_safety_attitude_name, primary_climbing_motivation_name, primary_climbing_country_name, primary_climbing_state_province_name, primary_climbing_postal_code) values
+	(1, 1, 'air alexy', 'Profile of climber #1', true, 'VERY_IMPORTANT', 'EXERCISE', 'UNITED_STATES', 'INDIANA', '46220'),
+    (2, 2, 'user 2', 'Profile of climber #2', true, 'IMPORTANT', 'EXERCISE', 'CANADA', 'INDIANA', '46077'),
+    (3, 3, 'moderator', 'Profile of climber #3', false, 'SOMEWHAT_IMPORTANT', 'EXERCISE', 'UNITED_STATES', 'INDIANA', '46020');
     
 insert into climber_badge (climber_badge_id, awardee_id, badge_id, giver_id, date_awarded) values
 	(1, 1, 1, 2, '2020-01-01'),
@@ -381,6 +382,6 @@ insert into forum_comment (forum_comment_id, posting_climber_id, receiving_forum
 end//
 delimiter ;
 
--- set sql_safe_updates = 0;
--- call set_known_good_state();
--- set sql_safe_updates = 1;
+set sql_safe_updates = 0;
+call set_known_good_state();
+set sql_safe_updates = 1;

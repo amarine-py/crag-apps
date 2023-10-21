@@ -15,5 +15,7 @@ public interface AppUserRepository {
 
     @Transactional
     boolean deleteByUsername(String username);
+    @Transactional
+    boolean disableByUsername(String username);
 
 }

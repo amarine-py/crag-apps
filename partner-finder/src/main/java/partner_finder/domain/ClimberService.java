@@ -9,11 +9,8 @@ import partner_finder.data.ClimberRepository;
 import partner_finder.models.Climber;
 
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class ClimberService {
@@ -26,6 +23,8 @@ public class ClimberService {
     public List<Climber> findAll() { return repository.findAll(); }
 
     public Climber findById(int climberId) { return repository.findById(climberId); }
+
+    public List<Climber> findByEmail(String email) { return repository.findByPartialEmail(email); }
 
 
     // CREATE methods
@@ -41,7 +40,7 @@ public class ClimberService {
 
     // UPDATE methods
     public Result<Climber> update(Climber climber) {
-        Result<Climber> result = validate(climber);
+        Result<Climber> result = inputValidation(climber);
         if (!result.isSuccess()) {
             return result;
         }
@@ -54,6 +53,7 @@ public class ClimberService {
     public boolean disableById(int climberId) {
         return repository.disableById(climberId);
     }
+    public boolean enableById(int climberId) { return repository.enableById(climberId); }
 
     public boolean deleteById(int climberId) {
         return repository.deleteById(climberId);
@@ -75,16 +75,12 @@ public class ClimberService {
         return result;
     }
 
-    public Result<Climber> duplicateUsernameValidation(String newUsername) {
+    public Result<Climber> duplicateEmailValidation(String email) {
         Result<Climber> result = new Result<>();
-        List<Climber> allClimbers = repository.findAll();
-        ArrayList<String> usernames = allClimbers.stream().map(Climber::getUsername)
-                .collect(Collectors.toCollection(ArrayList<String>::new));
-        for (String username : usernames) {
-            if (Objects.equals(newUsername, username)) {
-                result.addMessage("Chosen username already exists.", ResultType.INVALID);
+        if (repository.findByEmail(email) != null) {
+                result.addMessage("Email address already exists.", ResultType.INVALID);
             }
-        }
+
         return result;
     }
 
@@ -94,12 +90,11 @@ public class ClimberService {
             return result;
         }
 
-        result = duplicateUsernameValidation(climber.getUsername());
+        result = duplicateEmailValidation(climber.getEmail());
         if (!result.isSuccess()) {
             return result;
         }
 
-        result.setPayload(repository.create(climber));
         return result;
     }
 }

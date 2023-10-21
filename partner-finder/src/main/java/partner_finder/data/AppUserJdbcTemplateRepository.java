@@ -1,6 +1,7 @@
 package partner_finder.data;
 
 import org.springframework.stereotype.Repository;
+import partner_finder.data.mappers.ClimberMapper;
 import partner_finder.models.AppUser;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -76,6 +77,14 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository {
         }
 
         return updated;
+    }
+
+    @Override
+    @Transactional
+    public boolean disableByUsername(String username) {
+        AppUser appUser = findByUsername(username);
+        appUser.setEnabled(false);
+        return update(appUser);
     }
 
     @Override

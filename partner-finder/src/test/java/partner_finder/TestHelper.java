@@ -1,6 +1,5 @@
 package partner_finder;
 
-import org.springframework.context.annotation.Profile;
 import partner_finder.models.*;
 
 import java.time.LocalDate;
@@ -32,7 +31,7 @@ public class TestHelper {
         ClimberProfile profile = new ClimberProfile();
         profile.setProfileId(id);
         profile.setClimberId(1);
-        profile.setEmail(String.format("profile%s@example.com", id));
+        profile.setUsername(String.format("username%s", id));
         profile.setDescription(String.format("Description of profile #%s", id));
         profile.setLocationId(1);
         profile.setPublic(true);
@@ -50,7 +49,7 @@ public class TestHelper {
         Climber climber = new Climber();
         climber.setClimberId(id);
         climber.setAppUserId(1);
-        climber.setUsername(String.format("Climber #%s", id));
+        climber.setEmail(String.format("email%s@example.com", id));
         climber.setFirstName(String.format("First%s", id));
         climber.setLastName(String.format("Last%s", id));
         climber.setDob(LocalDate.now().minusYears(id));

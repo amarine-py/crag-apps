@@ -8,6 +8,7 @@ import partner_finder.data.ProfileCommentRepository;
 import partner_finder.models.Badge;
 import partner_finder.models.ProfileComment;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,6 +35,23 @@ class ProfileCommentServiceTest {
         ProfileComment actual = service.findById(1);
 
         assertEquals("Comment #1 subject", actual.getSubject());
+    }
+
+    @Test
+    void shouldFindProfileCommentsByReceivingClimberId() {
+        ProfileComment comment1 = makeComment(1);
+        ProfileComment comment2 = makeComment(2);
+        when(repository.findByReceivingClimberId(2)).thenReturn(List.of(comment1, comment2));
+        List<ProfileComment> comments = service.findByReceivingClimberId(2);
+        assertEquals(2, comments.size());
+    }
+
+    @Test
+    void shouldFindProfileCommentsByPostingClimberId() {
+        ProfileComment comment1 = makeComment(1);
+        when(repository.findByPostingClimberId(2)).thenReturn(List.of(comment1));
+        List<ProfileComment> comments = service.findByPostingClimberId(2);
+        assertEquals(1, comments.size());
     }
 
     // CREATE

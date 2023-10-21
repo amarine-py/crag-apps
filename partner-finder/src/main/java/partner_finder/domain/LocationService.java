@@ -45,6 +45,8 @@ public class LocationService {
         return result;
     }
 
+    public boolean enableById(int locationId) { return repository.enableById(locationId);}
+
     // DELETE methods
     public boolean disableById(int locationId) {
         return repository.disableById(locationId);

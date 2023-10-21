@@ -6,6 +6,7 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import org.springframework.stereotype.Service;
 import partner_finder.data.ClimbingGymRepository;
+import partner_finder.models.Badge;
 import partner_finder.models.ClimbingGym;
 import java.util.List;
 import java.util.Set;
@@ -44,12 +45,32 @@ public class ClimbingGymService {
         return result;
     }
 
+    public boolean enableById(int gymId) {
+        ClimbingGym oldGym = repository.findById(gymId).orElse(null);
+        if (oldGym == null) {
+            return false;
+        }
+        if (oldGym.isEnabled()) {
+            return false;
+        }
+        oldGym.setEnabled(true);
+        ClimbingGym newGym = repository.save(oldGym);
+        return newGym.isEnabled();
+
+    }
+
     // DELETE methods
-    public boolean disableById(int climbingGymId) {
-        ClimbingGym oldClimbingGym = repository.findById(climbingGymId).orElse(null);
-        oldClimbingGym.setEnabled(false);
-        ClimbingGym newClimbingGym = repository.save(oldClimbingGym);
-        return newClimbingGym != null;
+    public boolean disableById(int gymId) {
+        ClimbingGym oldGym = repository.findById(gymId).orElse(null);
+        if (oldGym == null) {
+            return false;
+        }
+        if (oldGym.isEnabled()) {
+            oldGym.setEnabled(false);
+            ClimbingGym newGym = repository.save(oldGym);
+            return !newGym.isEnabled();
+        }
+        return false;
     }
 
     public boolean deleteById(int climbingGymId) {

@@ -50,6 +50,22 @@ public class AppUserService implements UserDetailsService{
         return result;
     }
 
+    public Result<AppUser> update(String username) {
+        AppUser appUser = loadUserByUsername(username);
+        if (appUser == null || !appUser.isEnabled()) {
+            throw new UsernameNotFoundException(String.format("%s not found.", username));
+        }
+        Result<AppUser> result = new Result<>();
+        result.setPayload(appUser);
+
+        return result;
+
+    }
+
+    public boolean disableByUsername(String username) {
+        return repository.disableByUsername(username);
+    }
+
     private Result<AppUser> validate(String username, String password) {
         Result<AppUser> result = new Result<>();
 

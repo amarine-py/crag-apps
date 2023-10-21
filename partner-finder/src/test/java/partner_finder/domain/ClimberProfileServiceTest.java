@@ -5,13 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import partner_finder.data.ClimberProfileRepository;
-import partner_finder.data.ClimberProfileRepository;
-import partner_finder.models.ClimberProfile;
 import partner_finder.models.ClimberProfile;
 import partner_finder.models.Country;
-import partner_finder.models.ClimberProfile;
-
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -34,7 +29,7 @@ class ClimberProfileServiceTest {
         when(repository.findById(1)).thenReturn(profile);
         ClimberProfile actual = service.findById(1);
 
-        assertEquals(String.format("profile%s@example.com", actual.getProfileId()), actual.getEmail());
+        assertEquals(String.format("username%s", actual.getProfileId()), actual.getUsername());
     }
 
     // CREATE
@@ -46,7 +41,7 @@ class ClimberProfileServiceTest {
         when(repository.save(newProfile)).thenReturn(expected);
         Result<ClimberProfile> result = service.create(newProfile);
 
-        assertEquals("profile1@example.com", expected.getEmail());
+        assertEquals("username1", expected.getUsername());
 
     }
 
@@ -60,11 +55,11 @@ class ClimberProfileServiceTest {
     }
 
     @Test
-    void shouldNotCreateWithDuplicateEmail() {
+    void shouldNotCreateWithDuplicateUsername() {
         ClimberProfile profile1 = makeProfile(1);
         ClimberProfile profile2 = makeProfile(2);
-        profile2.setEmail("profile1@example.com");
-        when(repository.findByEmail("profile1@example.com")).thenReturn(profile1);
+        profile2.setUsername("username1");
+        when(repository.findByUsername(profile2.getUsername())).thenReturn(profile1);
         Result<ClimberProfile> result = service.create(profile1);
         System.out.println(result);
         assertFalse(result.isSuccess());

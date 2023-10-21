@@ -1,8 +1,6 @@
 package partner_finder.data.mappers;
 
 import partner_finder.models.Climber;
-import partner_finder.models.Location;
-import partner_finder.models.ClimberProfile;
 
 import partner_finder.models.Sex;
 import org.springframework.jdbc.core.RowMapper;
@@ -16,8 +14,7 @@ public class ClimberMapper implements RowMapper<Climber> {
         Climber climber = new Climber();
         climber.setClimberId(rs.getInt("climber_id"));
         climber.setAppUserId(rs.getInt("app_user_id"));
-        climber.setUsername(rs.getString("username"));
-        climber.setUsername(rs.getString("username"));
+        climber.setEmail(rs.getString("email"));
         climber.setFirstName(rs.getString("first_name"));
         climber.setLastName(rs.getString("last_name"));
         climber.setDob(rs.getDate("birthday").toLocalDate());

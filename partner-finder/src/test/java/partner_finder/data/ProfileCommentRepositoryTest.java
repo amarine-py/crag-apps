@@ -43,6 +43,18 @@ class ProfileCommentRepositoryTest {
         assertEquals(3, comments.size());
     }
 
+    @Test
+    void shouldFindByReceivingClimberId() {
+        List<ProfileComment> profileComments = repository.findByReceivingClimberId(2);
+        assertEquals(2, profileComments.size());
+    }
+
+    @Test
+    void shouldFindByPostingClimberId() {
+        List<ProfileComment> profileComments = repository.findByPostingClimberId(3);
+        assertEquals(1, profileComments.size());
+    }
+
     // CREATE tests
 
     @Test

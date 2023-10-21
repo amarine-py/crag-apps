@@ -9,9 +9,10 @@ import partner_finder.models.Climber;
 
 
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static partner_finder.TestHelper.*;
@@ -33,7 +34,7 @@ class ClimberServiceTest {
         when(repository.findById(1)).thenReturn(climber);
         Climber actual = service.findById(1);
 
-        assertEquals("Climber #1", actual.getUsername());
+        assertEquals("email1@example.com", actual.getEmail());
     }
 
     // CREATE
@@ -45,14 +46,14 @@ class ClimberServiceTest {
         when(repository.create(newClimber)).thenReturn(expected);
         Result<Climber> result = service.create(newClimber);
 
-        assertEquals("Climber #1", expected.getUsername());
+        assertEquals("email1@example.com", expected.getEmail());
 
     }
 
     @Test
     void shouldNotCreateInvalidClimber() {
         Climber climber = new Climber();
-        climber.setUsername("New Subject.");
+        climber.setEmail("email@example.com");
         Result<Climber> result = service.create(climber);
         System.out.println(result);
         assertFalse(result.isSuccess());
@@ -73,16 +74,27 @@ class ClimberServiceTest {
     // UPDATE
 
     @Test
-    void shouldUpdateSubject() {
+    void shouldUpdateEmail() {
         Climber newClimber = makeClimber(1);
         when(repository.update(newClimber)).thenReturn(newClimber);
         Result<Climber> result = service.update(newClimber);
         System.out.println(result);
         assertTrue(result.isSuccess());
-        newClimber.setUsername("New Username");
+        newClimber.setEmail("newemail@example.com");
         result = service.update(newClimber);
-        assertEquals("New Username", newClimber.getUsername());
+        assertEquals("newemail@example.com", newClimber.getEmail());
 
+    }
+
+    @Test
+    void shouldNotUpdateDuplicateEmail() {
+        Climber existing = makeClimber(1);
+        Climber updated = makeClimber(2);
+        updated.setEmail(existing.getEmail());
+        when(repository.findByPartialEmail(updated.getEmail())).thenReturn(List.of(existing));
+        Result<Climber> result = service.update(updated);
+        System.out.println(result);
+        assertFalse(result.isSuccess());
     }
 
     @Test

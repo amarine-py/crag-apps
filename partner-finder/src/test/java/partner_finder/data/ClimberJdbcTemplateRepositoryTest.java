@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import partner_finder.models.Climber;
-import partner_finder.models.ClimberProfile;
-import partner_finder.models.Location;
 import partner_finder.models.Sex;
 
 import java.time.LocalDate;
@@ -38,7 +36,7 @@ class ClimberJdbcTemplateRepositoryTest {
         Climber actual = repository.findById(1);
         System.out.println(actual);
         System.out.println(actual.getClimberSex().name());
-        assertEquals("Air Alexy", actual.getUsername());
+        assertEquals("amarine@gmail.com", actual.getEmail());
     }
 
     @Test
@@ -47,6 +45,12 @@ class ClimberJdbcTemplateRepositoryTest {
         assertEquals(4, actual.size());
     }
 
+    @Test
+    void shouldFindByPartialEmail() {
+        List<Climber> actual = repository.findByPartialEmail("amarine");
+        assertEquals(1, actual.size());
+
+    }
 
     // CREATE tests
 
@@ -58,7 +62,7 @@ class ClimberJdbcTemplateRepositoryTest {
 
         Climber climber = new Climber();
         climber.setAppUserId(1);
-        climber.setUsername("New Username");
+        climber.setEmail("new@example.com");
         climber.setFirstName("New");
         climber.setLastName("Lastname");
         climber.setDob(LocalDate.now().minusYears(20));
@@ -80,15 +84,15 @@ class ClimberJdbcTemplateRepositoryTest {
     void shouldUpdateClimber() {
         Climber actual = repository.findById(1);
 
-        assertEquals("Air Alexy", actual.getUsername());
+        assertEquals("amarine@gmail.com", actual.getEmail());
 
-        actual.setUsername("New Username");
+        actual.setEmail("new@example.com");
         actual.setClimberSex(Sex.OTHER);
 
         repository.update(actual);
         Climber updatedClimber = repository.findById(1);
 
-        assertEquals("New Username", updatedClimber.getUsername());
+        assertEquals("new@example.com", updatedClimber.getEmail());
         assertEquals("OTHER", updatedClimber.getClimberSex().name());
     }
 
