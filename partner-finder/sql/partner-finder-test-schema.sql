@@ -117,6 +117,7 @@ create table climber_profile (
     climber_id int not null,
     profile_username varchar(50) not null,
     profile_description text(2048) not null,
+    profile_pic_path varchar(256) null,
     profile_location_id int null,
     is_public bool not null default true,
     hardest_trad_grade varchar(25) null,

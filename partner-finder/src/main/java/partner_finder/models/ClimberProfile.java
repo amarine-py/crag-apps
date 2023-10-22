@@ -19,6 +19,8 @@ public class ClimberProfile {
     @Column(name = "profile_description")
     @NotBlank(message = "Description cannot be blank.")
     private String description;
+    @Column(name = "profile_pic_path")
+    private String profilePicPath;
     @Column(name = "profile_location_id")
     @Transient
     private int locationId;
