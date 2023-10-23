@@ -7,10 +7,6 @@ function Home() {
   const auth = useContext(AuthContext);
 
   const navigate = useNavigate();
-
-  const canEdit = auth.user !== null;
-  const canDelete = auth.user && auth.user.hasRole("ADMIN");
-
   
   return 
     <>

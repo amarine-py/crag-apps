@@ -12,6 +12,8 @@ public interface ClimberProfileRepository extends JpaRepository<ClimberProfile, 
 
     ClimberProfile findByUsername(String username);
     List<ClimberProfile> findAll();
+
+    ClimberProfile findByClimberId(int id);
 //
     ClimberProfile save(ClimberProfile climberProfile);
 //

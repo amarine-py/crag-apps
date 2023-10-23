@@ -36,7 +36,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests( (auth) -> auth
                         // new...
                         .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/register").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/refresh-token").permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 "/api/climber", "/api/climber/*",

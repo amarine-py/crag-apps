@@ -41,7 +41,7 @@ delete from app_role;
 delete from app_user;
 	alter table app_user auto_increment = 1;
 
-insert into app_user (app_user_id, app_user_email, password_hash, enabled) values 
+insert into app_user (app_user_id, username, password_hash, enabled) values 
 	(1, 'amarine@gmail.com', 'password_hash', 1),
     (2, 'user2@user2.com', 'password_hash', 1),
     (3, 'moderator@moderator.com', 'password_hash', 1),

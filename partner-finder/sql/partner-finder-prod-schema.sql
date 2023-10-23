@@ -4,14 +4,14 @@ use partner_finder;
 
 create table app_user (
 	app_user_id int primary key auto_increment,
-    app_user_email varchar(75) not null unique,
+    username varchar(75) not null unique,
     password_hash varchar (2048) not null,
     enabled bool not null default(true)
 );
 
 create table app_role (
 	app_role_id int primary key auto_increment,
-    app_role_name varchar(50) not null unique
+    `name` varchar(50) not null unique
 );
 
 create table app_user_role (
@@ -118,6 +118,7 @@ create table climber_profile (
     profile_username varchar(50) not null,
     profile_description text(2048) not null,
 	profile_pic_path varchar(256) null,
+    beta_points int not null default 0,
     profile_location_id int null,
     is_public bool not null default true,
     hardest_trad_grade varchar(25) null,

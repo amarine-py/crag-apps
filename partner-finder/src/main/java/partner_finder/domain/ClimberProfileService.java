@@ -25,6 +25,8 @@ public class ClimberProfileService {
 
     public ClimberProfile findByUsername(String username) { return repository.findByUsername(username); }
 
+    public ClimberProfile findByClimberId(int climberId) { return repository.findByClimberId(climberId); }
+
     // CREATE methods
     public Result<ClimberProfile> create(ClimberProfile climberProfile) {
         Result<ClimberProfile> result = validate(climberProfile);

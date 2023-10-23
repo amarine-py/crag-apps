@@ -385,3 +385,17 @@
   - delete
 
 ### Total Domain-Layer Testing Time Estimate: 6.75 hours
+
+
+### Front-End Tasks
+
+// Add beta points to a profile  *
+// When new user registers, create a mostly blank profile
+// Render leading partners and order by beta points
+// render a profile page
+  // 
+// render a profile form
+// render a list of badges for home page display
+// render latest profile comments?
+// render the partner map
+  //

@@ -29,6 +29,9 @@ public class ClimberProfileController {
     @GetMapping("/id={id}")
     public ClimberProfile findById(@PathVariable int id) { return service.findById(id); }
 
+    @GetMapping("/climber-id={id}")
+    public ClimberProfile findByClimberId(@PathVariable int id) { return service.findByClimberId(id); }
+
     // CREATE
     @PostMapping
     public ResponseEntity<Object> create(@RequestBody ClimberProfile profile) {

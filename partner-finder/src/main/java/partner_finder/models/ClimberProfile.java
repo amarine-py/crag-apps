@@ -21,6 +21,8 @@ public class ClimberProfile {
     private String description;
     @Column(name = "profile_pic_path")
     private String profilePicPath;
+    @Transient
+    private int betaPoints;
     @Column(name = "profile_location_id")
     @Transient
     private int locationId;
@@ -118,6 +120,22 @@ public class ClimberProfile {
 
     public void setClimbingMotivation(ClimbingMotivation climbingMotivation) {
         this.climbingMotivation = climbingMotivation;
+    }
+
+    public String getProfilePicPath() {
+        return profilePicPath;
+    }
+
+    public void setProfilePicPath(String profilePicPath) {
+        this.profilePicPath = profilePicPath;
+    }
+
+    public int getBetaPoints() {
+        return betaPoints;
+    }
+
+    public void setBetaPoints(int betaPoints) {
+        this.betaPoints = betaPoints;
     }
 
     public void setClimbingStyle(ClimbingStyle climbingStyle) {

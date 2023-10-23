@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { register } from "../services/authAPI";
-
+import { createClimber } from "../services/climberAPI";
 import ValidationSummary from "./ValidationSummary";
 
 function UserRegistrationForm() {
@@ -11,32 +11,51 @@ function UserRegistrationForm() {
     password: "",
     confirmPassword: "",
   });
+  const [climberInfo, setClimberInfo] = useState({
+    climberId: 0,
+    appUserId: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    dob: "",
+    climberSex: "MALE",
+  });
   const [success, setSuccess] = useState(false);
 
-  const handleChange = (evt) => {
+  const handleCredChange = (evt) => {
     const nextCredentials = { ...credentials };
     nextCredentials[evt.target.name] = evt.target.value;
     setCredentials(nextCredentials);
   };
+  const handleInfoChange = (evt) => {
+    const nextClimberInfo = { ...climberInfo };
+    nextClimberInfo[evt.target.name] = evt.target.value;
+    setClimberInfo(nextClimberInfo);
+  }
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     setErrors([]);
-    if (!validateForm()) {
+    if (!validatePassword()) {
       setErrors(["Passwords do not match!"]);
       return;
     }
 
     register(credentials).then((data) => {
-      if (data && data.errors) {
-        setErrors(data.errors);
+      if (data && data.messages) {
+        console.log("WE HAVE DATA AND ERRORS!!!")
+        setErrors(data.messages);
       } else {
+        let newClimberInfo = { ...climberInfo };
+        newClimberInfo.appUserId = data.user_id;
+        newClimberInfo.email = credentials.username;
+        createClimber(newClimberInfo);
         setSuccess(true);
       }
     });
   };
 
-  const validateForm = () => {
+  const validatePassword = () => {
     return credentials.password === credentials.confirmPassword;
   };
 
@@ -59,7 +78,7 @@ function UserRegistrationForm() {
                 id="username"
                 name="username"
                 value={credentials.username}
-                onChange={handleChange}
+                onChange={handleCredChange}
                 required
               />
             </div>
@@ -71,7 +90,7 @@ function UserRegistrationForm() {
                 id="password"
                 name="password"
                 value={credentials.password}
-                onChange={handleChange}
+                onChange={handleCredChange}
                 required
               />
             </div>
@@ -83,9 +102,61 @@ function UserRegistrationForm() {
                 id="confirmPassword"
                 name="confirmPassword"
                 value={credentials.confirmPassword}
-                onChange={handleChange}
+                onChange={handleCredChange}
                 required
               />
+            </div>
+            <div className="form-group">
+              <label htmlFor="label">First Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="firstName"
+                name="firstName"
+                value={climberInfo.firstName}
+                onChange={handleInfoChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="label">Last Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="lastName"
+                name="lastName"
+                value={climberInfo.lastName}
+                onChange={handleInfoChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="label">Date of Birth</label>
+              <input
+                type="date"
+                className="form-control"
+                id="dob"
+                name="dob"
+                value={climberInfo.dob}
+                onChange={handleInfoChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="label">Sex</label>
+              <select
+                className="form-control"
+                id="climberSex"
+                name="climberSex"
+                value={climberInfo.climberSex}
+                onChange={handleInfoChange}
+                required
+              >
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+                <option value="NONBINARY">Non-Binary</option>
+                <option value="OTHER">Other</option>
+              </select>
             </div>
             <div>
               <Link to="/" className="btn btn-secondary">

@@ -34,10 +34,14 @@ export async function register(credentials) {
 
   const response = await fetch(url + '/register', init);
   if (response.status === 400) {
+    console.log("We got to the 400 status section, but...");
     const result = response.json();
-    return { errors: result.messages };
+    console.log(result);
+    return result;
   } else if (response.status !== 201) {
     return Promise.reject("Unexpected error, oops.");
+  } else {
+    return response.json();
   }
 }
 
