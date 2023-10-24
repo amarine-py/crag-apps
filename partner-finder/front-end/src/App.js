@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useNavigate, Navigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import Error from "./components/Error";
 import Home from "./components/Home";
@@ -9,23 +9,33 @@ import AuthContext from "./context/AuthContext";
 import ClimberContext from "./context/ClimberContext";
 import UserRegistrationForm from "./components/UserRegistrationForm";
 import LoginForm from "./components/LoginForm";
-import ClimberProfile from "./components/ClimberProfile";
+import ClimberProfile from "./components/Profile/ClimberProfile";
+import ProfileForm from "./components/Profile/ProfileForm";
 import { findByEmail } from "./services/climberAPI";
-import { refreshToken, logout } from "./services/authAPI";
-
+import { refreshToken, logout, makeUserFromJwt } from "./services/authAPI";
 
 // Define a variable for the localStorage token item key
 const TIMEOUT_MILLISECONDS = 14 * 60 * 1000;
+const LOCAL_STORAGE_TOKEN_KEY = "partnerFinderToken";
 
 function App() {
   const [user, setUser] = useState(null);
   const [climber, setClimber] = useState(null);
   // Define a state variable to track if 
   // the initialization attempt has completed or not
-  const [initialized, setInitialized] = useState(false);
-  // Define a state variable to track if the
-  // user has a climber and if climber is loaded
-  const [climberLoaded, setClimberLoaded] = useState(false);
+  const [userInitialized, setUserInitialized] = useState(false);
+  const [climberInitialized, setClimberInitialized] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect( () => {
+    const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
+    if (token) {
+      let appUser = makeUserFromJwt(token);
+      setUser(appUser);
+      console.log("User has been set in App.js: ");
+      console.log(user);
+    }
+  }, []);
 
   const resetUser = useCallback(() => {
     refreshToken()
@@ -36,7 +46,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => setInitialized(true));
+      .finally(() => setUserInitialized(true));
   }, []);
 
   // Define a useEffect hook callback function to attempt
@@ -51,12 +61,11 @@ function App() {
       findByEmail(user.username)
       .then((climbers) => {
         setClimber(climbers[0]);
-        console.log(climber);
       })
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => setClimberLoaded(true));
+      .finally(() => setClimberInitialized(true));
     }
   }, [user]);
 
@@ -72,10 +81,11 @@ function App() {
     logout() {
       logout();
       setUser(null);
+      navigate("/");
     },
   };
 
-  if (!initialized) {
+  if (!userInitialized) {
     return null;
   }
   
@@ -91,19 +101,17 @@ function App() {
   return (
     <AuthContext.Provider value={auth}>
       <ClimberContext.Provider value={climber}>
-      <Router>
+      
         <NavBar />
-
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/login" element={!user ? <LoginForm /> : <Navigate to="/" replace={true} />} />
           <Route path="/register" element={<UserRegistrationForm />} />
-          <Route path="/profile" element={renderWithAuthority(ClimberProfile, "USER")} />
+          <Route path="/profile" element={ <ClimberProfile initialized={climberInitialized} /> } />
+          <Route path="/profile/create" element={ <ProfileForm />} />
           <Route path="/error" element={<Error />}/>
           <Route path="*" element={<NotFound />}/>
-         
         </Routes>
-      </Router>
       </ClimberContext.Provider>
     </AuthContext.Provider>
   );

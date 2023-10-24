@@ -1,6 +1,7 @@
 const url = process.env.REACT_APP_API_URL;
 const LOCAL_STORAGE_TOKEN_KEY = "partnerFinderToken";
 
+
 export async function login(credentials) {
 
   const init = {
@@ -63,19 +64,20 @@ export async function refreshToken() {
   const response = await fetch(url + '/refresh-token', init);
   if (response.status === 200) {
     const jwtTokenResponse = await response.json();
-    localStorage.setItem('jwt_token', jwtTokenResponse.jwt_token);
+    localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, jwtTokenResponse.jwt_token);
     return makeUserFromJwt(jwtTokenResponse.jwt_token);
   } else {
-    localStorage.removeItem('jwt_token');
+    localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
     return Promise.reject('Unauthorized.');
   }
 }
 
 export function logout() {
-  localStorage.removeItem('jwt_token');
+  localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
+
 }
 
-function makeUserFromJwt(jwtToken) {
+export function makeUserFromJwt(jwtToken) {
   const jwtParts = jwtToken.split('.');
   if (jwtParts.length === 3) {
     const userData = atob(jwtParts[1]);

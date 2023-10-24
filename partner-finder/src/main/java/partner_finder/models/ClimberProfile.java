@@ -3,6 +3,8 @@ package partner_finder.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+import java.util.List;
+
 @Entity(name = "climber_profile")
 public class ClimberProfile {
 
@@ -23,6 +25,8 @@ public class ClimberProfile {
     private String profilePicPath;
     @Transient
     private int betaPoints;
+    @Transient
+    private List<Badge> badges;
     @Column(name = "profile_location_id")
     @Transient
     private int locationId;

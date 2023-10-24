@@ -43,15 +43,15 @@ function NavBar() {
               <Container>
                 <Row>
                   <Col><Button variant="outline-primary" onClick={() => logout()}>Log Out</Button></Col>
-                  <Col><Nav.Link href="/profile">Welcome, {user.username}</Nav.Link></Col>
+                  <Col><Link className="nav-link" to="/profile">Welcome, {user.username}</Link></Col>
                 </Row>
               </Container>
             ) : (
               <Container>
                 <Row>
-                <Col><Button variant="outline-success" href="/login">
+                <Col><Link className="btn btn-primary" variant="outline-success" to="/login">
                   Log In
-                </Button></Col>
+                </Link></Col>
                 <Col><Nav.Link href="/register">Register</Nav.Link></Col>
                 </Row>
               </Container>

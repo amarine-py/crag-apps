@@ -5,7 +5,6 @@ export async function findByEmail(email) {
     console.log("Finding by email");
     const response = await fetch(`${url}/email=${email}`);
     if (response.status === 200) {
-        console.log(response);
         return response.json();
     } else {
         console.log("Error fetching climber by email");

@@ -2,23 +2,37 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
-import ClimberContext from "C:/Users/amari/OneDrive/Documents/Dev10-Academy/Capstone/crag-apps/partner-finder/front-end/src/context/ClimberContext.js";
-import { useContext } from 'react';
+import ClimberContext from '../../context/ClimberContext';
+import ProfileContext from '../../context/ProfileContext';
+import { useContext, useEffect } from 'react';
 
 export default function ProfileImage() {
     const climber = useContext(ClimberContext);
-    console.log(climber);
+    const profile = useContext(ProfileContext);
+
+    console.log(profile);
+
+    useEffect( () => {
+        if (profile) {
+            console.log(climber);
+        }
+    }, [profile]);
+
+    if (!profile) {
+        return null;
+    }
 
     return (
-        <Container>
+            <Container>
             <Col>
                 <Row>
-                    <Image src="C:\Users\amari\OneDrive\Documents\Dev10-Academy\Capstone\crag-apps\partner-finder\front-end\assets\air-alexy-profile.jpg" rounded></Image>
+                    <Image src="C:/Users/amari/OneDrive/Documents/Dev10-Academy/Capstone/crag-apps/partner-finder/front-end/assets/air-alexy-profile.jpg" rounded></Image>
                 </Row>
                 <Row>
-                    <h2></h2>
+                    <h2>{profile.username}</h2>
                 </Row>
             </Col>
         </Container>
+        
     )
 }

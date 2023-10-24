@@ -4,6 +4,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import partner_finder.data.ClimberProfileRepository;
 import partner_finder.models.ClimberProfile;
@@ -19,17 +20,53 @@ public class ClimberProfileService {
     public ClimberProfileService(ClimberProfileRepository repository) { this.repository = repository; }
 
     // READ methods
-    public List<ClimberProfile> findAll() { return repository.findAll(); }
+    public List<ClimberProfile> findAll() {
+        List<ClimberProfile> initial = repository.findAll();
+        if (initial.isEmpty()) {
+            return null;
+        }
+        for (ClimberProfile profile : initial) {
+            profile.setEnums();
+        }
+        return initial;
+    }
 
-    public ClimberProfile findById(int profileId) { return repository.findById(profileId); }
+    public ClimberProfile findById(int profileId) {
+        ClimberProfile profile = repository.findById(profileId);
+        if (profile == null) {
+            return null;
+        }
+        profile.setEnums();
+        return profile;
+    }
 
-    public ClimberProfile findByUsername(String username) { return repository.findByUsername(username); }
+    public ClimberProfile findByUsername(String username) {
+        ClimberProfile profile = repository.findByUsername(username);
+        if (profile == null) {
+            return null;
+        }
+        profile.setEnums();
+        return profile;
+    }
 
-    public ClimberProfile findByClimberId(int climberId) { return repository.findByClimberId(climberId); }
+    public ClimberProfile findByClimberId(int climberId) {
+        ClimberProfile profile = repository.findByClimberId(climberId);
+        if (profile == null) {
+            return null;
+        }
+        profile.setEnums();
+        return profile;
+    }
 
     // CREATE methods
     public Result<ClimberProfile> create(ClimberProfile climberProfile) {
-        Result<ClimberProfile> result = validate(climberProfile);
+        Result<ClimberProfile> result = new Result<>();
+        if (findByClimberId(climberProfile.getClimberId()) != null) {
+            result.addMessage("This climber already has a profile!", ResultType.INVALID);
+            return result;
+        }
+
+        result = validate(climberProfile);
         if (!result.isSuccess()) {
             return result;
         }
