@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import TopPartnerList from "./Landing/TopPartnerList";
 import ListOfProfilesByState from "./Landing/ListOfProfilesByState";
+import HomeBadgeList from "./Badge/HomeBadgeList";
 import Container from "react-bootstrap/esm/Container";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -41,7 +42,7 @@ function Home() {
           <Col sm={8}><Map findByStateName={findByStateName}/></Col>
           
             <Col sm={4}>
-            {profilesByState.length < 1 ? <p>Please click the map to search.</p>
+            {profilesByState.length < 1 ? <div>Please click the map to search.</div>
             : (
               <ListOfProfilesByState profilesByState={profilesByState} />
               )}
@@ -52,7 +53,9 @@ function Home() {
         
       </Container>
       <hr />
-      <Container>Badges go here</Container>
+      <Container>
+        <HomeBadgeList />
+      </Container>
       <hr />
     </>
   );

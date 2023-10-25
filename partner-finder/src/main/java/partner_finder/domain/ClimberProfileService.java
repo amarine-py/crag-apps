@@ -25,10 +25,12 @@ public class ClimberProfileService {
         if (initial.isEmpty()) {
             return null;
         }
-        for (ClimberProfile profile : initial) {
+        List<ClimberProfile> enabledProfiles = initial.stream().filter(ClimberProfile::isEnabled).toList();
+
+        for (ClimberProfile profile : enabledProfiles) {
             profile.setEnums();
         }
-        return initial;
+        return enabledProfiles;
     }
 
     public ClimberProfile findById(int profileId) {
@@ -154,10 +156,13 @@ public class ClimberProfileService {
             return result;
         }
 
-        result = usernameValidation(profile);
-        if (!result.isSuccess()) {
-            return result;
+        if (profile.getProfileId() < 1) {
+            result = usernameValidation(profile);
+            if (!result.isSuccess()) {
+                return result;
+            }
         }
+
 
         result.setPayload(repository.save(profile));
         return result;

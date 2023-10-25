@@ -53,6 +53,29 @@ export async function createNewProfile(profileInfo) {
     }
 }
 
+export async function updateProfileById(profileInfo) {
+    const config = {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        body: JSON.stringify(profileInfo),
+    };
+    const profileId = profileInfo.profileId;
+    const response = await fetch(`${url}/${profileId}`, config);
+    if (response.status === 204) {
+        console.log("success!!!")
+        return;
+    } else if (response.status === 400) {
+        const result = await response.json();
+        return { errors: result.messages };
+    } else {
+        return Promise.reject("Unexpected error occurred. Contact complaint department.");
+    }
+
+}
+
 export async function findTopTenProfiles() {
     const config = {
         method: 'GET',
@@ -92,3 +115,41 @@ export async function findByState(stateName) {
         return Promise.reject("Unexpected error occurred. Contact complaint department.");
     }
 }
+
+export async function disableByProfileId(profileId) {
+    const config = {
+        method: 'PUT',
+    };
+
+    try {
+        const response = await fetch(`${url}/${profileId}/disable`, config);
+        if (response.status === 204) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch(err) {
+        console.log(`Caught error in disabling profile: ${err}`);
+        return false;
+    }
+}
+
+export async function enableByProfileId(profileId) {
+    const config = {
+        method: 'PUT',
+    };
+
+    try {
+        const response = await fetch(`${url}/${profileId}/enable`, config);
+        if (response.status === 204) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch(err) {
+        console.log(`Caught error in enabling profile: ${err}`);
+        return false;
+    }
+}
+
+

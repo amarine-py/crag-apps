@@ -1,54 +1,29 @@
 import ValidationSummary from "../ValidationSummary";
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { createNewProfile } from "../../services/profileAPI";
+import { updateProfileById } from "../../services/profileAPI";
 import ClimberContext from "../../context/ClimberContext";
 
-export default function ProfileForm() {
+export default function EditProfile() {
+  const location = useLocation();
+  let profileInfo = location.state;
   const climber = useContext(ClimberContext);
   const [errors, setErrors] = useState([]);
-  const [profileInfo, setProfileInfo] = useState({
-    profileId: 0,
-    climberId: climber.climberId,
-    username: "",
-    description: "",
-    profilePicPath: "",
-    betaPoints: 1000,
-    isPublic: true,
-    tradGrade: "",
-    sportGrade: "",
-    boulderGrade: "",
-    iceGrade: "",
-    aidGrade: "",
-    hasTradGear: false,
-    hasSportGear: false,
-    hasRope: false,
-    hasTransportation: false,
-    openToMentor: false,
-    openToMentee: false,
-    numPartners: 0,
-    safetyAttitude: null,
-    climbingMotivation: null,
-    climbingStyle: null,
-    climbingCountry: null,
-    climbingState: null,
-    climbingPostalCode: "",
-    enabled: true,
-  });
+  const [profile, setProfile] = useState(profileInfo);
 
   const handleChange = (evt) => {
-    const nextProfileInfo = { ...profileInfo };
+    const nextProfileInfo = { ...profile };
     if (evt.target.type === "checkbox") {
       nextProfileInfo[evt.target.name] = evt.target.checked;
     } else {
       nextProfileInfo[evt.target.name] = evt.target.value;
     }
-    setProfileInfo(nextProfileInfo);
+    setProfile(nextProfileInfo);
   };
 
   const navigate = useNavigate();
@@ -56,11 +31,12 @@ export default function ProfileForm() {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     setErrors([]);
-    console.log(profileInfo);
-    createNewProfile(profileInfo)
-      .then((profile) => {
-        setProfileInfo(profile);
-        console.log(profile);
+    console.log(
+      "Logging form profile info right after submit button, but before data call: ",
+      profile
+    );
+    updateProfileById(profile)
+      .then((profileData) => {
         navigate("/profile");
       })
       .catch((err) => {
@@ -81,7 +57,7 @@ export default function ProfileForm() {
               className="form-control"
               id="username"
               name="username"
-              value={profileInfo.username}
+              value={profile.username}
               onChange={handleChange}
               required
             />
@@ -93,7 +69,7 @@ export default function ProfileForm() {
               className="form-control"
               id="description"
               name="description"
-              value={profileInfo.description}
+              value={profile.description}
               onChange={handleChange}
               required
             />
@@ -102,11 +78,12 @@ export default function ProfileForm() {
           <Form.Group
             className="mb-3"
             name="climbingCountryName"
-            controlId="profileInfo.climbingCountryName"
+            controlId="profile.climbingCountryName"
           >
             <Form.Select
               name="climbingCountryName"
               onChange={handleChange}
+              value={profile.climbingCountryName}
               required
             >
               <option>Select your country</option>
@@ -118,11 +95,12 @@ export default function ProfileForm() {
           <Form.Group
             className="mb-3"
             name="climbingStateName"
-            controlId="profileInfo.climbingStateName"
+            controlId="profile.climbingStateName"
           >
             <Form.Select
               name="climbingStateName"
               onChange={handleChange}
+              value={profile.climbingStateName}
               required
             >
               <option>Select your state or province</option>
@@ -137,7 +115,7 @@ export default function ProfileForm() {
           <Form.Group
             className="mb-3"
             name="climbingPostalCode"
-            controlId="profileInfo.climbingPostalCode"
+            controlId="profile.climbingPostalCode"
           ></Form.Group>
           <Form.Control
             type="text"
@@ -145,7 +123,7 @@ export default function ProfileForm() {
             className="form-control"
             id="climbingPostalCode"
             name="climbingPostalCode"
-            value={profileInfo.climbingPostalCode}
+            value={profile.climbingPostalCode}
             onChange={handleChange}
             required
           />
@@ -170,7 +148,7 @@ export default function ProfileForm() {
             <Col>
               <Form.Group
                 className="mb-3"
-                controlId="profileInfo.safetyAttitudeName"
+                controlId="profile.safetyAttitudeName"
               >
                 <Form.Label>General attitude towards safety:</Form.Label>
                 <Form.Check
@@ -204,13 +182,14 @@ export default function ProfileForm() {
                   name="safetyAttitudeName"
                   value={"SAFETY_THIRD"}
                   onChange={handleChange}
+
                 />
               </Form.Group>
             </Col>
             <Col>
               <Form.Group
                 className="mb-3"
-                controlId="profileInfo.climbingMotivationName"
+                controlId="profile.climbingMotivationName"
               >
                 <Form.Label>Basic climbing motivation:</Form.Label>
                 <Form.Check
@@ -250,7 +229,7 @@ export default function ProfileForm() {
             <Col>
               <Form.Group
                 className="mb-3"
-                controlId="profileInfo.climbingStyleName"
+                controlId="profile.climbingStyleName"
               >
                 <Form.Label>Favorite climbing style:</Form.Label>
                 <Form.Check
@@ -306,7 +285,7 @@ export default function ProfileForm() {
                   label="Gym bouldering"
                   id=""
                   name="climbingStyleName"
-                  value={"GYM_BOULDERING"}
+                  value={"GYM"}
                   onChange={handleChange}
                 />
                 <Form.Check
@@ -314,7 +293,7 @@ export default function ProfileForm() {
                   label="Gym top-roping"
                   id=""
                   name="climbingStyleName"
-                  value={"GYM_TOP_ROPING"}
+                  value={"GYM"}
                   onChange={handleChange}
                 />
                 <Form.Check
@@ -322,7 +301,7 @@ export default function ProfileForm() {
                   label="Gym lead climbing"
                   id=""
                   name="climbingStyleName"
-                  value={"GYM_LEAD_CLIMBING"}
+                  value={"GYM"}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -337,7 +316,7 @@ export default function ProfileForm() {
               className="form-control"
               id="sportGrade"
               name="sportGrade"
-              value={profileInfo.sportGrade}
+              value={profile.sportGrade}
               onChange={handleChange}
             />
             <Form.Control
@@ -346,7 +325,7 @@ export default function ProfileForm() {
               className="form-control"
               id="boulderGrade"
               name="boulderGrade"
-              value={profileInfo.boulderGrade}
+              value={profile.boulderGrade}
               onChange={handleChange}
             />
             <Form.Control
@@ -355,7 +334,7 @@ export default function ProfileForm() {
               className="form-control"
               id="tradGrade"
               name="tradGrade"
-              value={profileInfo.tradGrade}
+              value={profile.tradGrade}
               onChange={handleChange}
             />
           </Form.Group>
@@ -369,7 +348,7 @@ export default function ProfileForm() {
                   label="Open to becoming a mentor?"
                   id="openToMentee"
                   name="openToMentee"
-                  checked={profileInfo.openToMentee}
+                  checked={profile.openToMentee}
                   onChange={handleChange}
                 />
                 <Form.Check
@@ -377,7 +356,7 @@ export default function ProfileForm() {
                   label="Looking for mentor?"
                   id="openToMentor"
                   name="openToMentor"
-                  checked={profileInfo.openToMentor}
+                  checked={profile.openToMentor}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -389,7 +368,7 @@ export default function ProfileForm() {
                   label="I have trad-climbing gear!"
                   id="hasTradGear"
                   name="hasTradGear"
-                  checked={profileInfo.hasTradGear}
+                  checked={profile.hasTradGear}
                   onChange={handleChange}
                 />
                 <Form.Check
@@ -397,7 +376,7 @@ export default function ProfileForm() {
                   label="I have sport-climbing gear."
                   id="hasSportGear"
                   name="hasSportGear"
-                  checked={profileInfo.hasSportGear}
+                  checked={profile.hasSportGear}
                   onChange={handleChange}
                 />
                 <Form.Check
@@ -405,7 +384,7 @@ export default function ProfileForm() {
                   label="I have a rope."
                   id="hasRope"
                   name="hasRope"
-                  checked={profileInfo.hasRope}
+                  checked={profile.hasRope}
                   onChange={handleChange}
                 />
                 <Form.Check
@@ -413,7 +392,7 @@ export default function ProfileForm() {
                   label="I have transportation."
                   id="hasTransportation"
                   name="hasTransportation"
-                  checked={profileInfo.hasTransportation}
+                  checked={profile.hasTransportation}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -423,6 +402,7 @@ export default function ProfileForm() {
         <Button variant="primary" type="submit">
           Submit
         </Button>
+        <Button variant="secondary" onClick={() => navigate("/profile")}>Cancel</Button>
       </Form>
     </>
   );

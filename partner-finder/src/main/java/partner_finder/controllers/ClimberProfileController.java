@@ -12,6 +12,7 @@ import partner_finder.models.ClimberProfile;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api/profile")
@@ -23,7 +24,14 @@ public class ClimberProfileController {
     // READ
 
     @GetMapping
-    public List<ClimberProfile> findAll() { return service.findAll(); }
+    public List<ClimberProfile> findAll() {
+        Stream<ClimberProfile> profileStream = service.findAll().stream();
+        List<ClimberProfile> enabledProfiles = profileStream.filter(
+                ClimberProfile::isEnabled).toList();
+
+        return enabledProfiles;
+
+    }
 
     @GetMapping("/username={username}")
     public ClimberProfile findByUsername(@PathVariable String username) { return service.findByUsername(username); }

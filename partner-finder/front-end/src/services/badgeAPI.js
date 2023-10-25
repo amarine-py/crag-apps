@@ -40,12 +40,11 @@ export async function findAllBadgesById(climberBadges) {
     return badgeArray;
 }
 
-async function fetchBadge(value) {
+export async function fetchBadge(value) {
     try {
         const response = await fetch(`${badgeUrl}/id=${value}`);
         if (response.status === 200) {
             const result = await response.json();
-            // badgeArray.push(result);
             return result;
         } else {
             return null;
@@ -53,5 +52,21 @@ async function fetchBadge(value) {
     } catch(err) {
         console.log(`Caught an error in fetching badges by ID: ${err}`);
         return null;
+    }
+}
+
+export async function findAllBadges() {
+    try {
+        const response = await fetch(`${badgeUrl}`);
+        if (response.status === 200) {
+            const result = await response.json();
+            return result;
+        } else {
+            console.log("Find all badges did not produce a 200 status: ", response);
+            return [];
+        }
+    } catch(err) {
+        console.log(`Caught an error fetching all badges: ${err}`);
+        return [];
     }
 }

@@ -15,6 +15,8 @@ import { findByEmail } from "./services/climberAPI";
 import { refreshToken, logout, makeUserFromJwt } from "./services/authAPI";
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import PartnerProfile from "./components/Profile/PartnerProfile";
+import EditProfile from "./components/Profile/EditProfile";
+import AwardBadge from "./components/Badge/AwardBadge";
  
 mapboxgl.accessToken = 'pk.eyJ1IjoiYW1hcmluZSIsImEiOiJjbG5xaDExNWQwZmt2MnZtaGl4dXNnY3l0In0.B8f5WdHtDgqY4g6zlJzguQ';
 
@@ -49,11 +51,9 @@ function App() {
   }, [user]);
 
   const loadClimber = async (username) => {
-    console.log(username);
     findByEmail(username)
       .then((climbers) => {
         setClimber(climbers[0]);
-        console.log(climber);
       })
       .catch((err) => {
         console.log(err);
@@ -110,7 +110,9 @@ function App() {
           <Route path="/register" element={<UserRegistrationForm />} />
           <Route path="/profile" element={ <ClimberProfile climber={climber}/> } />
           <Route path="/profile/create" element={ <ProfileForm />} />
+          <Route path="/profile/edit" element={ <EditProfile />} />
           <Route path="/partner/:profileId" element={<PartnerProfile />} />
+          <Route path="/badge/award/:badgeId" element={<AwardBadge /> } />
           <Route path="/error" element={<Error />}/>
           <Route path="*" element={<NotFound />}/>
         </Routes>

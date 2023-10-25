@@ -10,9 +10,6 @@ function LoginForm() {
   const [errors, setErrors] = useState([]);
 
   const auth = useContext(AuthContext);
-
-  // const { handleLoggedIn } = useContext(AuthContext);
-
   const navigate = useNavigate()
 
   const handleSubmit = async (evt) => {

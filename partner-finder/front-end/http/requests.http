@@ -54,7 +54,7 @@ Content-Type: application/json
 
 ###
 
-PUT {{URL}}/climber/1/disable HTTP/1.1
+PUT {{URL}}/climber/7/disable HTTP/1.1
 
 ###
 
@@ -70,7 +70,7 @@ GET {{URL}}/profile/username=moderator HTTP/1.1
 
 ###
 
-GET {{URL}}/profile/id=1 HTTP/1.1
+GET {{URL}}/profile/id=4 HTTP/1.1
 
 ###
 
@@ -123,18 +123,20 @@ Content-Type: application/json
 
 {
   "profileId": 4,
-  "climberId": 2,
-  "username": "EXTRAnewuser",
-  "description": "Profile of climber newuser",
+  "climberId": 6,
+  "username": "ZealotN00b",
+  "description": "Climbing is my religion.",
+  "profilePicPath": null,
+  "betaPoints": 685,
   "locationId": 0,
   "location": null,
-  "tradGrade": null,
-  "sportGrade": null,
-  "boulderGrade": null,
+  "tradGrade": "5.11",
+  "sportGrade": "5.12",
+  "boulderGrade": "V5",
   "iceGrade": null,
   "mixedGrade": null,
   "aidGrade": null,
-  "hasTradGear": false,
+  "hasTradGear": true,
   "hasSportGear": false,
   "hasRope": false,
   "hasTransportation": false,
@@ -142,15 +144,15 @@ Content-Type: application/json
   "openToMentee": false,
   "numPartners": 0,
   "safetyAttitudeName": "IMPORTANT",
-  "safetyAttitude": null,
+  "safetyAttitude": "IMPORTANT",
   "climbingMotivationName": "EXERCISE",
-  "climbingMotivation": null,
+  "climbingMotivation": "EXERCISE",
   "climbingStyleName": null,
   "climbingStyle": null,
-  "climbingCountryName": "CANADA",
-  "climbingCountry": null,
-  "climbingStateName": "INDIANA",
-  "climbingState": null,
+  "climbingCountryName": "UNITED_STATES",
+  "climbingCountry": "UNITED_STATES",
+  "climbingStateName": "TEXAS",
+  "climbingState": "TEXAS",
   "climbingPostalCode": "46077",
   "climbingGymId": 0,
   "enabled": true,
