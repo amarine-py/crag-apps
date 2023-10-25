@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

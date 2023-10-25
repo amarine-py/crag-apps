@@ -9,7 +9,9 @@ import partner_finder.domain.Result;
 import partner_finder.models.Climber;
 import partner_finder.models.ClimberProfile;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/profile")
@@ -32,6 +34,28 @@ public class ClimberProfileController {
     @GetMapping("/climber-id={id}")
     public ClimberProfile findByClimberId(@PathVariable int id) {
         return service.findByClimberId(id);
+    }
+
+    @GetMapping("/top-10")
+    public List<ClimberProfile> findTopTen() {
+        List<ClimberProfile> allProfiles = service.findAll();
+        List<ClimberProfile> topTen = allProfiles.stream()
+                .sorted(Comparator.comparingInt(ClimberProfile::getBetaPoints).reversed())
+                .limit(10)
+                .toList();
+        return topTen;
+    }
+
+    @GetMapping("/state={stateName}")
+    public List<ClimberProfile> findByStateName(@PathVariable String stateName) {
+        String upperCaseState = stateName.toUpperCase();
+        List<ClimberProfile> allProfiles = service.findAll();
+        List<ClimberProfile> byState = allProfiles.stream()
+                .filter((profile) -> Objects.equals(profile.getClimbingStateName(), upperCaseState))
+                .sorted(Comparator.comparingInt(ClimberProfile::getBetaPoints).reversed())
+                .limit(15)
+                .toList();
+        return byState;
     }
 
     // CREATE

@@ -1,39 +1,66 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../services/authAPI";
 
 import AuthContext from "../context/AuthContext";
 import ValidationSummary from "./ValidationSummary";
 
 function LoginForm() {
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: "",
-  });
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  const { handleLoggedIn } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
+
+  // const { handleLoggedIn } = useContext(AuthContext);
 
   const navigate = useNavigate()
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
     setErrors([]);
-    login(credentials)
-      .then(user => {
-        handleLoggedIn(user);
-        navigate("/");
-      })
-      .catch(err => {
-        setErrors(['Invalid username/password.']);
-      });
+    const response = await fetch("http://localhost:8080/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+    // This code executes if the request is successful
+    if (response.status === 200) {
+      const { jwt_token } = await response.json();
+      console.log(jwt_token);
+      auth.login(jwt_token);
+      navigate("/");
+    } else if (response.status === 403) {
+      setErrors(["Login failed."]);
+    } else {
+      setErrors(["Unknown error."]);
+    }
+
+    // login(credentials)
+    //   .then(user => {
+    //     handleLoggedIn(user);
+    //     navigate("/");
+    //   })
+    //   .catch(err => {
+    //     setErrors(['Invalid username/password.']);
+    //   });
   };
 
-  const handleChange = (evt) => {
-    const nextCredentials = {...credentials};
-    nextCredentials[evt.target.name] = evt.target.value;
-    setCredentials(nextCredentials);
+  const handleUsernameChange = (evt) => {
+    const nextUsername = username;
+    nextUsername[evt.target.name] = evt.target.value;
+    setUsername(nextUsername);
   };
+  const handlePasswordChange = (evt) => {
+    const nextPassword = password;
+    nextPassword[evt.target.name] = evt.target.value;
+    setPassword(nextPassword);
+  };
+  
 
   return (
     <div>
@@ -47,8 +74,7 @@ function LoginForm() {
               className="form-control"
               id="username"
               name="username"
-              value={credentials.username}
-              onChange={handleChange}
+              onChange={(event) => setUsername(event.target.value)}
               required
             />
           </div>
@@ -59,8 +85,7 @@ function LoginForm() {
               className="form-control"
               id="password"
               name="password"
-              value={credentials.password}
-              onChange={handleChange}
+              onChange={(event) => setPassword(event.target.value)}
               required
             />
           </div>

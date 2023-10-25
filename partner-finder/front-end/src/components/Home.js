@@ -1,17 +1,61 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import TopPartnerList from "./Landing/TopPartnerList";
+import ListOfProfilesByState from "./Landing/ListOfProfilesByState";
+import Container from "react-bootstrap/esm/Container";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Map from "./Landing/Map";
+import { findByState } from "../services/profileAPI";
 
 function Home() {
-
+  const [profilesByState, setProfilesByState] = useState([]);
   const auth = useContext(AuthContext);
-
   const navigate = useNavigate();
-  
-  return 
+
+  const findByStateName = (stateName) => {
+    let parsedName = stateName.replaceAll(" ", "_").toUpperCase();
+    findByState(parsedName)
+    .then((profiles) => {
+      console.log(profiles);
+      let newProfilesByState = profiles;
+      setProfilesByState(newProfilesByState);
+    })
+    .catch((err) => console.error);
+  }
+
+  return (
     <>
-        <p>Home Page</p>
+      <Container>
+        <TopPartnerList />
+      </Container>
+      <hr />
+      <Container>
+        <Row>
+        <Col sm={8}><h2>Find Partner by State</h2></Col>
+          <Col sm={4}><h2>Results</h2></Col>
+          
+        </Row>
+        <Row>
+          <Col sm={8}><Map findByStateName={findByStateName}/></Col>
+          
+            <Col sm={4}>
+            {profilesByState.length < 1 ? <p>Please click the map to search.</p>
+            : (
+              <ListOfProfilesByState profilesByState={profilesByState} />
+              )}
+            </Col> 
+        
+          
+        </Row>
+        
+      </Container>
+      <hr />
+      <Container>Badges go here</Container>
+      <hr />
     </>
+  );
 }
 
 export default Home;

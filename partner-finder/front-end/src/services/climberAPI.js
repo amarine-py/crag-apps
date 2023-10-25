@@ -1,8 +1,15 @@
 const url = `${process.env.REACT_APP_API_URL}/climber`;
 const LOCAL_STORAGE_TOKEN_KEY = "partnerFinderToken";
 
+export async function findClimberByClimberId(climberId) {
+    const response = await fetch(`${url}/id=${climberId}`);
+    if (response.status === 200) {
+        return response.json();
+    } else {
+        console.log("Error fetching climber by climberId");
+    }
+}
 export async function findByEmail(email) {
-    console.log("Finding by email");
     const response = await fetch(`${url}/email=${email}`);
     if (response.status === 200) {
         return response.json();
@@ -12,10 +19,6 @@ export async function findByEmail(email) {
 }
 
 export async function createClimber(climberInfo) {
-
-    console.log("climberAPI.js");
-    console.log(climberInfo);
-
     const config = {
         method: "POST",
         headers: {

@@ -6,12 +6,13 @@ import Row from "react-bootstrap/Row";
 export default function ProfileInformation( {profile} ) {
 
     const setCase = (string) => {
-        string = string.toLowerCase();
-        const firstChar = string.charAt(0);
-        const remainingLetters = string.substring(1);
-        const firstCharUpper = firstChar.toUpperCase();
-        const capString = firstCharUpper + remainingLetters;
-        return capString;
+        return string;
+
+        // string = string.toLowerCase();
+        // const firstChar = string.charAt(0);
+        // const remainingLetters = string.substring(1);
+        // const firstCharUpper = firstChar.toUpperCase();
+        // const capString = firstCharUpper + remainingLetters;
     }
     
 
@@ -27,8 +28,8 @@ export default function ProfileInformation( {profile} ) {
                 <h4>Location</h4>
                 <Col>
                 <Row>
-                    <p>{setCase(profile.climbingCountry)}</p>
-                    <p>{setCase(profile.climbingState)}</p>
+                    <p>{profile.climbingCountry}</p>
+                    <p>{profile.climbingState}</p>
                     <p>{profile.climbingPostalCode}</p>
                 </Row>
                 </Col>

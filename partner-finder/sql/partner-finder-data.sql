@@ -1,8 +1,5 @@
 use partner_finder;
-
-delimiter //
-create procedure set_known_good_state()
-begin
+set sql_safe_updates = 0;
 
 delete from profile_comment;
 	alter table profile_comment auto_increment = 1;
@@ -46,7 +43,10 @@ insert into app_user (app_user_id, username, password_hash, enabled) values
     (2, 'user2@user2.com', 'password_hash', 1),
     (3, 'moderator@moderator.com', 'password_hash', 1),
     (4, 'admin@admin.com', 'password_hash', 1),
-    (5, 'inactive@inactive.com', 'password_hash', 0);
+    (5, 'inactive@inactive.com', 'password_hash', 0),
+    (6, 'user6@example.com', 'password_hash', 1),
+    (7, 'user7@example.com', 'password', 1),
+    (8, 'user8@example.com', 'password', 1);
     
 insert into app_role values
 	(1, 'ADMIN'),
@@ -59,7 +59,10 @@ insert into app_user_role values
     (2, 3),
     (3, 2),
     (4, 1),
-    (5, 3);
+    (5, 3),
+    (6, 3),
+    (7, 3),
+    (8, 3);
     
 insert into sex values
 	(1, 'MALE'),
@@ -77,7 +80,8 @@ insert into state_province values
     (2, 'ALASKA', 'AK'),
     (3, 'AMERICAN_SAMOA', 'AS'),
     (4, 'INDIANA', 'IN'),
-    (5, 'CALIFORNIA', 'CA');
+    (5, 'CALIFORNIA', 'CA'),
+    (6, 'TEXAS', 'TX');
     
 insert into location (location_id, country_name, state_province_name, city, postal_code, location_code) values
 	(1, 'UNITED_STATES', 'ALABAMA', 'Mobile', '55555', 1),
@@ -101,7 +105,7 @@ insert into badge (badge_id, badge_name, badge_description, badge_cost, badge_ic
 insert into safety_attitude values
 	(1, 'VERY_IMPORTANT'),
     (2, 'IMPORTANT'),
-    (3, 'SOMEWHAT_IMPORTANT'),
+    (3, 'MINIMALLY_IMPORTANT'),
     (4, 'SAFETY_THIRD');
     
 insert into climbing_motivation values
@@ -118,22 +122,31 @@ insert into climbing_style values
     (5, 'ICE'),
     (6, 'MIXED'),
     (7, 'GYM');
-    
+
 insert into climber (climber_id, app_user_id, email, first_name, last_name, birthday, climber_sex_name, beta_credits) values
 	(1, 1, 'amarine@gmail.com', 'Alex', 'Marine', '1981-03-14', 'MALE',1000),
     (2, 2, 'user2@user2.com', 'User', 'Two', '1990-01-01', 'FEMALE', 500),
     (3, 3, 'moderator@moderator.com', 'Mod', 'Erator', '1988-01-01', 'FEMALE', 25),
-    (4, 4, 'admin@admin.com', 'nothing', 'nada', '1981-03-14', 'OTHER', 1000);
+    (4, 4, 'admin@admin.com', 'nothing', 'nada', '1981-03-14', 'OTHER', 1000),
+    (5, 5, 'inactive@inactive.com', 'User', 'Five', '1981-03-14', 'MALE', 900),
+    (6, 6, 'user6@example.com', 'User', 'Six', '1981-03-14', 'MALE', 125),
+    (7, 7, 'user7@example.com', 'User', 'Seven', '1981-03-14', 'FEMALE', 1200),
+    (8, 8, 'user8@example.com', 'User', 'Eight', '1981-03-14', 'MALE', 435);
     
-insert into climber_profile (profile_id, climber_id, profile_username, profile_description, is_public, primary_safety_attitude_name, primary_climbing_motivation_name, primary_climbing_country_name, primary_climbing_state_province_name, primary_climbing_postal_code) values
-	(1, 1, 'air alexy', 'Profile of climber #1', true, 'VERY_IMPORTANT', 'EXERCISE', 'UNITED_STATES', 'INDIANA', '46220'),
-    (2, 2, 'user 2', 'Profile of climber #2', true, 'IMPORTANT', 'EXERCISE', 'CANADA', 'INDIANA', '46077'),
-    (3, 3, 'moderator', 'Profile of climber #3', false, 'SOMEWHAT_IMPORTANT', 'EXERCISE', 'UNITED_STATES', 'INDIANA', '46020');
+insert into climber_profile (profile_id, climber_id, profile_username, profile_description, is_public, primary_safety_attitude_name, primary_climbing_motivation_name, primary_climbing_country_name, primary_climbing_state_province_name, primary_climbing_postal_code, beta_points) values
+	(1, 1, 'air alexy', 'Profile of climber #1', true, 'VERY_IMPORTANT', 'EXERCISE', 'UNITED_STATES', 'INDIANA', '46220', 1000),
+    (2, 2, 'user 2', 'Profile of climber #2', true, 'IMPORTANT', 'EXERCISE', 'UNITED_STATES', 'TEXAS', '46077', 125),
+    (3, 3, 'moderator', 'Profile of climber #3', false, 'MINIMALLY_IMPORTANT', 'EXERCISE', 'UNITED_STATES', 'INDIANA', '46020', 350),
+    (4, 6, 'user 6', 'Profile of climber #6', true, 'IMPORTANT', 'EXERCISE', 'UNITED_STATES', 'TEXAS', '46077', 685),
+    (5, 7, 'user 7', 'Profile of climber #7', true, 'IMPORTANT', 'EXERCISE', 'UNITED_STATES', 'INDIANA', '46077', 440),
+    (6, 8, 'user 8', 'Profile of climber #8', true, 'IMPORTANT', 'EXERCISE', 'UNITED_STATES', 'INDIANA', '46077', 250);
     
 insert into climber_badge (climber_badge_id, awardee_id, badge_id, giver_id, date_awarded) values
 	(1, 1, 1, 2, '2020-01-01'),
     (2, 2, 3, 3, '2022-01-10'),
-    (3, 2, 2, 1, '2023-01-01');
+    (3, 2, 2, 1, '2023-01-01'),
+    (4, 1, 1, 1, '2023-01-01'),
+    (5, 1, 2, 2, '2023-01-01');
 
 insert into forum (forum_id, forum_name, is_primary_forum, forum_parent_id, nest_level) values
 	(1, 'Parent Forum', 1, 0, 0),
@@ -152,9 +165,5 @@ insert into forum_comment (forum_comment_id, posting_climber_id, receiving_forum
     (2, 2, 4, 'anyone up for NRG?', 'I will be there the weekend of halloween. Looking for trad experts!', '2023-10-12 15:29:09'),
     (3, 3, 3, null, 'I have no friends. Please partner me.', '2019-01-01 14:23:23');
     
-end//
-delimiter ;
 
-set sql_safe_updates = 0;
-call set_known_good_state();
 set sql_safe_updates = 1;

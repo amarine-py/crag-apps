@@ -140,10 +140,10 @@ export default function ProfileForm() {
                 value={"VERY_IMPORTANT"}
                 onChange={handleChange}  />
             <Form.Check type="radio" 
-                label="Somewhat Important"
+                label="Important"
                 id=""
                 name="safetyAttitudeName"
-                value={"SOMEWHAT_IMPORTANT"}
+                value={"IMPORTANT"}
                 onChange={handleChange}  />
             <Form.Check type="radio" 
                 label="Minimally Important"

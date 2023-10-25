@@ -13,10 +13,6 @@ import ClimberProfile from "./components/Profile/ClimberProfile";
 import ProfileForm from "./components/Profile/ProfileForm";
 import { findByEmail } from "./services/climberAPI";
 import { refreshToken, logout, makeUserFromJwt } from "./services/authAPI";
-import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import PartnerProfile from "./components/Profile/PartnerProfile";
- 
-mapboxgl.accessToken = 'pk.eyJ1IjoiYW1hcmluZSIsImEiOiJjbG5xaDExNWQwZmt2MnZtaGl4dXNnY3l0In0.B8f5WdHtDgqY4g6zlJzguQ';
 
 // Define a variable for the localStorage token item key
 const TIMEOUT_MILLISECONDS = 14 * 60 * 1000;
@@ -24,7 +20,6 @@ const LOCAL_STORAGE_TOKEN_KEY = "partnerFinderToken";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [restoreLoginAttemptCompleted, setRestoreLoginAttemptCompleted] = useState(false);
   const [climber, setClimber] = useState(null);
   // Define a state variable to track if 
   // the initialization attempt has completed or not
@@ -32,72 +27,73 @@ function App() {
   const [climberInitialized, setClimberInitialized] = useState(false);
   const navigate = useNavigate();
 
+  useEffect( () => {
+    const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
+    if (token) {
+      let appUser = makeUserFromJwt(token);
+      setUser(appUser);
+    }
+  }, []);
+
+  const resetUser = useCallback(() => {
+    refreshToken()
+      .then((user) => {
+        setUser(user);
+        setTimeout(resetUser, TIMEOUT_MILLISECONDS);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setUserInitialized(true));
+  }, []);
+
   // Define a useEffect hook callback function to attempt
   // to restore the user's token from localStorage
   useEffect(() => {
-    const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
-    if (token) {
-      login(token);
-    }
-    setRestoreLoginAttemptCompleted(true);
-  }, []);
+    resetUser();
+  }, [resetUser]);
 
   useEffect(() => {
     if (user) {
-      loadClimber(user.username);
-    }
-  }, [user]);
-
-  const loadClimber = async (username) => {
-    console.log(username);
-    findByEmail(username)
+      findByEmail(user.username)
       .then((climbers) => {
         setClimber(climbers[0]);
-        console.log(climber);
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => setClimberInitialized(true));
-  };
-
-  // Define a login function
-  const login = (token) => {
-    localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token);
-    // Decode the token
-    const { sub: username, authorities: authoritiesString } = jwtDecode(token);
-    // // Split the authorities string into an array of roles
-    // const roles = authoritiesString.split(',');
-    const roles = authoritiesString
-  
-    // Create the "user" object
-    const user = {
-      username,
-      roles,
-      token,
-      hasRole(role) {
-        return this.roles.includes(role);
-      }
-    };
-    setUser(user);
-    return user;
-  };
-
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
-    navigate("/");
-  };
+    }
+  }, [user]);
 
   const auth = {
-    user: user ? { ...user } : null,
-    login,
-    logout
+    user: user,
+    handleLoggedIn(user) {
+      setUser(user);
+      setTimeout(resetUser, TIMEOUT_MILLISECONDS);
+    },
+    hasAuthority(authority) {
+      return user?.authorities.includes(authority);
+    },
+    logout() {
+      logout();
+      setUser(null);
+      navigate("/");
+    },
   };
 
-  if (!restoreLoginAttemptCompleted) {
+  if (!userInitialized) {
     return null;
   }
+  
+  const renderWithAuthority = (Component, ...authorities) => {
+    for (let authority of authorities) {
+      if (auth.hasAuthority(authority)) {
+        return <Component />;
+      }
+    }
+    return <Error />;
+  };
   
   return (
     <AuthContext.Provider value={auth}>
@@ -108,9 +104,8 @@ function App() {
           <Route path="/" element={<Home />}/>
           <Route path="/login" element={!user ? <LoginForm /> : <Navigate to="/" replace={true} />} />
           <Route path="/register" element={<UserRegistrationForm />} />
-          <Route path="/profile" element={ <ClimberProfile climber={climber}/> } />
+          <Route path="/profile" element={ <ClimberProfile initialized={climberInitialized} /> } />
           <Route path="/profile/create" element={ <ProfileForm />} />
-          <Route path="/partner/:profileId" element={<PartnerProfile />} />
           <Route path="/error" element={<Error />}/>
           <Route path="*" element={<NotFound />}/>
         </Routes>

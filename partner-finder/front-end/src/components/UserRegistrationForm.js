@@ -33,7 +33,7 @@ function UserRegistrationForm() {
     setClimberInfo(nextClimberInfo);
   }
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
     setErrors([]);
     if (!validatePassword()) {
@@ -41,7 +41,7 @@ function UserRegistrationForm() {
       return;
     }
 
-    register(credentials).then((data) => {
+    await register(credentials).then((data) => {
       if (data && data.messages) {
         console.log("WE HAVE DATA AND ERRORS!!!")
         setErrors(data.messages);

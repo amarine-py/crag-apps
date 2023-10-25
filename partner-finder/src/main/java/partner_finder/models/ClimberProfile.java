@@ -23,7 +23,7 @@ public class ClimberProfile {
     private String description;
     @Column(name = "profile_pic_path")
     private String profilePicPath;
-    @Transient
+    @Column(name="beta_points")
     private int betaPoints;
     @Transient
     private List<Badge> badges;
