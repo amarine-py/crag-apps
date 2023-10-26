@@ -16,6 +16,21 @@ export async function findByProfileId(profileId) {
     } 
 }
 
+export async function findByUsername(username) {
+    try {
+        const response = await fetch(`${url}/username=${username}`);
+        if (response.status === 200) {
+            const result = await response.json();
+            return result;
+        } else {
+            return null;
+        }
+    } catch(err) {
+        console.log(`Caught an error in finding Profile by username: ${err}`);
+        return null;
+    } 
+}
+
 export async function findByClimberId(climberId) {
     try {
         const response = await fetch(`${url}/climber-id=${climberId}`);

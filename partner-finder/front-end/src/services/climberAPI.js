@@ -36,7 +36,7 @@ export async function createClimber(climberInfo) {
         const result = await response.json();
         return { errors: result.messages };
     } else {
-        return Promise.reject("Unexpected error occurred. Contact complaint department.");
+        return Promise.reject("Unexpected error occurred creating climber. Contact complaint department.");
     }
 
 }

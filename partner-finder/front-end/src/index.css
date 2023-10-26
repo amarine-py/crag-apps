@@ -45,3 +45,7 @@ code {
   margin: 0 auto;
   padding: 3px;
 }
+
+.top-padding {
+  padding-top: 25px
+}
