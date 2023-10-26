@@ -1,4 +1,3 @@
-import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -9,8 +8,10 @@ export default function PartnerCard({ partnerProfile }) {
 
   return (
     <div>
-      <Card style={{ width: "18rem" }}>
+      <Card className="border-primary" style={{ width: "18rem" }}>
+        <div className="image-container">
         <Card.Img variant="top" src={partnerProfile.profilePicPath} />
+        </div>
         <Card.Body>
           <Card.Title>{partnerProfile.username}</Card.Title>
           {partnerProfile.description}

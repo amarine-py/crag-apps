@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, useNavigate, Navigate } from "r
 import jwtDecode from "jwt-decode";
 import Error from "./components/Error";
 import Home from "./components/Home";
+import About from "./components/About";
 import NavBar from "./components/NavBar";
 import NotFound from "./components/NotFound";
 import AuthContext from "./context/AuthContext";
@@ -108,6 +109,7 @@ function App() {
           <Route path="/" element={<Home />}/>
           <Route path="/login" element={!user ? <LoginForm /> : <Navigate to="/" replace={true} />} />
           <Route path="/register" element={<UserRegistrationForm />} />
+          <Route path="/about" element={<About />} />
           <Route path="/profile" element={ <ClimberProfile climber={climber}/> } />
           <Route path="/profile/create" element={ <ProfileForm />} />
           <Route path="/profile/edit" element={ <EditProfile />} />

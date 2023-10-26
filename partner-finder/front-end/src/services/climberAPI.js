@@ -1,6 +1,15 @@
 const url = `${process.env.REACT_APP_API_URL}/climber`;
 const LOCAL_STORAGE_TOKEN_KEY = "partnerFinderToken";
 
+export async function findAllClimbers() {
+    const response = await fetch(url);
+    if (response.status === 200) {
+        return response.json();
+    } else {
+        console.log("Error fetching all climbers. ", response);
+    }
+}
+
 export async function findClimberByClimberId(climberId) {
     const response = await fetch(`${url}/id=${climberId}`);
     if (response.status === 200) {

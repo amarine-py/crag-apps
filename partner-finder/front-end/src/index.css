@@ -49,3 +49,17 @@ code {
 .top-padding {
   padding-top: 25px
 }
+
+.text-box {
+  background-color: rgb(239, 238, 238);
+  padding: 18px;
+}
+
+.picture-footer {
+  padding: 18px;
+}
+
+.image-container {
+  object-fit: contain;
+  overflow: hidden;
+}

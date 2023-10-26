@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/esm/Container";
 import { findTopTenProfiles } from "../../services/profileAPI";
 import { useEffect, useState } from "react";
-import PartnerCard from "../PartnerCard";
+import PartnerCard from "../Profile/PartnerCard";
 
 export default function TopPartnerList() {
   const [topTen, setTopTen] = useState([]);
@@ -20,7 +20,7 @@ export default function TopPartnerList() {
       <h2>Top Partners on Partner Finder</h2>
       <Container className='cards-wrapper'>
           {topTen.map((partnerProfile) => (
-            <Container key={partnerProfile.profileId} className="col-md-4">
+            <Container key={partnerProfile.profileId} className="col-md-3" fluid="md">
               <PartnerCard
                 partnerProfile={partnerProfile}
               />

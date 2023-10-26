@@ -398,4 +398,7 @@
 // render a list of badges for home page display
 // render latest profile comments?
 // render the partner map
-  //
+// rend lists of results
+// Contact
+// About
+// disable/enable profiles

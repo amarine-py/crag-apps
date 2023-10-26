@@ -10,6 +10,7 @@ import Form from "react-bootstrap/Form";
 import SearchResultsList from "./SearchResultsList";
 import ClimberContext from "../../context/ClimberContext";
 import FormErrors from "../FormErrors";
+import AwardSuccessModal from "./AwardSuccessModal";
 import {
   createNewClimberBadge,
   validateNewClimberBadge,
@@ -23,6 +24,8 @@ export default function AwardBadge() {
   const [usernameSearchResults, setUsernameSearchResults] = useState([]);
   const [username, setUsername] = useState("");
   const [errors, setErrors] = useState([]);
+  const [badgeAwarded, setBadgeAwarded] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const { climberId } = useContext(ClimberContext);
 
   const handleSubmit = (evt) => {
@@ -31,10 +34,14 @@ export default function AwardBadge() {
     findByUsername(username)
       .then((data) => {
         console.log(data);
-        let newData = [];
-        newData.push(data);
-        console.log("After pushing into array: ", newData);
-        setUsernameSearchResults(newData);
+        if (data === null) {
+          setErrors(["No results found for that username."]);
+        } else {
+          let newData = [];
+          newData.push(data);
+          console.log("After pushing into array: ", newData);
+          setUsernameSearchResults(newData);
+        }
       })
       .catch((error) => {
         console.log("Got an error when searching by profile username: ", error);
@@ -54,26 +61,20 @@ export default function AwardBadge() {
       badgeId: badge.badgeId,
       giverId: climberId,
       dateAwarded: getFormattedDate(),
-      isEnabled: true
+      isEnabled: true,
     };
-    console.log("Step 1: ", climberBadge);
     if (validateNewClimberBadge(climberBadge)) {
-        console.log("result.success!")
-        if (createNewClimberBadge(climberBadge)) {
-            
-        }
+      setShowModal(true);
+      if (createNewClimberBadge(climberBadge)) {
+      }
     } else {
-        console.log("nope: ");
+      console.log("nope: ");
     }
-    
-    
-    // createNewClimberBadge(climberBadge)
-    // if (result.success) {
-    //     console.log("Success! Badge awarded. ", result);
-    //     navigate("/");
-    // } else {
-    //     setErrors([result.message]);
-    // }
+  };
+
+  const onHide = () => {
+    setShowModal(false);
+    navigate("/");
   };
 
   function getFormattedDate() {
@@ -93,6 +94,7 @@ export default function AwardBadge() {
   return (
     <>
       <Container>
+        <AwardSuccessModal show={showModal} onHide={onHide} />
         <Row>
           <Col lg={4}>
             <h2>Award Badge!</h2>
@@ -121,12 +123,7 @@ export default function AwardBadge() {
               </Row>
               <Row>
                 <Col>
-                  <Button variant="success" size="lg">
-                    Award Badge
-                  </Button>
-                </Col>
-                <Col>
-                  <Button variant="secondary" size="lg">
+                  <Button variant="secondary" size="lg" onClick={() => navigate("/")}>
                     Cancel
                   </Button>
                 </Col>

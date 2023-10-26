@@ -15,28 +15,30 @@ function NavBar() {
   // If we have an auth.user, render a profile link and image and a logout button.
   // If we don't have an auth.user, render "Login"
   // and "Register" navigation.
-  // TODO: Add profile image link
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-body-tertiary navbar-custom" >
       <Container>
-        <Navbar.Brand to="/">Partner Finder</Navbar.Brand>
+        <Navbar.Brand to="/">
+        <img
+              src="/assets/partner-finder-logo.png"
+              width="40"
+              height="40"
+              className="d-inline-block align-center"
+              alt="Partner Finder Logo"
+            />
+          Partner Finder
+          </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/">Find Partners</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+            <NavDropdown title="More Options" id="basic-nav-dropdown">
               <NavDropdown.Item href="/about">
                 About Partner Finder
               </NavDropdown.Item>
               <NavDropdown.Item href="/contact">Contact Us</NavDropdown.Item>
-              {/* <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item> */}
             </NavDropdown>
-            {user ? <Nav.Link href="/">Find Partners</Nav.Link> : null}
           </Nav>
           <Nav className="me-auto">
             {user ? (
