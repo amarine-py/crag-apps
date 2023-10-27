@@ -7,10 +7,8 @@ export default function HomeBadgeList() {
   const [badges, setBadges] = useState([]);
 
   useEffect(() => {
-    console.log("fetching badges");
     findAllBadges()
       .then((response) => {
-        console.log("Badges!!: ", response);
         let newBadges = response;
         setBadges(newBadges);
       })

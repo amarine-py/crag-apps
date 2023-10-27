@@ -18,7 +18,7 @@ function NavBar() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary navbar-custom" >
       <Container>
-        <Navbar.Brand to="/">
+        <Navbar.Brand href="/">
         <img
               src="/assets/partner-finder-logo.png"
               width="40"
@@ -32,7 +32,7 @@ function NavBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/">Find Partners</Nav.Link>
+            <Nav.Link href="/find-partners">Find Partners</Nav.Link>
             <NavDropdown title="More Options" id="basic-nav-dropdown">
               <NavDropdown.Item href="/about">
                 About Partner Finder

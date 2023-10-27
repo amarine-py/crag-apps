@@ -13,7 +13,7 @@ export async function findAllClimbers() {
 export async function findClimberByClimberId(climberId) {
     const response = await fetch(`${url}/id=${climberId}`);
     if (response.status === 200) {
-        return response.json();
+        return await response.json();
     } else {
         console.log("Error fetching climber by climberId");
     }

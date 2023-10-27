@@ -63,3 +63,7 @@ code {
   object-fit: contain;
   overflow: hidden;
 }
+
+.card-container {
+  padding-top: 20px;
+}

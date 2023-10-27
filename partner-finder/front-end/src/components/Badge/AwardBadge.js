@@ -9,7 +9,7 @@ import Image from "react-bootstrap/Image";
 import Form from "react-bootstrap/Form";
 import SearchResultsList from "./SearchResultsList";
 import ClimberContext from "../../context/ClimberContext";
-import FormErrors from "../FormErrors";
+import FormErrors from "../Forms/FormErrors";
 import AwardSuccessModal from "./AwardSuccessModal";
 import {
   createNewClimberBadge,

@@ -1,4 +1,4 @@
-import ValidationSummary from "../ValidationSummary";
+import ValidationSummary from "../Forms/ValidationSummary";
 import { useContext, useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Form from "react-bootstrap/Form";

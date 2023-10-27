@@ -5,7 +5,7 @@ import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
-import ProfileInformation from "./ProfileInformation";
+import ProfileInformation from "../Profile/ProfileInformation";
 import BadgeList from "../Badge/ProfileBadgeList";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";

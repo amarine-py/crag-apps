@@ -7,7 +7,7 @@ export default function PartnerCard({ partnerProfile }) {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="card-container">
       <Card className="border-primary" style={{ width: "18rem" }}>
         <div className="image-container">
         <Card.Img variant="top" src={partnerProfile.profilePicPath} />

@@ -7,11 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ListOfProfilesByState({ profilesByState }) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log("Profiles by state from list: ", profilesByState);
-  });
-
+  
   return (
     <div>
       <ListGroup>

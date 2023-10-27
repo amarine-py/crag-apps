@@ -1,3 +1,5 @@
+import { findClimberByClimberId } from "./climberAPI";
+
 const LOCAL_STORAGE_TOKEN_KEY = "partnerFinderToken";
 const url = `${process.env.REACT_APP_API_URL}/profile`;
 
@@ -165,6 +167,17 @@ export async function enableByProfileId(profileId) {
         console.log(`Caught error in enabling profile: ${err}`);
         return false;
     }
+}
+
+export async function addSexToProfile(profile) {
+
+    const climberId = profile.climberId;
+    await findClimberByClimberId(climberId)
+    .then((climberData) => {
+        profile.climberSex = climberData.climberSex;
+        // console.log(profile);
+        return profile;
+    })
 }
 
 

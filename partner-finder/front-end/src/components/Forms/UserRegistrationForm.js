@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { register } from "../services/authAPI";
-import { createClimber } from "../services/climberAPI";
+import { register } from "../../services/authAPI";
+import { createClimber } from "../../services/climberAPI";
 import ValidationSummary from "./ValidationSummary";
+import Container from 'react-bootstrap/Container';
 
 function UserRegistrationForm() {
   const [errors, setErrors] = useState([]);
@@ -60,6 +61,7 @@ function UserRegistrationForm() {
   };
 
   return (
+    <Container>
     <div>
       <ValidationSummary errors={errors} />
       {success ? (
@@ -170,6 +172,7 @@ function UserRegistrationForm() {
         </form>
       )}
     </div>
+    </Container>
   );
 }
 

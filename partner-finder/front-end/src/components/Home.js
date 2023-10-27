@@ -20,7 +20,6 @@ function Home() {
     let parsedName = stateName.replaceAll(" ", "_").toUpperCase();
     findByState(parsedName)
       .then((profiles) => {
-        console.log(profiles);
         let newProfilesByState = profiles;
         setProfilesByState(newProfilesByState);
         setMapClicked(true);

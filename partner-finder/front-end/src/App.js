@@ -8,16 +8,17 @@ import NavBar from "./components/NavBar";
 import NotFound from "./components/NotFound";
 import AuthContext from "./context/AuthContext";
 import ClimberContext from "./context/ClimberContext";
-import UserRegistrationForm from "./components/UserRegistrationForm";
-import LoginForm from "./components/LoginForm";
+import UserRegistrationForm from "./components/Forms/UserRegistrationForm";
+import LoginForm from "./components/Forms/LoginForm";
 import ClimberProfile from "./components/Profile/ClimberProfile";
-import ProfileForm from "./components/Profile/ProfileForm";
+import ProfileForm from "./components/Forms/ProfileForm";
 import { findByEmail } from "./services/climberAPI";
 import { refreshToken, logout, makeUserFromJwt } from "./services/authAPI";
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import PartnerProfile from "./components/Profile/PartnerProfile";
+import PartnerProfile from "./components/Partners/PartnerProfile";
 import EditProfile from "./components/Profile/EditProfile";
 import AwardBadge from "./components/Badge/AwardBadge";
+import FindPartners from "./components/Partners/FindPartners";
  
 mapboxgl.accessToken = 'pk.eyJ1IjoiYW1hcmluZSIsImEiOiJjbG5xaDExNWQwZmt2MnZtaGl4dXNnY3l0In0.B8f5WdHtDgqY4g6zlJzguQ';
 
@@ -114,6 +115,7 @@ function App() {
           <Route path="/profile/create" element={ <ProfileForm />} />
           <Route path="/profile/edit" element={ <EditProfile />} />
           <Route path="/partner/:profileId" element={<PartnerProfile />} />
+          <Route path="/find-partners" element={<FindPartners />} />
           <Route path="/badge/award/:badgeId" element={<AwardBadge /> } />
           <Route path="/error" element={<Error />}/>
           <Route path="*" element={<NotFound />}/>

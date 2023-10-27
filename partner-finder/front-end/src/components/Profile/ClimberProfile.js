@@ -59,7 +59,6 @@ export default function ClimberProfile({ climber }) {
     if (climberBadges) {
       findAllBadgesById(climberBadges).then((incomingBadges) => {
         let newBadges = incomingBadges;
-        console.log("Logging badges: ", incomingBadges);
         setBadges(newBadges);
       });
     }
@@ -99,7 +98,6 @@ export default function ClimberProfile({ climber }) {
     if (!success) {
       console.log("Disable was unsuccessful.");
     } else {
-      console.log("Your profile has been deleted.");
       navigate("/");
     }
   };
@@ -110,25 +108,26 @@ export default function ClimberProfile({ climber }) {
     if (!success) {
       console.log("Enable was unsuccessful.");
     } else {
-      console.log("Your profile has been enabled.");
       navigate("/");
     }
   };
-  
+  if (!climber) {
+    return (<>No profile loaded...</>);
+  }
   return (
     <Container>
       <DeleteProfileConfirmModal
         show={showDelete}
         onHide={() => setShowDelete(false)}
-        onConfirmDelete={onConfirmDelete}
+        onClick={onConfirmDelete}
       />
       <EnableProfileConfirmModal
         show={showEnable}
         onEnableHide={() => setShowEnable(false)}
-        onConfirmEnable={onConfirmEnable}
+        onClick={onConfirmEnable}
       />
       <Row>
-        <Col sm={5}>
+        <Col sm={4}>
           <Row>
             {profile && (
               <Image
@@ -157,6 +156,7 @@ export default function ClimberProfile({ climber }) {
                 {profile ? <h5>Beta Points: {profile.betaPoints}</h5> : null}
               </Container>
             </Col>
+            {profile && (
             <Col id="outer-div">
               <Container id="inner-div">
                 <Button variant="primary" onClick={handleEdit} size="lg">
@@ -168,7 +168,7 @@ export default function ClimberProfile({ climber }) {
                   Make Private
                 </Button>
               </Container>
-              {profile && (
+              
                 <Container>
                   {profile?.enabled ? (
                     <Button
@@ -188,8 +188,9 @@ export default function ClimberProfile({ climber }) {
                     </Button>
                   )}
                 </Container>
-              )}
+              
             </Col>
+            )}
           </Row>
 
           <hr />
@@ -197,7 +198,7 @@ export default function ClimberProfile({ climber }) {
             <ProfileBadgeList badges={badges} />
           </Container>
         </Col>
-        <Col sm={6}>
+        <Col sm={8}>
           {profile ? (
             <Container>
               <ProfileInformation profile={profile} />

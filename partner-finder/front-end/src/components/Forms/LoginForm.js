@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-import AuthContext from "../context/AuthContext";
+import Container from 'react-bootstrap/Container';
+import AuthContext from "../../context/AuthContext";
 import ValidationSummary from "./ValidationSummary";
 
 function LoginForm() {
@@ -36,15 +36,6 @@ function LoginForm() {
     } else {
       setErrors(["Unknown error."]);
     }
-
-    // login(credentials)
-    //   .then(user => {
-    //     handleLoggedIn(user);
-    //     navigate("/");
-    //   })
-    //   .catch(err => {
-    //     setErrors(['Invalid username/password.']);
-    //   });
   };
 
   const handleUsernameChange = (evt) => {
@@ -58,8 +49,8 @@ function LoginForm() {
     setPassword(nextPassword);
   };
   
-
   return (
+    <Container>
     <div>
       <ValidationSummary errors={errors} />
       <form onSubmit={handleSubmit}>
@@ -97,6 +88,7 @@ function LoginForm() {
         </div>
       </form>
     </div>
+    </Container>
   );
 }
 
