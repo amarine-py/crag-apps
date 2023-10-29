@@ -53,14 +53,6 @@ public class Forum {
         isPrimaryForum = primaryForum;
     }
 
-//    public Forum getParentForum() {
-//        return parentForum;
-//    }
-//
-//    public void setParentForum(Forum parentForum) {
-//        this.parentForum = parentForum;
-//    }
-
     public int getNestLevel() {
         return nestLevel;
     }

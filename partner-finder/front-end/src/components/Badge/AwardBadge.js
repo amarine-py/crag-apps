@@ -39,7 +39,6 @@ export default function AwardBadge() {
         } else {
           let newData = [];
           newData.push(data);
-          console.log("After pushing into array: ", newData);
           setUsernameSearchResults(newData);
         }
       })

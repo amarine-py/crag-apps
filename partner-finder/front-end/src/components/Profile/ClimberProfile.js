@@ -93,7 +93,6 @@ export default function ClimberProfile({ climber }) {
   };
 
   const onConfirmDelete = () => {
-    console.log("Show delete: ", showDelete);
     const success = disableByProfileId(profile.profileId);
     if (!success) {
       console.log("Disable was unsuccessful.");
@@ -103,10 +102,8 @@ export default function ClimberProfile({ climber }) {
   };
 
   const onConfirmEnable = () => {
-    console.log("Show enable: ", showEnable);
     const success = enableByProfileId(profile.profileId);
     if (!success) {
-      console.log("Enable was unsuccessful.");
     } else {
       navigate("/");
     }
@@ -127,7 +124,7 @@ export default function ClimberProfile({ climber }) {
         onClick={onConfirmEnable}
       />
       <Row>
-        <Col sm={4}>
+        <Col sm={5}>
           <Row>
             {profile && (
               <Image
@@ -198,7 +195,7 @@ export default function ClimberProfile({ climber }) {
             <ProfileBadgeList badges={badges} />
           </Container>
         </Col>
-        <Col sm={8}>
+        <Col sm={7}>
           {profile ? (
             <Container>
               <ProfileInformation profile={profile} />

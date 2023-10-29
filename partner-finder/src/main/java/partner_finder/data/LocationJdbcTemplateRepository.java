@@ -3,7 +3,6 @@ package partner_finder.data;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import partner_finder.data.mappers.LocationMapper;
-import partner_finder.models.Climber;
 import partner_finder.models.Location;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class LocationJdbcTemplateRepository implements LocationRepository {
@@ -69,7 +69,7 @@ public class LocationJdbcTemplateRepository implements LocationRepository {
             return null;
         }
 
-        location.setLocationId(keyHolder.getKey().intValue());
+        location.setLocationId(Objects.requireNonNull(keyHolder.getKey()).intValue());
         return location;
     }
 

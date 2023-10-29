@@ -81,10 +81,12 @@ public class AppUserService implements UserDetailsService{
             return result;
         }
 
+        assert username != null;
         if (username.length() > 75) {
             result.addMessage("username must be 75 characters max", ResultType.INVALID);
         }
 
+        assert password != null;
         if (!validatePassword(password)) {
             result.addMessage("password must be at least 8 character and contain a digit, a letter, and a non-digit/non-letter", ResultType.INVALID);
         }

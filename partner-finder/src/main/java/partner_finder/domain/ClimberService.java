@@ -10,6 +10,7 @@ import partner_finder.models.Climber;
 
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -44,7 +45,10 @@ public class ClimberService {
         if (!result.isSuccess()) {
             return result;
         }
-
+        result = duplicateEmailValidation(climber);
+        if (!result.isSuccess()) {
+            return result;
+        }
         result.setPayload(repository.update(climber));
         return result;
     }
@@ -75,9 +79,11 @@ public class ClimberService {
         return result;
     }
 
-    public Result<Climber> duplicateEmailValidation(String email) {
+    public Result<Climber> duplicateEmailValidation(Climber climber) {
         Result<Climber> result = new Result<>();
-        if (repository.findByEmail(email) != null) {
+        Climber emailCheck = repository.findByEmail(climber.getEmail());
+        if (emailCheck != null) {
+            if (!Objects.equals(emailCheck.getClimberId(), climber.getClimberId()))
                 result.addMessage("Email address already exists.", ResultType.INVALID);
             }
 
@@ -90,10 +96,8 @@ public class ClimberService {
             return result;
         }
 
-        result = duplicateEmailValidation(climber.getEmail());
-        if (!result.isSuccess()) {
-            return result;
-        }
+        result = duplicateEmailValidation(climber);
+        result.isSuccess();
 
         return result;
     }

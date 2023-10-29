@@ -51,7 +51,7 @@ public class ClimbingGymController {
         return ErrorResponse.build(result);
     }
 
-    // DELETE or DISABLE
+    // ENABLE or DISABLE
     @PutMapping("/{id}/disable")
     public ResponseEntity<Object> disable(@PathVariable int id) {
         if (service.disableById(id)) {

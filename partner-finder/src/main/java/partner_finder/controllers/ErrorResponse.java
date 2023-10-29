@@ -1,6 +1,5 @@
 package partner_finder.controllers;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import partner_finder.domain.Result;

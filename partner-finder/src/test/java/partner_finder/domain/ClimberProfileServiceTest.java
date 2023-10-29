@@ -58,9 +58,10 @@ class ClimberProfileServiceTest {
     void shouldNotCreateWithDuplicateUsername() {
         ClimberProfile profile1 = makeProfile(1);
         ClimberProfile profile2 = makeProfile(2);
+        profile2.setProfileId(0);
         profile2.setUsername("username1");
         when(repository.findByUsername(profile2.getUsername())).thenReturn(profile1);
-        Result<ClimberProfile> result = service.create(profile1);
+        Result<ClimberProfile> result = service.create(profile2);
         System.out.println(result);
         assertFalse(result.isSuccess());
     }

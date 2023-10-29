@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import partner_finder.domain.BadgeService;
 import partner_finder.domain.Result;
 import partner_finder.models.Badge;
-import partner_finder.models.Climber;
 
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class BadgeController {
         return ErrorResponse.build(result);
     }
 
-    // DELETE or DISABLE
+    // ENABLE or DISABLE
     @PutMapping("/{id}/disable")
     public ResponseEntity<Object> disable(@PathVariable int id) {
         if (service.disableById(id)) {

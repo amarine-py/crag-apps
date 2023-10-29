@@ -2,11 +2,9 @@ package partner_finder.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import partner_finder.domain.ClimberProfileService;
 import partner_finder.domain.Result;
-import partner_finder.models.Climber;
 import partner_finder.models.ClimberProfile;
 
 import java.util.Comparator;
@@ -26,44 +24,45 @@ public class ClimberProfileController {
     @GetMapping
     public List<ClimberProfile> findAll() {
         Stream<ClimberProfile> profileStream = service.findAll().stream();
-        List<ClimberProfile> enabledProfiles = profileStream.filter(
-                ClimberProfile::isEnabled).toList();
 
-        return enabledProfiles;
+        return profileStream.filter(
+                ClimberProfile::isEnabled).toList();
 
     }
 
+    // Find by username
     @GetMapping("/username={username}")
     public ClimberProfile findByUsername(@PathVariable String username) { return service.findByUsername(username); }
 
     @GetMapping("/id={id}")
     public ClimberProfile findById(@PathVariable int id) { return service.findById(id); }
 
+    // Find by climberId
     @GetMapping("/climber-id={id}")
     public ClimberProfile findByClimberId(@PathVariable int id) {
         return service.findByClimberId(id);
     }
 
+    // Find top-ten sorted by betaPoints
     @GetMapping("/top-10")
     public List<ClimberProfile> findTopTen() {
         List<ClimberProfile> allProfiles = service.findAll();
-        List<ClimberProfile> topTen = allProfiles.stream()
+        return allProfiles.stream()
                 .sorted(Comparator.comparingInt(ClimberProfile::getBetaPoints).reversed())
                 .limit(10)
                 .toList();
-        return topTen;
     }
 
+    // Find all by climbingState
     @GetMapping("/state={stateName}")
     public List<ClimberProfile> findByStateName(@PathVariable String stateName) {
         String upperCaseState = stateName.toUpperCase();
         List<ClimberProfile> allProfiles = service.findAll();
-        List<ClimberProfile> byState = allProfiles.stream()
+        return allProfiles.stream()
                 .filter((profile) -> Objects.equals(profile.getClimbingStateName(), upperCaseState))
                 .sorted(Comparator.comparingInt(ClimberProfile::getBetaPoints).reversed())
                 .limit(15)
                 .toList();
-        return byState;
     }
 
     // CREATE

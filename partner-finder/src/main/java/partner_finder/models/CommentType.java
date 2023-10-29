@@ -5,7 +5,7 @@ public enum CommentType {
     FORUM("forum comment"),
     PROFILE("profile comment");
 
-    private String name;
+    private final String name;
 
     CommentType(String name) {
         this.name = name;

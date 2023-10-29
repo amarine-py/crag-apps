@@ -4,7 +4,6 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import partner_finder.data.ClimberProfileRepository;
 import partner_finder.models.ClimberProfile;

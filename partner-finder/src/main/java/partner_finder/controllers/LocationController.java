@@ -38,6 +38,7 @@ public class LocationController {
     }
 
     // UPDATE
+
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable int id, @RequestBody Location location) {
         if (id != location.getLocationId()) {
@@ -52,7 +53,7 @@ public class LocationController {
         return ErrorResponse.build(result);
     }
 
-    // DELETE or DISABLE
+    // ENABLE or DISABLE
     @PutMapping("/{id}/disable")
     public ResponseEntity<Object> disable(@PathVariable int id) {
         if (service.disableById(id)) {

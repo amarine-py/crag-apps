@@ -7,7 +7,6 @@ import partner_finder.domain.ClimberService;
 import partner_finder.domain.Result;
 import partner_finder.models.Climber;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -55,7 +54,7 @@ public class ClimberController {
         return ErrorResponse.build(result);
     }
 
-    // DELETE or DISABLE
+    // ENABLE or DISABLE
     @PutMapping("/{id}/disable")
     public ResponseEntity<Object> disable(@PathVariable int id) {
         if (service.disableById(id)) {

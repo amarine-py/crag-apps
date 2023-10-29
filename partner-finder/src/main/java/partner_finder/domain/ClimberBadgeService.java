@@ -6,7 +6,6 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import org.springframework.stereotype.Service;
 import partner_finder.data.ClimberBadgeRepository;
-import partner_finder.models.Badge;
 import partner_finder.models.ClimberBadge;
 
 import java.util.List;

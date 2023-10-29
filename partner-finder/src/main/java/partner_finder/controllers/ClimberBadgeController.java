@@ -3,10 +3,8 @@ package partner_finder.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import partner_finder.domain.BadgeService;
 import partner_finder.domain.ClimberBadgeService;
 import partner_finder.domain.Result;
-import partner_finder.models.Badge;
 import partner_finder.models.ClimberBadge;
 
 import java.util.List;
@@ -62,7 +60,7 @@ public class ClimberBadgeController {
         return ErrorResponse.build(result);
     }
 
-    // DELETE or DISABLE
+    // ENABLE or DISABLE
     @PutMapping("/{id}/disable")
     public ResponseEntity<Object> disable(@PathVariable int id) {
         if (service.disableById(id)) {

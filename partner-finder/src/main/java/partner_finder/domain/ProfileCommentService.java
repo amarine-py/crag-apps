@@ -6,7 +6,6 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import org.springframework.stereotype.Service;
 import partner_finder.data.ProfileCommentRepository;
-import partner_finder.models.ClimbingGym;
 import partner_finder.models.ProfileComment;
 import java.util.List;
 import java.util.Set;

@@ -1,6 +1,5 @@
 package partner_finder.data.mappers;
 
-import partner_finder.models.Badge;
 import partner_finder.models.ClimbingGym;
 import org.springframework.jdbc.core.RowMapper;
 

@@ -7,7 +7,6 @@ import jakarta.validation.ValidatorFactory;
 import org.springframework.stereotype.Service;
 import partner_finder.data.BadgeRepository;
 import partner_finder.models.Badge;
-import partner_finder.models.Badge;
 
 import java.util.List;
 import java.util.Set;

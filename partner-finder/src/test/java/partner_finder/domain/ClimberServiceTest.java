@@ -7,15 +7,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import partner_finder.data.ClimberRepository;
 import partner_finder.models.Climber;
 
-
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
-import static partner_finder.TestHelper.*;
+import static partner_finder.TestHelper.makeClimber;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class ClimberServiceTest {
@@ -91,7 +88,7 @@ class ClimberServiceTest {
         Climber existing = makeClimber(1);
         Climber updated = makeClimber(2);
         updated.setEmail(existing.getEmail());
-        when(repository.findByPartialEmail(updated.getEmail())).thenReturn(List.of(existing));
+        when(repository.findByEmail(updated.getEmail())).thenReturn(existing);
         Result<Climber> result = service.update(updated);
         System.out.println(result);
         assertFalse(result.isSuccess());

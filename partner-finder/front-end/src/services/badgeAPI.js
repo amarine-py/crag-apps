@@ -9,12 +9,10 @@ export async function validateNewClimberBadge(climberBadge) {
             message: "You sly devil. You can't award yourself a badge!"
         }
     }
-    console.log("Step 3, in validation and passed the sly devil test")
     try {
         findClimberBadgesByAwardeeId(climberBadge.awardeeId)
         .then((currentAwardeeBadges) => {
             if (currentAwardeeBadges !== null) {
-                console.log("Step 5, got the current awardee badges, and they aren't null: ", currentAwardeeBadges)
                 const badgeIdList = currentAwardeeBadges.map((badge) => badge.badgeId);
                 if (badgeIdList.includes(climberBadge.badgeId)) {
                     return {
@@ -23,7 +21,6 @@ export async function validateNewClimberBadge(climberBadge) {
                     }
                 } else {
                     // successful! We only return true so we can move on.
-                    console.log("Step 6: We Passed validation! Returning the success: true with a null message");
                     return true;
                 }
             } else {
@@ -54,7 +51,6 @@ export async function createNewClimberBadge(climberBadge) {
 
     const response = await fetch(climberBadgeUrl, config);
     if (response.status === 201) {
-        console.log("We awarded the badge! ", response.json());
         return true;
     } else if (response.status === 400) {
         const result = await response.json();
@@ -73,7 +69,6 @@ export async function findClimberBadgesByAwardeeId(climberId) {
         const response = await fetch(`${climberBadgeUrl}/awardee=${climberId}`);
         if (response.status === 200) {
             const result = await response.json();
-            console.log("Step 4, we got the badges by awardeeID")
             return result;
         } else {
             return null;
@@ -101,7 +96,6 @@ export async function findAllBadgesById(climberBadges) {
         return [];
     }
     for (let i = 0; i < idArray.length; i++) {
-        console.log(`Badge.api idArray[${i}] is: `, idArray[i]);
         const waitBadge = await fetchBadge(idArray[i]);
         badgeArray.push(waitBadge);
     }

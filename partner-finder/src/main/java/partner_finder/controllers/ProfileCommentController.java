@@ -24,9 +24,11 @@ public class ProfileCommentController {
     @GetMapping("/id={id}")
     public ProfileComment findById(@PathVariable int id) { return service.findById(id); }
 
+    // This will find all profile comments by the climberId of the climberProfile they are assigned to
     @GetMapping("/receiver={id}")
     public List<ProfileComment> findByReceivingClimberId(@PathVariable int id) { return service.findByReceivingClimberId(id); }
 
+    // This will find all profileComments by the climberId of the poster
     @GetMapping("/poster={id}")
     public List<ProfileComment> findByPostingClimberId(@PathVariable int id) { return service.findByPostingClimberId(id); }
 
@@ -58,7 +60,7 @@ public class ProfileCommentController {
         return ErrorResponse.build(result);
     }
 
-    // DELETE or DISABLE
+    // ENABLE or DISABLE
     @PutMapping("/{id}/disable")
     public ResponseEntity<Object> disable(@PathVariable int id) {
         if (service.disableById(id)) {
