@@ -1,12 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
  
-mapboxgl.accessToken = 'pk.eyJ1IjoiYW1hcmluZSIsImEiOiJjbG5xaDExNWQwZmt2MnZtaGl4dXNnY3l0In0.B8f5WdHtDgqY4g6zlJzguQ';
+mapboxgl.accessToken = process.env.MAPBOX_API_KEY;
 
 export default function Map( { findByStateName }) {
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const [choice, setChoice] = useState("");
     const [lng, setLng] = useState(-99.052734);
     const [lat, setLat] = useState(39.436193);
     const [zoom, setZoom] = useState(3.5);
@@ -50,7 +49,6 @@ export default function Map( { findByStateName }) {
         })
         map.current.on('click', 'state-boundaries-fill', (e) => {
             let currentChoice = e.features[0].properties.NAME;
-            console.log(currentChoice);
             findByStateName(currentChoice);
         });
     });

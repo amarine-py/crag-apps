@@ -1,4 +1,3 @@
-import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
@@ -12,18 +11,10 @@ export default function BadgeCard({ badge }) {
 
   return (
     <>
-        <Card style={{ width: "14rem" }}>
+        <Card style={{ width: "10rem" }}>
           <Card.Img variant="top" src={badge.iconPath} />
           <Card.Body>
             <Card.Title>{badge.name}</Card.Title>
-              <div>
-                <div>Description</div>
-               <div>{badge.description}</div>
-              </div>
-              <div>
-                Cost
-               {badge.cost}
-              </div>
             <Button
               variant="primary"
               onClick={

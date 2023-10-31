@@ -13,7 +13,6 @@ import LoginForm from "./components/Forms/LoginForm";
 import ClimberProfile from "./components/Profile/ClimberProfile";
 import ProfileForm from "./components/Forms/ProfileForm";
 import { findByEmail } from "./services/climberAPI";
-import { refreshToken, logout, makeUserFromJwt } from "./services/authAPI";
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import PartnerProfile from "./components/Partners/PartnerProfile";
 import EditProfile from "./components/Profile/EditProfile";
@@ -32,7 +31,6 @@ function App() {
   const [climber, setClimber] = useState(null);
   // Define a state variable to track if 
   // the initialization attempt has completed or not
-  const [userInitialized, setUserInitialized] = useState(false);
   const [climberInitialized, setClimberInitialized] = useState(false);
   const navigate = useNavigate();
 
@@ -82,6 +80,7 @@ function App() {
       }
     };
     setUser(user);
+    console.log(user);
     return user;
   };
 
@@ -93,8 +92,20 @@ function App() {
 
   const auth = {
     user: user ? { ...user } : null,
+    hasAuthority(authority) {
+      return user?.roles.includes(authority);
+    },
     login,
     logout
+  };
+
+  const renderWithAuthority = (Component, ...authorities) => {
+    for (let authority of authorities) {
+      if (auth.hasAuthority(authority)) {
+        return Component;
+      }
+    }
+    return <Error />;
   };
 
   if (!restoreLoginAttemptCompleted) {

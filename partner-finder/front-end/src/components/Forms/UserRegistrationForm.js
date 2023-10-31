@@ -61,7 +61,7 @@ function UserRegistrationForm() {
   };
 
   return (
-    <Container>
+    <Container style={{ width: "45rem" }}>
     <div>
       <ValidationSummary errors={errors} />
       {success ? (

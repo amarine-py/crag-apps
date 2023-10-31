@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/Container";
 import { useState, useEffect } from "react";
 import { findAllBadges } from "../../services/badgeAPI";
-import BadgeCard from "./BadgeCard";
+import BadgeCard from "../Badge/BadgeCard";
 
 export default function HomeBadgeList() {
   const [badges, setBadges] = useState([]);

@@ -1,8 +1,8 @@
 import ListGroup from "react-bootstrap/ListGroup";
-import { useEffect } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 import { useNavigate } from "react-router-dom";
 
 export default function ListOfProfilesByState({ profilesByState }) {
@@ -26,6 +26,9 @@ export default function ListOfProfilesByState({ profilesByState }) {
                       <em>Beta Points:</em>
                     </span>
                     {p.betaPoints}
+                  </Col>
+                  <Col>
+                  <Image src={p.profilePicPath} fluid/>
                   </Col>
                   <Col>
                     <Button

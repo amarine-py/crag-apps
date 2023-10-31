@@ -70,7 +70,7 @@ export default function ProfileForm() {
   };
 
   return (
-    <>
+    <Container style={{ width: "45rem" }}>
       <ValidationSummary errors={errors} />
       <Form onSubmit={handleSubmit}>
         <Container>
@@ -424,6 +424,6 @@ export default function ProfileForm() {
           Submit
         </Button>
       </Form>
-    </>
+    </Container>
   );
 }

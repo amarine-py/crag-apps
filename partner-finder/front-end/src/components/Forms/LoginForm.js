@@ -37,20 +37,9 @@ function LoginForm() {
       setErrors(["Unknown error."]);
     }
   };
-
-  const handleUsernameChange = (evt) => {
-    const nextUsername = username;
-    nextUsername[evt.target.name] = evt.target.value;
-    setUsername(nextUsername);
-  };
-  const handlePasswordChange = (evt) => {
-    const nextPassword = password;
-    nextPassword[evt.target.name] = evt.target.value;
-    setPassword(nextPassword);
-  };
   
   return (
-    <Container>
+    <Container style={{ width: "45rem" }}>
     <div>
       <ValidationSummary errors={errors} />
       <form onSubmit={handleSubmit}>

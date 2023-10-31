@@ -1,9 +1,7 @@
-import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
+import { useState } from "react";
 import TopPartnerList from "./Landing/TopPartnerList";
 import ListOfProfilesByState from "./Landing/ListOfProfilesByState";
-import HomeBadgeList from "./Badge/HomeBadgeList";
+import HomeBadgeList from "./Landing/HomeBadgeList";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -13,8 +11,6 @@ import { findByState } from "../services/profileAPI";
 function Home() {
   const [profilesByState, setProfilesByState] = useState([]);
   const [mapClicked, setMapClicked] = useState(false);
-  const auth = useContext(AuthContext);
-  const navigate = useNavigate();
 
   const findByStateName = (stateName) => {
     let parsedName = stateName.replaceAll(" ", "_").toUpperCase();
@@ -24,7 +20,7 @@ function Home() {
         setProfilesByState(newProfilesByState);
         setMapClicked(true);
       })
-      .catch((err) => console.error);
+      .catch((error) => console.error);
   };
 
   return (
