@@ -10,7 +10,7 @@ export default function PartnerCard({ partnerProfile }) {
     <div className="card-container">
       <Card className="border-primary" style={{ width: "18rem" }}>
         <div className="image-container">
-        <Card.Img variant="top" src={partnerProfile.profilePicPath} />
+        <Card.Img className="card-image" variant="top" src={partnerProfile.profilePicPath} />
         </div>
         <Card.Body>
           <Card.Title>{partnerProfile.username}</Card.Title>

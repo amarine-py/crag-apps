@@ -109,13 +109,31 @@ export default function About() {
           </Row>
         </Col>
       </Row>
-      <Row>
+      <Row className="about-pic-row">
         <div className="picture-footer">
-            <Row>
-        <Col><Image fluid src="https://images.unsplash.com/photo-1593132517397-ceb31d77194a?auto=format&fit=crop&q=80&w=1964&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="climber bouldering"/></Col>
-        <Col><Image fluid src="https://images.unsplash.com/photo-1628361520980-8983cbc5bef2?auto=format&fit=crop&q=80&w=1964&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="mountain background"/></Col>
-        <Col><Image fluid src="https://plus.unsplash.com/premium_photo-1684315353973-3839e4620451?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="climber on lead"/></Col>
-        </Row>
+          <Row>
+            <Col>
+              <Image className="about-img"
+                fluid
+                src="https://images.unsplash.com/photo-1593132517397-ceb31d77194a?auto=format&fit=crop&q=80&w=1964&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="climber bouldering"
+              />
+            </Col>
+            <Col>
+              <Image className="about-img"
+                fluid
+                src="https://images.unsplash.com/photo-1628361520980-8983cbc5bef2?auto=format&fit=crop&q=80&w=1964&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="mountain background"
+              />
+            </Col>
+            <Col>
+              <Image className="about-img"
+                fluid
+                src="https://plus.unsplash.com/premium_photo-1684315353973-3839e4620451?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="climber on lead"
+              />
+            </Col>
+          </Row>
         </div>
       </Row>
     </Container>

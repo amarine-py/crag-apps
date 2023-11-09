@@ -9,7 +9,7 @@ export default function ListOfProfilesByState({ profilesByState }) {
   const navigate = useNavigate();
   
   return (
-    <div>
+    <div className="list-group">
       <ListGroup>
         {profilesByState.length < 1 ? (
           <>No results for this state.</>
@@ -27,10 +27,13 @@ export default function ListOfProfilesByState({ profilesByState }) {
                     </span>
                     {p.betaPoints}
                   </Col>
-                  <Col>
-                  <Image src={p.profilePicPath} fluid/>
+                  <Col className="image-col">
+                  <div className="list-image-container">
+                    <Image className="list-image" src={p.profilePicPath} fluid/>
+                  </div>
+                  
                   </Col>
-                  <Col>
+                  <Col className="button-col">
                     <Button
                       variant="primary"
                       onClick={() => navigate(`/partner/${p.profileId}`)}
