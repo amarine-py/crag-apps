@@ -3,12 +3,14 @@ import { Button, Container, Form } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
 function FilterCanvas(props) {
-  const { onHide, handleSubmit } = props;
-  const [filterInfo, setFilterInfo] = useState({
-    safetyAttitude: null,
-    climbingMotivation: null,
-    climbingStyle: null
-  });
+  const nullFilter = {safetyAttitude: null, climbingMotivation: null, climbingStyle: null}
+  const [filterInfo, setFilterInfo] = useState({ ...nullFilter });
+
+  useEffect(() => {
+    return () => {
+      setFilterInfo({ ...nullFilter });
+    }
+  }, [props.onHide])
 
   const handleChange = (evt) => {
     const nextFilterInfo = { ...filterInfo };
@@ -17,17 +19,14 @@ function FilterCanvas(props) {
     } else {
       nextFilterInfo[evt.target.name] = evt.target.value;
     }
-    console.log(nextFilterInfo);
     setFilterInfo(nextFilterInfo);
   };
 
-  function handleFormSubmit(evt) {
-    handleSubmit(evt, filterInfo);
-  }
+  const handleFormSubmit = (evt) => props.handleSubmit(evt, filterInfo);
 
   return (
     <>
-      <Offcanvas {...props}>
+      <Offcanvas onHide={props.onHide} show={props.show}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Filter Results</Offcanvas.Title>
         </Offcanvas.Header>
@@ -181,7 +180,7 @@ function FilterCanvas(props) {
                   onChange={handleChange}
                 />
               </Form.Group>
-              <Button variant="primary" type="submit" onClick={onHide}>
+              <Button variant="primary" type="submit" onClick={props.onHide}>
                 Apply
               </Button>
             </Form>

@@ -80,7 +80,6 @@ function App() {
       }
     };
     setUser(user);
-    console.log(user);
     return user;
   };
 

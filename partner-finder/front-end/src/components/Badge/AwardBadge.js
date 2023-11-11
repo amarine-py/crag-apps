@@ -33,7 +33,6 @@ export default function AwardBadge() {
     setErrors([]);
     findByUsername(username)
       .then((data) => {
-        console.log(data);
         if (data === null) {
           setErrors(["No results found for that username."]);
         } else {
@@ -43,7 +42,6 @@ export default function AwardBadge() {
         }
       })
       .catch((error) => {
-        console.log("Got an error when searching by profile username: ", error);
         setErrors([error]);
       });
   };
@@ -62,7 +60,8 @@ export default function AwardBadge() {
       dateAwarded: getFormattedDate(),
       isEnabled: true,
     };
-    if (validateNewClimberBadge(climberBadge)) {
+    if (await validateNewClimberBadge(climberBadge)) {
+      console.log("it came back true???");
       setShowModal(true);
       if (createNewClimberBadge(climberBadge)) {
       }
