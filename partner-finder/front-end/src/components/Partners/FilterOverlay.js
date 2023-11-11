@@ -1,12 +1,13 @@
-import { useState } from "react";
-import { Button, Row, Col, Container, Form } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Button, Container, Form } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import ValidationSummary from "../Forms/ValidationSummary";
 
 function FilterCanvas(props) {
+  const { onHide, handleSubmit } = props;
   const [filterInfo, setFilterInfo] = useState({
     safetyAttitude: null,
-    climbingMotivation: null
+    climbingMotivation: null,
+    climbingStyle: null
   });
 
   const handleChange = (evt) => {
@@ -21,7 +22,7 @@ function FilterCanvas(props) {
   };
 
   function handleFormSubmit(evt) {
-    props.handleSubmit(evt, filterInfo);
+    handleSubmit(evt, filterInfo);
   }
 
   return (
@@ -38,7 +39,6 @@ function FilterCanvas(props) {
                 <Form.Check
                   type="radio"
                   label="Very Important"
-                  id=""
                   name="safetyAttitude"
                   value={"VERY_IMPORTANT"}
                   onChange={handleChange}
@@ -46,7 +46,6 @@ function FilterCanvas(props) {
                 <Form.Check
                   type="radio"
                   label="Important"
-                  id=""
                   name="safetyAttitude"
                   value={"IMPORTANT"}
                   onChange={handleChange}
@@ -54,7 +53,6 @@ function FilterCanvas(props) {
                 <Form.Check
                   type="radio"
                   label="Minimally Important"
-                  id=""
                   name="safetyAttitude"
                   value={"MINIMALLY_IMPORTANT"}
                   onChange={handleChange}
@@ -62,7 +60,6 @@ function FilterCanvas(props) {
                 <Form.Check
                   type="radio"
                   label="Safety Third"
-                  id=""
                   name="safetyAttitude"
                   value={"SAFETY_THIRD"}
                   onChange={handleChange}
@@ -106,7 +103,85 @@ function FilterCanvas(props) {
                   onChange={handleChange}
                 />
               </Form.Group>
-              <Button variant="primary" type="submit" onClick={props.onHide}>
+              <Form.Group
+                className="mb-3"
+                controlId="filterInfo.climbingStyle"
+              >
+                <h4>Climbing Style</h4>
+                <Form.Check
+                  type="radio"
+                  label="Trad climbing"
+                  id=""
+                  name="climbingStyle"
+                  value={"TRAD"}
+                  onChange={handleChange}
+                />
+                <Form.Check
+                  type="radio"
+                  label="Sport climbing"
+                  id=""
+                  name="climbingStyle"
+                  value={"SPORT"}
+                  onChange={handleChange}
+                />
+                <Form.Check
+                  type="radio"
+                  label="Bouldering"
+                  id=""
+                  name="climbingStyle"
+                  value={"BOULDERING"}
+                  onChange={handleChange}
+                />
+                <Form.Check
+                  type="radio"
+                  label="Ice climbing"
+                  id=""
+                  name="climbingStyle"
+                  value={"ICE"}
+                  onChange={handleChange}
+                />
+                <Form.Check
+                  type="radio"
+                  label="Alpine Climbing"
+                  id=""
+                  name="climbingStyle"
+                  value={"ALPINE"}
+                  onChange={handleChange}
+                />
+                <Form.Check
+                  type="radio"
+                  label="Mixed climbing"
+                  id=""
+                  name="climbingStyle"
+                  value={"MIXED"}
+                  onChange={handleChange}
+                />
+                <Form.Check
+                  type="radio"
+                  label="Gym bouldering"
+                  id=""
+                  name="climbingStyle"
+                  value={"GYM_BOULDERING"}
+                  onChange={handleChange}
+                />
+                <Form.Check
+                  type="radio"
+                  label="Gym top-roping"
+                  id=""
+                  name="climbingStyle"
+                  value={"GYM_TOP_ROPING"}
+                  onChange={handleChange}
+                />
+                <Form.Check
+                  type="radio"
+                  label="Gym lead climbing"
+                  id=""
+                  name="climbingStyle"
+                  value={"GYM_LEAD_CLIMBING"}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit" onClick={onHide}>
                 Apply
               </Button>
             </Form>

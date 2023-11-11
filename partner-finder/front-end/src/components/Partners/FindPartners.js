@@ -9,7 +9,7 @@ import ValidationSummary from "../Forms/ValidationSummary";
 
 export default function FindPartners() {
   const [profilesByState, setProfilesByState] = useState([]);
-  const [filterInfo, setFilterInfo] = useState({ safetyAttitude: null, climbingMotivation: null });
+  const [filterInfo, setFilterInfo] = useState({ safetyAttitude: null, climbingMotivation: null, climbingStyle: null });
   const [mapClicked, setMapClicked] = useState(false);
   const [showCanvas, setShowCanvas] = useState(false);
   const [errors, setErrors] = useState([]);
@@ -33,7 +33,6 @@ export default function FindPartners() {
     evt.preventDefault();
     setErrors([]);
     setFilterInfo({ ...info });
-    // Call filter function here
     const filteredResults = filterResults(info);
     setProfilesByState([...filteredResults]);
   };
