@@ -11,7 +11,13 @@
 # production
 /build
 
+# project descriptions
+/Deliverables
+
+# sql
+
 # misc
+/.VSCodeCounter
 .DS_Store
 .env.local
 .env.development.local
