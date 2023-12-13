@@ -15,7 +15,9 @@
 Deliverables/
 partner-finder/Deliverables/
 
-# sql
+# http
+front-end/http/
+http/
 
 # misc
 .VSCodeCounter/
