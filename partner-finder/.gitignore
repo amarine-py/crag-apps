@@ -12,14 +12,14 @@
 /build
 
 # project descriptions
-/Deliverables
-/partner-finder/Deliverables
+Deliverables/
+partner-finder/Deliverables/
 
 # sql
 
 # misc
-/.VSCodeCounter
-/partner-finder/.VSCodeCounter
+.VSCodeCounter/
+partner-finder/.VSCodeCounter/
 .DS_Store
 .env.local
 .env.development.local
