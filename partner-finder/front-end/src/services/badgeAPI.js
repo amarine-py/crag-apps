@@ -4,21 +4,21 @@ const LOCAL_STORAGE_TOKEN_KEY = "partnerFinderToken";
 
 export async function validateNewClimberBadge(climberBadge) {
     if (climberBadge.awardeeId === climberBadge.giverId) {
-        return {
-            success: false,
-            message: "You sly devil. You can't award yourself a badge!"
-        }
+        console.log("nice try")
+        return false;
     }
     try {
         findClimberBadgesByAwardeeId(climberBadge.awardeeId)
         .then((currentAwardeeBadges) => {
             if (currentAwardeeBadges !== null) {
+                for (let b of currentAwardeeBadges) {
+                    console.log(`currentAwardeeBadge: ${b.badgeId}`)
+                }
+                
                 const badgeIdList = currentAwardeeBadges.map((badge) => badge.badgeId);
                 if (badgeIdList.includes(climberBadge.badgeId)) {
-                    return {
-                        success: false,
-                        message: "Awardee already has this badge in their collection."
-                    }
+                    console.log("it includes it");
+                    return false;
                 } else {
                     // successful! We only return true so we can move on.
                     return true;
